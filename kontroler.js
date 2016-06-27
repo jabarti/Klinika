@@ -19,13 +19,6 @@ apka.controller("ControllerNumOne", function($scope,$http){
     $scope.kod_poczt = "42-200";
     $scope.urodz_miasto = "Częstochowa";
     $scope.urodz_kod_poczt = "42-200";
-    $scope.urodz_kraj = "Polska";
-    
-//    var data_temp = $filter('date')(data_utworzenia, 'yyyy/mm/dd');
-//    console.log(data_temp)
-    
-//    $scope.ID_Wpisu_rok = $filter('date')(Date.now(), "yyyy/MM/dd");
-//    $scope.ID_Wpisu_rok = $filter('date')($scope.data_utworzenia, 'mediumDate');
 //    $scope.data_utworzenia = $filter("date")(Date.now(), 'yyyy-MM-dd');
     
     // DO select: urodzone
@@ -50,6 +43,10 @@ apka.controller("ControllerNumOne", function($scope,$http){
 //        operator: ""
     };
     
+    // Formularz (default)
+//    $scope.ID_Wpisu = "11/2016";
+//    $scope.data_utworzenia = $filter("data_utworzenia")(Date.now(), 'yyyy-MM-dd');
+//    $scope.data_utworzenia = "2016-06-20";
     
     $scope.processForm = function() {
         
@@ -58,7 +55,7 @@ apka.controller("ControllerNumOne", function($scope,$http){
           method  : 'POST',
           url     : "ProcesAJAX.php",
           data    : {
-              ID_Wpisu:                     $scope.ID_Wpisu_nr,
+              ID_Wpisu:                     $scope.ID_Wpisu,
               data_utworzenia:              $scope.data_utworzenia,
               
               mama_firstname:               $scope.mama_firstname,
@@ -83,40 +80,26 @@ apka.controller("ControllerNumOne", function($scope,$http){
               urodz_ulica_nr_mieszkanie:    $scope.urodz_ulica_nr_mieszkanie,
               urodz_kod_poczt:              $scope.urodz_kod_poczt,
               urodz_miasto:                 $scope.urodz_miasto,
-              urodz_kraj:                   $scope.urodz_kraj,
               urodzone_czas:                $scope.filterConditionUrodz.operator.value,
               ile_wczesniej:                $scope.ile_wczesniej,              
               porod:                        $scope.porod,
-              jaki_porod:                   $scope.jaki_porod,
-              leki_porod:                   $scope.leki_porod,
-              leki_polog:                   $scope.leki_polog,
-              powod_zgloszenia:             $scope.powod_zgloszenia,
-              
-              // Formularz_2 (w BD i plik html)
-              
-              pierwsze_karmienie:             $scope.pierwsze_karmienie
+              jaki_porod:                   $scope.jaki_porod
               
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
       });
     request.success(function (data) {
-//            alert(data);
+            alert(data)
             document.getElementById("message").textContent = "OK: "+data;
         });
     request.error(function (data) {
-//            alert(data);
+            alert(data)
             document.getElementById("message").textContent = "error: "+data;
-        }); 
-    };
+        });
+        };
 
-    $scope.getYearOfDate = function getYearOfDate(var_data1){
-        
-        var year01 = "";
-
-        if(var_data1 !== undefined && var_data1 !== null){
-            year01 = Math.abs(var_data1.getFullYear());
-        }
-
+    $scope.getYear = function getYear(var_data1){
+        var year01 = Math.abs(var_data1.getUTCFullYear() - 1970);
         return year01;
     };
     
@@ -124,23 +107,20 @@ apka.controller("ControllerNumOne", function($scope,$http){
         
         var year = "";
         var month = "";
-        var dagar = "";
         
         if(var_data !== undefined && var_data !== null){
             var ageDifMs = Date.now() - var_data.getTime();
             var ageDate = new Date(ageDifMs); // miliseconds from epoch
-            year = Math.abs(ageDate.getFullYear() - 1970);
-            month = Math.abs(ageDate.getMonth()+1);
-            dagar = Math.abs(ageDate.getDate());
+            year = Math.abs(ageDate.getUTCFullYear() - 1970);
+            month = Math.abs(ageDate.getUTCMonth());
         }
-        return year + " lat i " + month + " mieś. i "+ dagar + "dni";
+        return year + " lat i " + month + " mieś.";
     };
         
     $scope.calculateAge2 = function calculateAge2(var_data1, var_data2) { // birthday is a date1, make form is date2
         
         var years = "";
         var months = "";
-        var dagar = "";
 //        alert("i'm in");
         
         if(var_data1 !== undefined && var_data1 !== null && var_data2 !== undefined && var_data2 !== null){
@@ -148,15 +128,14 @@ apka.controller("ControllerNumOne", function($scope,$http){
             console.log("var_data1: "+var_data1+", var_data2"+var_data2)
             var ageDifMs2 = var_data2.getTime() - var_data1.getTime();
             var ageDate2 = new Date(ageDifMs2); // miliseconds from epoch
-            years = Math.abs(ageDate2.getFullYear() - 1970);
-            months = Math.abs(ageDate2.getMonth());
-            dagar = Math.abs(ageDate2.getDate());
-//            console.log("calculateAgeZFormularza: " + years + " lat i " + months + " mieś." + dagar + "dni")
+            years = Math.abs(ageDate2.getUTCFullYear() - 1970);
+            months = Math.abs(ageDate2.getUTCMonth());
+            console.log("calculateAgeZFormularza: " + years + " lat i " + months + " mieś.")
         }
-        return years + " lat i " + months + " mieś. i "+ dagar + "dni";
-    };    
+        return years + " lat i " + months + " mieś.";
+    };
+    
 });
-
 
 
 

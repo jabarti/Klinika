@@ -45,27 +45,19 @@
                       <div class="form-group form-buffer-pa">
                         <h2>Dane Formularza </h2>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Data utworzenia</label>
-                                <div class="col-sm-2">
-                                    <input type="date" ng-model="data_utworzenia" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" required />
-                                <!--input class="form-control" type="text" value="{{getYearOfDate(data_utworzenia)}}" disabled -->
-                                </div>    
+                                <label class="col-sm-3 control-label">ID Wpisu</label>
+                            <div class="col-sm-3">
+                            <!-- input class="form-control" type="text" ng-model="ID_Wpisu" disabled -->
+                            <input class="form-control" type="text" ng-model="ID_Wpisu" disabled >
+                        </div>
 
-                                <label class="col-sm-1 control-label">ID Wpisu</label>
-                                <div class="col-sm-6">
-                                    <div class="col-sm-3">
-                                    <!-- input class="form-control" type="text" ng-model="ID_Wpisu" disabled -->                                  
-                                    
-                                        <input class="form-control" type="text" placeholder="nr wpisu" ng-model="ID_Wpisu_nr" >
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <span>/</span>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input class="form-control" type="text" placeholder="{{getYearOfDate(data_utworzenia)}}" disabled >
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Data utworzenia</label>
+                            <div class="col-sm-3">
+                                <input type="date" ng-model="data_utworzenia" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" required />
+                            </div>    
+                        </div>
                       </div>                      
                       
           <!-- MAMA -->
@@ -78,7 +70,7 @@
                                         <input class="form-control" type="text" value="podaj imię mamy" ng-model="mama_firstname">
                                     </div>
 
-                                <label class="col-sm-2 control-label">Nazwisko</label>
+                                <label class="col-sm-3 control-label">Nazwisko</label>
                                     <div class="col-sm-3">
                                         <input class="form-control" type="text" value="podaj nazwisko mamy" ng-model="mama_lastname">
                                     </div>
@@ -90,13 +82,13 @@
                                         <input type="date" ng-model="data_urodzenia_matka" placeholder="yyyy-MM-dd" min="1945-01-01" max="2013-12-31"  />
                                     </div>
                                 
-                                <label class="col-sm-2 control-label">Wiek dziś</label>
-                                    <div class="col-sm-2">
+                                <label class="col-sm-3 control-label">Wiek dziś</label>
+                                    <div class="col-sm-3">
                                         <input class="form-control" type="text" placeholder="{{calculateAge(data_urodzenia_matka)}}" disabled>
                                     </div>
 
-                                <label class="col-sm-8 control-label">Wiek wtedy</label>
-                                    <div class="col-sm-2">
+                                <label class="col-sm-9 control-label">Wiek wtedy</label>
+                                    <div class="col-sm-3">
                                         <input class="form-control" type="password" placeholder="{{calculateAge2(data_urodzenia_matka,data_utworzenia)}}" disabled>
                                     </div>
                           </div>
@@ -158,14 +150,14 @@
                                 <!--p>Wiek dziś: {{calculateAge(data_urodzenia_dziecko)}}</p>
                                 <p>Wiek form: {{calculateAgeZFormularza(data_urodzenia_dziecko,data_utworzenia)}}</p-->
                             </div>    
-                            <label class="col-sm-2 control-label">Wiek dziś</label>
-                                    <div class="col-sm-2">
+                            <label class="col-sm-3 control-label">Wiek dziś</label>
+                                    <div class="col-sm-3">
                                         <input ng-show="false" class="form-control" type="text" value="{{calculateAge(data_urodzenia_dziecko)}}" disabled>
                                         <input class="form-control" type="text" placeholder="{{calculateAge(data_urodzenia_dziecko)}}" disabled>
                                     </div>
 
-                            <label class="col-sm-8 control-label">Wiek wtedy</label>
-                                    <div class="col-sm-2">
+                            <label class="col-sm-9 control-label">Wiek wtedy</label>
+                                    <div class="col-sm-3">
                                         <input class="form-control" type="text" placeholder="{{calculateAge2(data_urodzenia_dziecko,data_utworzenia)}}" disabled>
                                     </div>
                         </div>
@@ -222,14 +214,9 @@
                                         <input class="form-control" type="text" placeholder="kod" value="42-200" ng-model="urodz_kod_poczt">
                                     </div>
                                 
-                                <label class="col-sm-1 control-label">Miasto</label>
+                                <label class="col-sm-2 control-label">Miasto</label>
                                     <div class="col-sm-3">
                                         <input class="form-control" type="text" placeholder="Miasto" value="Częstochowa" ng-model="urodz_miasto">
-                                    </div>
-
-                                <label class="col-sm-1 control-label">Kraj</label>
-                                    <div class="col-sm-2">
-                                        <input class="form-control" type="text" placeholder="Kraj" value="Polska" ng-model="urodz_kraj">
                                     </div>
                         </div>
                         
@@ -255,7 +242,6 @@
                                 </div>
 
                         </div>
-                        <!--  PORÓD  -->
                         <div class="form-group">
 
                                 <label class="col-sm-3 control-label">poród:</label>
@@ -270,55 +256,29 @@
                                         </div>  
                                 </div>
                         </div>
-                        <!--  LEKI  -->
-                        <div class="form-group">
-
-                                <label class="col-sm-3 control-label">Leki w czasie porodu</label>
-                                    <div class="col-sm-3">
-                                        <textarea class="form-control" type="text" placeholder="leki" ng-model="leki_porod"></textarea>
-                                    </div>
-                                <label class="col-sm-2 control-label">Leki w czasie połogu</label>
-                                    <div class="col-sm-3">
-                                        <textarea class="form-control" type="text" placeholder="leki" ng-model="leki_polog"></textarea>
-                                    </div>
-                        </div>
                       </div>
                       
-
-<!-- div ng-include="'Formularz_2.html'"></div-->
-                    <!-- POWÓD ZGŁOSZENIA -->
+          <!-- POWÓD ZGŁOSZENIA -->
                       <div class="form-group form-buffer-npa">
                           <h2>Powód zgłoszenia </h2>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label">Powód zgłoszenia</label>
-                                   <div class="col-sm-7">
-                                        <textarea class="form-control" type="text" placeholder="" ng-model="powod_zgloszenia"></textarea>
-                                    </div>
-                           </div>
-                      </div>
-          <!-- Karmienie w szpitalu -->
-                      <div class="form-group form-buffer-pa">
-                          <h2>Karmienie w szpitalu</h2>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Pierwsze karmienie, doba, godzina</label>
-                                   <div class="col-sm-4">
-                                        <textarea class="form-control" type="text" placeholder="pierwsze karmienie" ng-model="pierwsze_karmienie"></textarea>
-                                    </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-3 control-label">Problemy z dzieckiem</label>
+                            <label class="col-sm-3 control-label">YYYY</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" type="text" value="podaj nazwisko pacjentki" ng-model="">
+                                    <input class="form-control" type="text" value="podaj imię pacjentki" ng-model="YYY">
+                                </div>
+                            
+                            <label class="col-sm-3 control-label">YYYY</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" type="text" value="podaj nazwisko pacjentki" ng-model="YYY">
                                 </div>
                           </div>
                       </div>
-
                       
        <!-- OBSERWACJA MATKI -->
-                      <div class="form-group form-buffer-npa">
+                      <div class="form-group form-buffer-pa">
                           <h2>Obserwacja matki </h2>
                           <div class="form-group">
-                            <label class="col-sm-3 control-label">Czy są zmiany?</label>
+                            <label class="col-sm-3 control-label">Czy pokazać cycki?</label>
                                 <div class="col-sm-1">
                                     <input class="form-control" type="checkbox" ng-model="cycki">
                                 </div> 
