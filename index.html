@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!----------------------------------------------------
+ * Project:     AAATRY
+ * Filename:    index.html
+ * Encoding:    UTF-8
+ * Created:     2015-06-13
+ *
+ * Author       Bartosz M. Lewiński <jabarti@wp.pl>
+------------------------------------------------------>
+<html>
+  <head>
+    <title>Klinika 1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script><!-- -->
+    <script src="aplikacja.js" type="text/javascript"></script> <!-- aplikacja angularJS -->
+    <script src="kontroler.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
+  </head>
+  <body>
+      <div class="container" ng-app='Klinika' ng-controller='ControllerNumOne'>
+        
+          <header><h1 class="head">{{Title_Page_01}}</h1></header>    
+
+          <div ng-include="'View/Static/Menu.html'"></div>
+
+           <div class="row">
+               <div class="col-md-12">
+                   <p>Input something in the input box:</p>
+                    <p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+                    <h1>Ditt name {{name}}</h1>
+
+               </div>
+
+
+              
+          </div>
+      <footer>Copyright by @Bartosz Lewiński</footer>
+      </div>
+  </body>
+</html>
