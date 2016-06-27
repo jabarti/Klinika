@@ -13,7 +13,7 @@ SQL
 errors
 errors/error_log*
 nbproject
-DB_Connection.php
+DB/DB_Connection.php
 FTP_Connection.php
 ExternalResources/Oracle_modeler
 ExternalResources/Notes
