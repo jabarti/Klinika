@@ -8,10 +8,10 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
-$dbhost = "localhost";
-$dbuser	= "user";
-$dbpass	= "haslo";
-$dbname	= "bartilev_klinika";
+$dbhost = "";
+$dbuser	= "";
+$dbpass	= "";
+$dbname	= "";
 $DBConn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname) or die('<br>Selection failed!');
     if ($DBConn){
 //        echo '<br>Connection DBConn OK';
