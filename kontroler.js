@@ -14,14 +14,33 @@ apka.controller("ControllerNumOne", function($scope,$http){
     $scope.menu_btn_02_try = "FormularzTRY";
     $scope.menu_btn_03 = "Do Svenska";
     $scope.Title_Page_01 = "Klinika";
-//    $scope.ID_Wpisu = { value: getYear($scope.data_utworzenia)};
+
+    //   Dane wstępne
     $scope.miasto = "Częstochowa";
     $scope.kod_poczt = "42-200";
     $scope.urodz_miasto = "Częstochowa";
     $scope.urodz_kod_poczt = "42-200";
     $scope.urodz_kraj = "Polska";
     
+    // for test
     $scope.mama_firstname = "Jadzia";
+    $scope.mama_lastname = "Lubińska";
+    $scope.ulica = "Kraszewskiego";
+    $scope.ulica_nr = "4a";
+    $scope.ulica_nr_mieszkanie = "12";
+    $scope.telefon = "+46765759997";
+    $scope.email = "kazia@gmail.com";
+    $scope.imie_dziecka = "Ancymonek";
+    $scope.ktore_dziecko = "1";
+    $scope.miejsce_urodzenia = "Szpital Bujakowo";
+    $scope.urodz_ulica = "Porypanych pensjonariuszy";
+    $scope.urodz_ulica_nr = "12";
+    $scope.ile_wczesniej = "5 tyg";
+    $scope.jaki_porod = "cesarskie cięcie";
+    $scope.leki_porod = "Pyralgina dowcipnie 100mg/cm3";
+    $scope.leki_polog = "Pentadrenax śliwkowy 100g/cycek";
+    $scope.powod_zgloszenia = "Dziecko gryzie mamę a nie jabłka i kość";
+    $scope.pierwsze_karmienie = "od razu, ledwie podniósł sznycel z ziemi";
     
 //    var data_temp = $filter('date')(data_utworzenia, 'yyyy/mm/dd');
 //    console.log(data_temp)
@@ -45,11 +64,13 @@ apka.controller("ControllerNumOne", function($scope,$http){
     $scope.operatorsPorod = [
         {value: 'normalny', displayName: 'normalny'},
         {value: 'zabiegowy', displayName: 'zabiegowy'}
+//        ,
+//        {value: 'test', displayName: 'test_val'}
      ],
     
     $scope.filterConditionPorod={
         operator: $scope.operatorsPorod[0]
-//        operator: ""
+//        operator: 'normalny'
     };
     
     
@@ -88,7 +109,7 @@ apka.controller("ControllerNumOne", function($scope,$http){
               urodz_kraj:                   $scope.urodz_kraj,
               urodzone_czas:                $scope.filterConditionUrodz.operator.value,
               ile_wczesniej:                $scope.ile_wczesniej,              
-              porod:                        $scope.porod,
+              porod:                        $scope.filterConditionPorod.operator.value,
               jaki_porod:                   $scope.jaki_porod,
               leki_porod:                   $scope.leki_porod,
               leki_polog:                   $scope.leki_polog,
@@ -96,8 +117,19 @@ apka.controller("ControllerNumOne", function($scope,$http){
               
               // Formularz_2 (w BD i plik html)
               
-              pierwsze_karmienie:             $scope.pierwsze_karmienie
-              
+              pierwsze_karmienie:           $scope.pierwsze_karmienie,
+              problem_dziecko:              $scope.problem_dziecko,
+              problem_dziecko_opis:         $scope.problem_dziecko_opis,
+              problem_mama:                 $scope.problem_mama,
+              problem_mama_opis:            $scope.problem_mama_opis,
+              karimienie_piersia:           $scope.karimienie_piersia,
+              karimienie_piersia_opis:      $scope.karimienie_piersia_opis,
+              kapturek:                     $scope.kapturek,
+              kapturek_opis:                $scope.kapturek_opis,
+              dopajanie:                    $scope.dopajanie,
+              dopajanie_czym:               $scope.dopajanie_czym,
+              dopajanie_jak_dlugo:          $scope.dopajanie_jak_dlugo,
+              dopajanie_opis:               $scope.dopajanie_opis
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
       });

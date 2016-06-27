@@ -76,6 +76,18 @@ include 'DB/Connection.php';
        // Formularz_2
        
        $pierwsze_karmienie =            $request->pierwsze_karmienie;
+       $problem_dziecko =               $request->problem_dziecko;
+       $problem_dziecko_opis =          $request->problem_dziecko_opis;
+       $problem_mama =                  $request->problem_mama;
+       $problem_mama_opis =             $request->problem_mama_opis;
+       $karimienie_piersia =            $request->karimienie_piersia;
+       $karimienie_piersia_opis =       $request->karimienie_piersia_opis;
+       $kapturek =                      $request->kapturek;
+       $kapturek_opis =                 $request->kapturek_opis;
+       $dopajanie =                     $request->dopajanie;
+       $dopajanie_czym =                $request->dopajanie_czym;
+       $dopajanie_jak_dlugo =           $request->dopajanie_jak_dlugo;
+       $dopajanie_opis =                $request->dopajanie_opis;
        
         echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
         
@@ -401,9 +413,15 @@ include 'DB/Connection.php';
 // FORM2 - wprowadzanie jęśli wszedł form 1       
         If($IsForm1OK){
             // FORM2                 
-                $Formularz2Sql = "INSERT INTO `Formularz_2`(`Formularz_ID_Wpisu`, `pierwsze_karmienie`) "
+                $Formularz2Sql = "INSERT INTO `Formularz_2`(`Formularz_ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
+                        . "`problem_dziecko_opis`,`problem_mama`, `problem_mama_opis`,`karimienie_piersia`,"
+                        . "`karimienie_piersia_opis`,`kapturek`,`kapturek_opis`,`dopajanie`,`dopajanie_czym`,`dopajanie_jak_dlugo`,"
+                        . "`dopajanie_opis`) "
                         . "VALUES "
-                        . "('$NEW_FORM_ID','$pierwsze_karmienie');";
+                        . "('$NEW_FORM_ID','$pierwsze_karmienie','$problem_dziecko',"
+                        . "'$problem_dziecko_opis','$problem_mama','$problem_mama_opis','$karimienie_piersia',"
+                        . "'$karimienie_piersia_opis','$kapturek','$kapturek_opis','$dopajanie','$dopajanie_czym','$dopajanie_jak_dlugo',"
+                        . "'$dopajanie_opis');";
                 
                 $mq = mysqli_query($DBConn, $Formularz2Sql);
                 if($mq){

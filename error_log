@@ -1,6 +1,0 @@
-[27-Jun-2016 13:11:05 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$urodz_ulica_nr_mieszkanie in /home/bartilev/public_html/Klinika/ProcesAJAX.php on line 63
-[27-Jun-2016 13:11:05 Europe/Berlin] PHP Notice:  Undefined property: stdClass::$porod in /home/bartilev/public_html/Klinika/ProcesAJAX.php on line 70
-[27-Jun-2016 13:11:05 Europe/Berlin] PHP Deprecated:  Function split() is deprecated in /home/bartilev/public_html/Klinika/ProcesAJAX.php on line 282
-[27-Jun-2016 13:11:05 Europe/Berlin] PHP Deprecated:  Function split() is deprecated in /home/bartilev/public_html/Klinika/ProcesAJAX.php on line 282
-[27-Jun-2016 13:11:05 Europe/Berlin] PHP Deprecated:  Function split() is deprecated in /home/bartilev/public_html/Klinika/ProcesAJAX.php on line 282
-[27-Jun-2016 13:11:05 Europe/Berlin] PHP Deprecated:  Function split() is deprecated in /home/bartilev/public_html/Klinika/ProcesAJAX.php on line 282

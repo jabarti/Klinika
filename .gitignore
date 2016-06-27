@@ -10,6 +10,7 @@
 *.sql
 codecept*
 SQL
+error_log
 errors
 errors/error_log*
 nbproject
