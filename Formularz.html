@@ -575,17 +575,53 @@
                                     <div class="radio col-sm-1">
                                       <label><input type="radio" name="ObjKol_radio" ng-model="kolka" ng-value="1">tak</label>
                                     </div>                        
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Uspokajacz</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="Uspok_radio" ng-model="uspokajacz" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="Uspok_radio" ng-model="uspokajacz" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="uspokajacz==1" class="col-sm-1 control-label">tak,</label>
+                                    <div ng-show="uspokajacz==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="" ng-model="uspokajacz_opis">
+                                    </div>                               
+                            </div>
+                            <div class="form-group">
+                              <h3 class="col-sm-12">Stosowanie leków</h3>
+
+                                <label class="col-sm-3 control-label">Matka</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="text" placeholder="" ng-model="leki_matka">
+                                    </div>
+                                <label class="col-sm-2 control-label">Dziecko</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="text" placeholder="" ng-model="leki_dziecko">
+                                    </div>
                             </div>
                           
                       </div>
-          
-          
-          
-          
-          
 <!-- OBSERWACJA MATKI -->
                       <div class="form-group form-buffer-pa">
                           <h2>Obserwacja matki </h2>
+                          <div class="form-group">
+                                <label class="col-sm-3 control-label">Pierś</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="0" >mała</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="1">średnia</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="2">duża</label>
+                                    </div>
+                              
+                          </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Czy są zmiany?</label>
                                 <div class="col-sm-1">

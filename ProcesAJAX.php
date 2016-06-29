@@ -88,6 +88,13 @@ include 'Functions/functions.php';
        $aktywnosc =                     $request->aktywnosc;
        $zachowanie_karmienia =          $request->zachowanie_karmienia;
        $kolka =                         $request->kolka;
+       $uspokajacz =                    $request->uspokajacz;
+       $uspokajacz_opis =               $request->uspokajacz_opis;
+       $leki_matka =                    $request->leki_matka;
+       $leki_dziecko =                  $request->leki_dziecko;
+       
+       // Formularz3
+       $piers_wielkosc =                  $request->piers_wielkosc;
        
         echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
         
@@ -424,13 +431,15 @@ include 'Functions/functions.php';
 // FORM2 - wprowadzanie jęśli wszedł form 1       
         If($IsForm1OK){
             // FORM2                 
-                $Formularz2Sql = "INSERT INTO `Formularz_2`(`Formularz_ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
+                $Formularz2Sql = "INSERT INTO `Formularz_2`"
+                        . "(`Formularz_ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
                         . "`problem_dziecko_opis`,`problem_mama`, `problem_mama_opis`,`karimienie_piersia`,"
                         . "`karimienie_piersia_opis`,`kapturek`,`kapturek_opis`,`dopajanie`,`dopajanie_czym`,`dopajanie_jak_dlugo`,"
                         . "`dopajanie_opis`,`nawal`,`nawal_opis`,`pobyt`,`karmienie_piers`,`karmienie_piers_czest`,"
                         . "`karmienie_piers_dlugo`,`kapturek2`,`kapturek2_opis`,`dopajanie2`,`dopajanie2_czym`,`dopajanie2_jak_dlugo`,"
                         . "`dopajanie2_opis`,`karmienie_noc`,`karmienie_noc_opis`,`sciaganie_pokarm`,`sciaganie_pokarm_cel`,"
-                        . "`sciaganie_pokarm_ile`,`pieluchy`,`stolec`,`aktywnosc`,`zachowanie_karmienia`,`kolka`) "
+                        . "`sciaganie_pokarm_ile`,`pieluchy`,`stolec`,`aktywnosc`,`zachowanie_karmienia`,`kolka`,"
+                        . "`uspokajacz`,`uspokajacz_opis`,`leki_matka`,`leki_dziecko`) "
                         . "VALUES "
                         . "('$NEW_FORM_ID','$pierwsze_karmienie','$problem_dziecko',"
                         . "'$problem_dziecko_opis','$problem_mama','$problem_mama_opis','$karimienie_piersia',"
@@ -438,28 +447,27 @@ include 'Functions/functions.php';
                         . "'$dopajanie_opis','$nawal','$nawal_opis','$pobyt','$karmienie_piers','$karmienie_piers_czest',"
                         . "'$karmienie_piers_dlugo','$kapturek2','$kapturek2_opis','$dopajanie2','$dopajanie2_czym','$dopajanie2_jak_dlugo',"
                         . "'$dopajanie2_opis','$karmienie_noc','$karmienie_noc_opis','$sciaganie_pokarm','$sciaganie_pokarm_cel',"
-                        . "'$sciaganie_pokarm_ile','$pieluchy','$stolec','$aktywnosc','$zachowanie_karmienia','$kolka');";
+                        . "'$sciaganie_pokarm_ile','$pieluchy','$stolec','$aktywnosc','$zachowanie_karmienia','$kolka',"
+                        . "'$uspokajacz','$uspokajacz_opis','$leki_matka','$leki_dziecko');";
                 
-                $mq = mysqli_query($DBConn, $Formularz2Sql);
-                if($mq){
+                $mq2 = mysqli_query($DBConn, $Formularz2Sql);
+                if($mq2){
                     echo "[Form2 w BD!!][$Formularz2Sql]";
                 }else{
                     echo "[Form2 ERROR][$Formularz2Sql]";
                 }
+                
+                $Formularz3Sql = "INSERT INTO `formularz_3`"
+                        . "(`Formularz_ID_Wpisu`, `piers_wielkosc`) "
+                        . "VALUES "
+                        . "('$NEW_FORM_ID','$piers_wielkosc');";
+                
+                $mq3 = mysqli_query($DBConn, $Formularz3Sql);
+                if($mq3){
+                    echo "[Form3 w BD!!][$Formularz3Sql]";
+                }else{
+                    echo "[Form3 ERROR][$Formularz3Sql]";
+                }
+                
         }
         
-
-    
-
-//    $SQL = "SELECT * FROM `Inne_miejsca`";
-//            $mysql_q1 = mysqli_query($DBConn,$SQL);
-//            if (mysqli_num_rows($mysql_q1) > 0) {
-//                while($row = mysqli_fetch_assoc($mysql_q1)) {
-//                    foreach($row as $k){
-//                        echo "<br>$k, ";
-//                    }
-//                }
-//            }
-    
-    
-//    echo $dataWpisuCallback.$dataMamaCallback;
