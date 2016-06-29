@@ -7,14 +7,13 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 
-apka.controller("ControllerFormularz", function($scope,$http){
+apka.controller("ControllerEdit", function($scope,$http){
     // nazwy
     $scope.menu_btn_01 = "Home";
     $scope.menu_btn_02 = "Nowy Formularz";
     $scope.menu_btn_02_try = "FormularzTRY";
     $scope.menu_btn_03 = "Do Svenska";
     $scope.menu_btn_04 = "Lista";
-    $scope.menu_btn_05 = "Edit";
     
     $scope.Title_Page_01 = "Klinika";
     $scope.Title_Page_02 = "Lista";
@@ -26,24 +25,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
     $scope.urodz_kod_poczt = "42-200";
     $scope.urodz_kraj = "Polska";
     
-    // Default checkbox
-    $scope.kapturek = 0;
-    $scope.problem_dziecko = 0;
-    $scope.problem_mama = 0;
-    $scope.karimienie_piersia = 0;
-    $scope.kapturek = 0;
-    $scope.dopajanie = 0;
-    $scope.nawal = 0;
-    $scope.pobyt = 0;
-    $scope.karmienie_piers = 0;
-    $scope.kapturek2 = 0;
-    $scope.dopajanie2 = 0;
-    $scope.karmienie_noc = 0;
-    
     // for test
-    $scope.data_utworzenia = '2016-05-01';
-//    $scope.data_urodzenia_matka = '1987-05-01';
-//    $scope.data_utworzenia = '2016-03-22';
     $scope.mama_firstname = "Jadzia";
     $scope.mama_lastname = "Lubińska";
     $scope.ulica = "Kraszewskiego";
@@ -150,21 +132,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
               dopajanie:                    $scope.dopajanie,
               dopajanie_czym:               $scope.dopajanie_czym,
               dopajanie_jak_dlugo:          $scope.dopajanie_jak_dlugo,
-              dopajanie_opis:               $scope.dopajanie_opis,
-              nawal:                        $scope.nawal,
-              nawal_opis:                   $scope.nawal_opis,
-              pobyt:                        $scope.pobyt.valueOf(),
-              karmienie_piers:              $scope.karmienie_piers,
-              karmienie_piers_czest:        $scope.karmienie_piers_czest,
-              karmienie_piers_dlugo:        $scope.karmienie_piers_dlugo,
-              kapturek2:                    $scope.kapturek2,
-              kapturek2_opis:               $scope.kapturek2_opis,
-              dopajanie2:                   $scope.dopajanie2,
-              dopajanie2_czym:              $scope.dopajanie2_czym,
-              dopajanie2_jak_dlugo:         $scope.dopajanie2_jak_dlugo,
-              dopajanie2_opis:              $scope.dopajanie2_opis,
-              karmienie_noc:                $scope.karmienie_noc,
-              karmienie_noc_opis:           $scope.karmienie_noc_opis
+              dopajanie_opis:               $scope.dopajanie_opis
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
       });

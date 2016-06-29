@@ -10,33 +10,11 @@
  ***************************************************/
 
 include 'DB/Connection.php';
+include 'Functions/functions.php';
 
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    
-    function in_arrayi($needle, $haystack) {
-        return in_array(strtolower($needle), array_map('strtolower', $haystack));
-    }
-    
-    function parse_date($date){
-        $time = strtotime($date);
-        $newformat = date('Y-m-d',$time);
-        return $newformat;
-    }
-    
-    // ???????????????????????????????????? //
-//        $db = $request->db;
-//        switch($db){
-//            case "Formularz":
-//                break;
-//            case "Matka":
-//                break;
-//            case "Szpital":
-//                break;
-//            default:
-//                break;
-//        }
-    
+          
        $ID_Wpisu  =                     $request->ID_Wpisu;
        $data_utworzenia =               parse_date($request->data_utworzenia);
        
@@ -88,6 +66,20 @@ include 'DB/Connection.php';
        $dopajanie_czym =                $request->dopajanie_czym;
        $dopajanie_jak_dlugo =           $request->dopajanie_jak_dlugo;
        $dopajanie_opis =                $request->dopajanie_opis;
+       $nawal =                         $request->nawal;
+       $nawal_opis =                    $request->nawal_opis;
+       $pobyt =                         $request->pobyt;
+       $karmienie_piers =               $request->karmienie_piers;
+       $karmienie_piers_czest =         $request->karmienie_piers_czest;
+       $karmienie_piers_dlugo=          $request->karmienie_piers_dlugo;
+       $kapturek2 =                     $request->kapturek2;
+       $kapturek2_opis =                $request->kapturek2_opis;
+       $dopajanie2 =                    $request->dopajanie2;
+       $dopajanie2_czym =               $request->dopajanie2_czym;
+       $dopajanie2_jak_dlugo =          $request->dopajanie2_jak_dlugo;
+       $dopajanie2_opis =               $request->dopajanie2_opis;
+       $karmienie_noc =                 $request->karmienie_noc;
+       $karmienie_noc_opis =            $request->karmienie_noc_opis;
        
         echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
         
@@ -391,13 +383,24 @@ include 'DB/Connection.php';
                 . "'$data_urodzenia_dziecko', '$ktore_dziecko', '$urodzone_czas', '$ile_wczesniej', "
                 . "'$porod', '$jaki_porod', '$leki_porod', '$leki_polog','$powod_zgloszenia','$miejsce_urodzenia_quest','$ID_last_con');";
         
+        // Kloejnośc prawidłowa ID_Wpis(string)
+        $ID_Wpis_queue = "INSERT INTO `bartilev_Klinika`.`id_wpis_queue`(`ID_Wpis`, `ID`, `Rok`) "
+                . "VALUES ('$NEW_FORM_ID','$id_temp','$dataUtw_rok')";
+        
         $IsForm1OK = false;
         
         if(!$IsFormularzInDB && $IsProperID){
+            
             $FormularzSql_q = mysqli_query($DBConn,$FormularzSql);
+            
+            
             if($FormularzSql_q){
                 echo ", [Formularz insert OK]:";
                 $IsForm1OK = true;
+                $ID_Wpis_q = mysqli_query($DBConn,$ID_Wpis_queue); // <= INSERT do ID_Wpis_queue
+                if(!$ID_Wpis_q){
+                    echo "Error: [$ID_Wpis_queue]";
+                }
                 
                 // Skoro wszedł Form1 to wprowadzanie Formularz_2  !!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 
@@ -416,16 +419,20 @@ include 'DB/Connection.php';
                 $Formularz2Sql = "INSERT INTO `Formularz_2`(`Formularz_ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
                         . "`problem_dziecko_opis`,`problem_mama`, `problem_mama_opis`,`karimienie_piersia`,"
                         . "`karimienie_piersia_opis`,`kapturek`,`kapturek_opis`,`dopajanie`,`dopajanie_czym`,`dopajanie_jak_dlugo`,"
-                        . "`dopajanie_opis`) "
+                        . "`dopajanie_opis`,`nawal`,`nawal_opis`,`pobyt`,`karmienie_piers`,`karmienie_piers_czest`,"
+                        . "`karmienie_piers_dlugo`,`kapturek2`,`kapturek2_opis`,`dopajanie2`,`dopajanie2_czym`,`dopajanie2_jak_dlugo`,"
+                        . "`dopajanie2_opis`,`karmienie_noc`,`karmienie_noc_opis`) "
                         . "VALUES "
                         . "('$NEW_FORM_ID','$pierwsze_karmienie','$problem_dziecko',"
                         . "'$problem_dziecko_opis','$problem_mama','$problem_mama_opis','$karimienie_piersia',"
                         . "'$karimienie_piersia_opis','$kapturek','$kapturek_opis','$dopajanie','$dopajanie_czym','$dopajanie_jak_dlugo',"
-                        . "'$dopajanie_opis');";
+                        . "'$dopajanie_opis','$nawal','$nawal_opis','$pobyt','$karmienie_piers','$karmienie_piers_czest',"
+                        . "'$karmienie_piers_dlugo','$kapturek2','$kapturek2_opis','$dopajanie2','$dopajanie2_czym','$dopajanie2_jak_dlugo',"
+                        . "'$dopajanie2_opis','$karmienie_noc','$karmienie_noc_opis');";
                 
                 $mq = mysqli_query($DBConn, $Formularz2Sql);
                 if($mq){
-                    echo "[Form2 w BD!!]";
+                    echo "[Form2 w BD!!][$Formularz2Sql]";
                 }else{
                     echo "[Form2 ERROR][$Formularz2Sql]";
                 }

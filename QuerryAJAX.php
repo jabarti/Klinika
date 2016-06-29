@@ -10,5 +10,26 @@
  ***************************************************/
 include 'DB/Connection.php';
 
-    $postdata = file_get_contents("php://input");
-    $request = json_decode($postdata);
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+
+
+
+$SQL_View_mama_dziecko = "SELECT * FROM `view_matka_dziecko`;";
+
+$result = mysqli_query($DBConn, $SQL_View_mama_dziecko);
+
+$outp = "";
+while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+    if ($outp != "") {$outp .= ",";}
+    $outp .= '{"ID_Wpisu":"'  . $rs["ID_Wpisu"] . '",';
+    $outp .= '"data_utworzenia":"'  . $rs["data_utworzenia"] . '",';
+    $outp .= '"mama_firstname":"'  . $rs["mama_firstname"] . '",';
+    $outp .= '"mama_lastname":"'   . $rs["mama_lastname"]        . '",';
+    $outp .= '"imie_dziecka":"'   . $rs["imie_dziecka"]        . '",';
+    $outp .= '"ktore_dziecko":"'. $rs["ktore_dziecko"]     . '"}'; 
+}
+$outp ='{"records":['.$outp.']}';
+//$conn->close();
+
+echo($outp);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-          <!-- POWÓD ZGŁOSZENIA -->
+                    <!-- POWÓD ZGŁOSZENIA -->
                       <div class="form-group form-buffer-npa">
                           <h2>Powód zgłoszenia </h2>
                           <div class="form-group">
@@ -17,10 +17,143 @@
                                    <div class="col-sm-4">
                                         <textarea class="form-control" type="text" placeholder="pierwsze karmienie" ng-model="pierwsze_karmienie"></textarea>
                                     </div>
-                            
-                            <label class="col-sm-3 control-label">YYYY</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" type="text" value="podaj nazwisko pacjentki" ng-model="">
-                                </div>
                           </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Problemy z dzieckiem</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="PrZDz_radio" ng-model="problem_dziecko" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="PrZDz_radio" ng-model="problem_dziecko" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="problem_dziecko==1" class="col-sm-1 control-label">jakie?</label>
+                                    <div ng-show="problem_dziecko==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="jakie problemy" ng-model="problem_dziecko_opis">
+                                    </div>
+                              
+                                <p class="col-sm-12"></p>
+                                
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Problemy z mamą</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="PrZMa_radio" ng-model="problem_mama" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="PrZMa_radio" ng-model="problem_mama" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="problem_mama==1" class="col-sm-1 control-label">jakie?</label>
+                                    <div ng-show="problem_mama==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="jakie problemy" ng-model="problem_mama_opis">
+                                    </div>
+                              
+                                <p class="col-sm-12"></p>
+                                
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Karmienie piersią</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="KarPi_radio" ng-model="karimienie_piersia" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="KarPi_radio" ng-model="karimienie_piersia" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="karimienie_piersia==1" class="col-sm-1 control-label">jakie?</label>
+                                    <div ng-show="karimienie_piersia==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="jak często" ng-model="karimienie_piersia_opis">
+                                    </div>
+                              
+                                <p class="col-sm-12"></p>
+                                
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Kapturek</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="Kapt_radio" ng-model="kapturek" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="Kapt_radio" ng-model="kapturek" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="kapturek==1" class="col-sm-1 control-label">jakie?</label>
+                                    <div ng-show="kapturek==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="od kiedy/jak długo" ng-model="kapturek_opis">
+                                    </div>
+                              
+                                <p class="col-sm-12"></p>
+                                
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Dokarmianie, dopajanie</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="DokDop_radio" ng-model="dopajanie" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="DokDop_radio" ng-model="dopajanie" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="dopajanie==1" class="col-sm-1 control-label">czym?</label>
+                                    <div ng-show="dopajanie==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="czym" ng-model="dopajanie_czym">
+                                    </div>
+                              <label ng-show="dopajanie==1" class="col-sm-6 control-label">jak długo?</label>
+                                    <div ng-show="dopajanie==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="dopajanie jak dlugo" ng-model="dopajanie_jak_dlugo">
+                                    </div>
+                              <label ng-show="dopajanie==1" class="col-sm-6 control-label">jakie?</label>
+                                    <div ng-show="dopajanie==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="jak" ng-model="dopajanie_opis">
+                                    </div>
+                              
+                                <p class="col-sm-12"></p>
+                                
+                         </div>
+                      
+                          
+                          
+                          
                       </div>
+
+          
+          
+          
+          
+          
+       <!-- OBSERWACJA MATKI -->
+                      <div class="form-group form-buffer-npa">
+                          <h2>Obserwacja matki </h2>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Czy są zmiany?</label>
+                                <div class="col-sm-1">
+                                    <input class="form-control" type="checkbox" ng-model="cycki">
+                                </div> 
+                          </div>
+   
+                          
+                          
+                          
+                          
+           <!-- CYCKI -FOTO -->
+                              <img ng-show="cycki" usemap="#planetmap" class="map" src="img/anatomy.jpg" alt="Brak cycków" />
+                              <p ng-show="cycki">Oto współrzędne: <span id="cords"></span></p>
+
+                              <map name="planetmap">
+                                  <area alt="" title="" href="#" shape="poly" coords="413,121,390,275,415,328,445,358,481,380,517,391,555,381,586,348,604,309,616,255,616,205,596,139" 
+                                            onmousemove="showCoords(event,'rec7')"/>
+                                  <area alt="" title="" href="#" shape="poly" coords="67,109,82,146,84,200,76,254,96,312,119,336,144,349,169,355,191,355,222,345,239,332,258,313,270,305,288,281,291,241,285,194,284,159,289,104,207,37" 
+                                            onmousemove="showCoords(event,'rec8')" />
+                              </map>
+                      </div>
+                      
+          <!-- SUBMIT -->
+                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                            <span class="glyphicon glyphicon-flash"></span> Submit!
+                        </button>

@@ -53,3 +53,11 @@ function showOUTCoords(event){
         alert("OUT")
         el.style.backgroundColor = "black";
 }
+
+
+// Popover w formularzu na przykład (ID_Wpis)
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+
+
