@@ -519,7 +519,63 @@
                                         <input class="form-control" type="text" placeholder="ile razy" ng-model="karmienie_noc_opis">
                                     </div>                               
                             </div>
-                          
+                            <div class="form-group">
+                                  <label class="col-sm-3 control-label">Ściąganie pokarmu</label>
+
+                                      <div class="radio col-sm-1" >
+                                            <label><input type="radio" name="SciPok_radio" ng-model="sciaganie_pokarm" ng-value="0" >nie</label>
+                                      </div>
+                                      <div class="radio col-sm-1">
+                                            <label><input type="radio" name="SciPok_radio" ng-model="sciaganie_pokarm" ng-value="1">tak</label>
+                                      </div>
+
+                                      <label ng-show="sciaganie_pokarm==1" class="col-sm-1 control-label">w jakim celu?</label>
+                                            <div ng-show="sciaganie_pokarm==1" class="col-sm-4">
+                                                <input class="form-control" type="text" placeholder="w jakim celu" ng-model="sciaganie_pokarm_cel">
+                                            </div>
+                                      <p class="col-sm-12"></p>
+                                      <label ng-show="sciaganie_pokarm==1" class="col-sm-6 control-label">ile?</label>
+                                            <div ng-show="sciaganie_pokarm==1" class="col-sm-4">
+                                                <input class="form-control" type="text" placeholder="ile" ng-model="sciaganie_pokarm_ile">
+                                            </div>
+                             </div>
+                          <div class="form-group">
+                                <label class="col-sm-3 control-label">Moczenie pieluch</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="" ng-model="pieluchy">
+                                    </div>
+                                <p class="col-sm-12"></p>
+                                <label class="col-sm-3 control-label">Oddawanie stolca</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="" ng-model="stolec">
+                                    </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Aktywność, samo się wybudza</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="AktWyb_radio" ng-model="aktywnosc" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="AktWyb_radio" ng-model="aktywnosc" ng-value="1">tak</label>
+                                    </div>                        
+                          </div>
+                          <div class="form-group">
+                                <label class="col-sm-3 control-label">Zachowanie między karmieniami</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="" ng-model="zachowanie_karmienia">
+                                    </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-3 control-label">Objawy kolki</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="ObjKol_radio" ng-model="kolka" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="ObjKol_radio" ng-model="kolka" ng-value="1">tak</label>
+                                    </div>                        
+                            </div>
                           
                       </div>
           

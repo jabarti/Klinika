@@ -80,6 +80,14 @@ include 'Functions/functions.php';
        $dopajanie2_opis =               $request->dopajanie2_opis;
        $karmienie_noc =                 $request->karmienie_noc;
        $karmienie_noc_opis =            $request->karmienie_noc_opis;
+       $sciaganie_pokarm =              $request->sciaganie_pokarm;
+       $sciaganie_pokarm_cel =          $request->sciaganie_pokarm_cel;
+       $sciaganie_pokarm_ile =          $request->sciaganie_pokarm_ile;
+       $pieluchy =                      $request->pieluchy;
+       $stolec =                        $request->stolec;
+       $aktywnosc =                     $request->aktywnosc;
+       $zachowanie_karmienia =          $request->zachowanie_karmienia;
+       $kolka =                         $request->kolka;
        
         echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
         
@@ -421,14 +429,16 @@ include 'Functions/functions.php';
                         . "`karimienie_piersia_opis`,`kapturek`,`kapturek_opis`,`dopajanie`,`dopajanie_czym`,`dopajanie_jak_dlugo`,"
                         . "`dopajanie_opis`,`nawal`,`nawal_opis`,`pobyt`,`karmienie_piers`,`karmienie_piers_czest`,"
                         . "`karmienie_piers_dlugo`,`kapturek2`,`kapturek2_opis`,`dopajanie2`,`dopajanie2_czym`,`dopajanie2_jak_dlugo`,"
-                        . "`dopajanie2_opis`,`karmienie_noc`,`karmienie_noc_opis`) "
+                        . "`dopajanie2_opis`,`karmienie_noc`,`karmienie_noc_opis`,`sciaganie_pokarm`,`sciaganie_pokarm_cel`,"
+                        . "`sciaganie_pokarm_ile`,`pieluchy`,`stolec`,`aktywnosc`,`zachowanie_karmienia`,`kolka`) "
                         . "VALUES "
                         . "('$NEW_FORM_ID','$pierwsze_karmienie','$problem_dziecko',"
                         . "'$problem_dziecko_opis','$problem_mama','$problem_mama_opis','$karimienie_piersia',"
                         . "'$karimienie_piersia_opis','$kapturek','$kapturek_opis','$dopajanie','$dopajanie_czym','$dopajanie_jak_dlugo',"
                         . "'$dopajanie_opis','$nawal','$nawal_opis','$pobyt','$karmienie_piers','$karmienie_piers_czest',"
                         . "'$karmienie_piers_dlugo','$kapturek2','$kapturek2_opis','$dopajanie2','$dopajanie2_czym','$dopajanie2_jak_dlugo',"
-                        . "'$dopajanie2_opis','$karmienie_noc','$karmienie_noc_opis');";
+                        . "'$dopajanie2_opis','$karmienie_noc','$karmienie_noc_opis','$sciaganie_pokarm','$sciaganie_pokarm_cel',"
+                        . "'$sciaganie_pokarm_ile','$pieluchy','$stolec','$aktywnosc','$zachowanie_karmienia','$kolka');";
                 
                 $mq = mysqli_query($DBConn, $Formularz2Sql);
                 if($mq){

@@ -39,6 +39,9 @@ apka.controller("ControllerFormularz", function($scope,$http){
     $scope.kapturek2 = 0;
     $scope.dopajanie2 = 0;
     $scope.karmienie_noc = 0;
+    $scope.sciaganie_pokarm = 0;
+    $scope.aktywnosc = 0;
+    $scope.kolka = 0;
     
     // for test
     $scope.data_utworzenia = '2016-05-01';
@@ -163,8 +166,16 @@ apka.controller("ControllerFormularz", function($scope,$http){
               dopajanie2_czym:              $scope.dopajanie2_czym,
               dopajanie2_jak_dlugo:         $scope.dopajanie2_jak_dlugo,
               dopajanie2_opis:              $scope.dopajanie2_opis,
-              karmienie_noc:                $scope.karmienie_noc,
-              karmienie_noc_opis:           $scope.karmienie_noc_opis
+              karmienie_noc:                $scope.karmienie_noc
+              ,karmienie_noc_opis:          $scope.karmienie_noc_opis
+              ,sciaganie_pokarm:            $scope.sciaganie_pokarm
+              ,sciaganie_pokarm_cel:        $scope.sciaganie_pokarm_cel
+              ,sciaganie_pokarm_ile:        $scope.sciaganie_pokarm_ile
+              ,pieluchy:                    $scope.pieluchy
+              ,stolec:                      $scope.stolec
+              ,aktywnosc:                   $scope.aktywnosc
+              ,zachowanie_karmienia:                   $scope.zachowanie_karmienia
+              ,kolka:                   $scope.kolka
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
       });
