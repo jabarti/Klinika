@@ -9,6 +9,7 @@
 *.z7
 *.sql
 codecept*
+js_source/TRY_Map/*
 SQL
 error_log
 errors

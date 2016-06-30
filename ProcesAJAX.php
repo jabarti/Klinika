@@ -94,7 +94,12 @@ include 'Functions/functions.php';
        $leki_dziecko =                  $request->leki_dziecko;
        
        // Formularz3
-       $piers_wielkosc =                  $request->piers_wielkosc;
+       $piers_wielkosc =                $request->piers_wielkosc;
+       $cycki =                         $request->cycki;
+       $cycki_jakie =                   $request->cycki_jakie;
+       $obszar =                        $request->obszar;
+
+       echo "[$obszar]";
        
         echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
         
@@ -458,9 +463,9 @@ include 'Functions/functions.php';
                 }
                 
                 $Formularz3Sql = "INSERT INTO `formularz_3`"
-                        . "(`Formularz_ID_Wpisu`, `piers_wielkosc`) "
+                        . "(`Formularz_ID_Wpisu`,`piers_wielkosc`,`cycki`,`cycki_jakie`) "
                         . "VALUES "
-                        . "('$NEW_FORM_ID','$piers_wielkosc');";
+                        . "('$NEW_FORM_ID','$piers_wielkosc','$cycki','$cycki_jakie');";
                 
                 $mq3 = mysqli_query($DBConn, $Formularz3Sql);
                 if($mq3){

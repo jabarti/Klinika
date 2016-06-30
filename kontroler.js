@@ -44,6 +44,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
     $scope.kolka = 0;
     $scope.uspokajacz = 0;
     $scope.piers_wielkosc = 1;
+    $scope.cycki = false;
     
     // for test
     $scope.data_utworzenia = '2016-05-01';
@@ -184,6 +185,9 @@ apka.controller("ControllerFormularz", function($scope,$http){
               
               // Formularz_3 (w BD i plik html)
               ,piers_wielkosc:              $scope.piers_wielkosc.valueOf()
+              ,cycki:                       $scope.cycki
+              ,cycki_jakie:                 $scope.cycki_jakie
+              ,obszar:                      $scope.obszar
               
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
@@ -224,7 +228,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
         }
         return year + " lat i " + month + " mieś. i "+ dagar + "dni";
     };
-        
+    
     $scope.calculateAge2 = function calculateAge2(var_data1, var_data2) { // birthday is a date1, make form is date2
         
         var years = "";
@@ -247,5 +251,5 @@ apka.controller("ControllerFormularz", function($scope,$http){
 });
 
 
-
+  
 

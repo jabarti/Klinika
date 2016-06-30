@@ -11,12 +11,20 @@
 //    $('.map').maphilight();
 //});
 
-function showCoords(event,text){
+//(function(jQuery) {
+//  $('#polygon').canvasAreaDraw({
+//    imageUrl: "http://example.com/image.png"
+//  });
+//})(jQuery);
+
+function showCoordsCyca(event,text){
         var x = event.clientX;
         var y = event.clientY;
         var coords = text+" coords: " + x + ", Y coords: " + y;
         var el = document.getElementById("cords");
         el.innerHTML = coords;
+        var el2 = document.getElementById("cords2");
+        el2.value = coords;
 //        alert(text)
         switch(text){
             case "rec1":
@@ -42,9 +50,9 @@ function showCoords(event,text){
                 el.style.backgroundColor = "white";
                 break
         }
-
 }
-function showOUTCoords(event){
+
+function showOUTCoordsCyca(event){
         var x = event.clientX;
         var y = event.clientY;
         var coords = " coordsOUT: " + x + ", Y coords: " + y;
