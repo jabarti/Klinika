@@ -97,11 +97,43 @@ include 'Functions/functions.php';
        $piers_wielkosc =                $request->piers_wielkosc;
        $cycki =                         $request->cycki;
        $cycki_jakie =                   $request->cycki_jakie;
-       $obszar =                        $request->obszar;
-
-       echo "[$obszar]";
        
-        echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
+       //cycce
+       $obszar =                        $request->obszar;
+       $obszar2 =                       $request->obszar2;
+       $kicha =                         $request->kicha;
+       
+       $brodawka =                      $request->brodawka;
+       $brodawka_jaka =                 $request->brodawka_jaka;
+       $zmiany =                        $request->zmiany;
+       $zmiany_opis =                   $request->zmiany_opis;
+       $stan_emocjonalny =              $request->stan_emocjonalny;
+       $obserwacja_dziecka =            $request->obserwacja_dziecka;
+       $masa_ur =                       $request->masa_ur;
+       $data_01 =                       parse_date($request->data_01);
+       $masa_min =                      $request->masa_min;
+       $data_02 =                       parse_date($request->data_02);
+       
+       $masa_inne_a =                   $request->masa_inne_a;
+       $data_03a =                      parse_date($request->data_03a);
+       $masa_inne_b =                   $request->masa_inne_b;
+       $data_03b =                      parse_date($request->data_03b);
+       $masa_inne_c =                   $request->masa_inne_c;
+       $data_03c =                      parse_date($request->data_03c);
+       $masa_inne_d =                   $request->masa_inne_d;
+       $data_03d =                      parse_date($request->data_03d);
+       $masa_inne_e =                   $request->masa_inne_e;
+       $data_03e =                      parse_date($request->data_03e);
+       $masa_inne_f =                   $request->masa_inne_f;
+       $data_03f =                      parse_date($request->data_03f);
+       
+       $masa_obecna =                   $request->masa_obecna;
+       $data_04 =                       parse_date($request->data_04);
+
+//       echo "[$obszar][$obszar2][$kicha]]";
+       echo "($masa_ur)($data_01)($masa_min)($data_02)($masa_inne)($data_03)($masa_obecna)($data_04)";
+       
+//        echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
         
 //        echo "[".parse_date($data_utworzenia)."]";
 //        parse_date($data_utworzenia);
@@ -147,9 +179,9 @@ include 'Functions/functions.php';
         
 //        echo ", Matka[$data], Dziecko[$data2], Formularz[$data1]";
         
-        // czy figuruje w BD taka matka!!
-        $MamaTESTsql = "SELECT idMatka FROM `Matka` WHERE `mama_firstname` = '$mama_firstname' "
-                        . "AND `mama_lastname` = '$mama_lastname' AND `data_urodzenia_matka` = '$data_urodzenia_matka' LIMIT 1;";
+//        // czy figuruje w BD taka matka!! KLIENT NIE CHCE TESTOWAĆ CZY MATKA JEST W BD
+//        $MamaTESTsql = "SELECT idMatka FROM `Matka` WHERE `mama_firstname` = '$mama_firstname' "
+//                        . "AND `mama_lastname` = '$mama_lastname' AND `data_urodzenia_matka` = '$data_urodzenia_matka' LIMIT 1;";
         
 //        echo "($MamaTESTsql)($data_urodzenia_matka)($data)";
         $MamaSql_q_TEST = mysqli_query($DBConn,$MamaTESTsql);
@@ -170,7 +202,8 @@ include 'Functions/functions.php';
         }
         
         // Jeśli mamy NIE ma w BD, wstawiamy nowy rekord
-        if($TEST_ID_MAMA){
+//        if($TEST_ID_MAMA){ // KLIENT NIE CHCE TESTOWAĆ CZY MATKA W BD
+        if(true){
             $MamaSql = "INSERT INTO `bartilev_Klinika`.`Matka` (`mama_firstname`, `mama_lastname`, `data_urodzenia_matka`, `ulica`, "
                     . "`ulica_nr`, `ulica_nr_mieszkanie`, `kod_poczt`, `miasto`, `telefon`, `email`) "
                     . "VALUES ( '$mama_firstname', '$mama_lastname', '$data_urodzenia_matka', '$ulica', "
@@ -463,9 +496,17 @@ include 'Functions/functions.php';
                 }
                 
                 $Formularz3Sql = "INSERT INTO `formularz_3`"
-                        . "(`Formularz_ID_Wpisu`,`piers_wielkosc`,`cycki`,`cycki_jakie`) "
+                        . "(`Formularz_ID_Wpisu`,`piers_wielkosc`,`cycki`,`cycki_jakie`,`brodawka`,`brodawka_jaka`,"
+                        . "`zmiany`,`zmiany_opis`,`stan_emocjonalny`,`obserwacja_dziecka`,"
+                        . "`masa_ur`,`data_01`,`masa_min`,`data_02`,"
+                        . "`masa_inne_a`,`data_03a`,`masa_inne_b`,`data_03b`,`masa_inne_c`,`data_03c`,`masa_inne_d`,`data_03d`,`masa_inne_e`,`data_03e`,`masa_inne_f`,`data_03f`,"
+                        . "`masa_obecna`,`data_04`) "
                         . "VALUES "
-                        . "('$NEW_FORM_ID','$piers_wielkosc','$cycki','$cycki_jakie');";
+                        . "('$NEW_FORM_ID','$piers_wielkosc','$cycki','$cycki_jakie','$brodawka','$brodawka_jaka',"
+                        . "'$zmiany','$zmiany_opis','$stan_emocjonalny','$obserwacja_dziecka',"
+                        . "'$masa_ur','$data_01','$masa_min','$data_02',"
+                        . "'$masa_inne_a','$data_03a','$masa_inne_b','$data_03b','$masa_inne_c','$data_03c','$masa_inne_d','$data_03d','$masa_inne_e','$data_03e','$masa_inne_f','$data_03f',"
+                        . "'$masa_obecna','$data_04');";
                 
                 $mq3 = mysqli_query($DBConn, $Formularz3Sql);
                 if($mq3){

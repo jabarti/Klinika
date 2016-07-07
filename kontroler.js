@@ -69,6 +69,40 @@ apka.controller("ControllerFormularz", function($scope,$http){
     $scope.powod_zgloszenia = "Dziecko gryzie mamę a nie jabłka i kość";
     $scope.pierwsze_karmienie = "od razu, ledwie podniósł sznycel z ziemi";
     
+    
+    $scope.cycki_parts = [
+      {
+        "shape": "poly",
+        "type": "del_01",
+        "coords": "179,250,182,81,256,134"
+      }, 
+      {
+        "shape": "poly",
+        "type": "del_02",
+        "coords": "180,253,256,136,268,219"
+      }, 
+      {
+        "shape": "poly",
+        "type": "del_03",
+        "coords": "180,255,267,221,257,314"
+      },
+      {
+        "shape": "poly",
+        "type": "del_04",
+        "coords": "181,258,253,316,231,337,212,350,183,354"
+      },
+  
+    
+    ];
+  
+   $scope.partClicked = function(arg) {
+//    alert(arg + ' clicked');
+    $scope.odpowiedz_alla = arg;
+
+//    alert($scope.odpowiedz_alla)
+  };
+
+    
 //    var data_temp = $filter('date')(data_utworzenia, 'yyyy/mm/dd');
 //    console.log(data_temp)
     
@@ -97,6 +131,18 @@ apka.controller("ControllerFormularz", function($scope,$http){
     
     $scope.filterConditionPorod={
         operator: $scope.operatorsPorod[0]
+//        operator: 'normalny'
+    };
+    
+    $scope.operatorsBrodawka = [
+        {value: 'prawidlowa', displayName: 'prawidłowa'},
+        {value: 'rzekomo_wklesla', displayName: 'rzekomo wklęsła'},
+        {value: 'wklesla', displayName: 'wklęsła'}
+//        ,
+     ],
+    
+    $scope.filterConditionBrodawka={
+        operator: $scope.operatorsBrodawka[0]
 //        operator: 'normalny'
     };
     
@@ -187,7 +233,37 @@ apka.controller("ControllerFormularz", function($scope,$http){
               ,piers_wielkosc:              $scope.piers_wielkosc.valueOf()
               ,cycki:                       $scope.cycki
               ,cycki_jakie:                 $scope.cycki_jakie
+              
+              //cyce
               ,obszar:                      $scope.obszar
+              ,kicha:                       $scope.kicha
+              
+              ,brodawka:                    $scope.filterConditionBrodawka.operator.value
+              ,brodawka_jaka:               $scope.brodawka_jaka
+              ,zmiany:                      $scope.zmiany
+              ,zmiany_opis:                 $scope.zmiany_opis
+              ,stan_emocjonalny:            $scope.stan_emocjonalny
+              ,obserwacja_dziecka:          $scope.obserwacja_dziecka
+              ,masa_ur:                     $scope.masa_ur
+              ,data_01:                     $scope.data_01
+              ,masa_min:                    $scope.masa_min
+              ,data_02:                     $scope.data_02
+              
+              ,masa_inne_a:                 $scope.masa_inne_a
+              ,data_03a:                    $scope.data_03a
+              ,masa_inne_b:                 $scope.masa_inne_b
+              ,data_03b:                    $scope.data_03b
+              ,masa_inne_c:                 $scope.masa_inne_c
+              ,data_03c:                    $scope.data_03c
+              ,masa_inne_d:                 $scope.masa_inne_d
+              ,data_03d:                    $scope.data_03d
+              ,masa_inne_e:                 $scope.masa_inne_e
+              ,data_03e:                    $scope.data_03e
+              ,masa_inne_f:                 $scope.masa_inne_f
+              ,data_03f:                    $scope.data_03f
+              
+              ,masa_obecna:                 $scope.masa_obecna
+              ,data_04:                     $scope.data_04
               
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
@@ -229,6 +305,24 @@ apka.controller("ControllerFormularz", function($scope,$http){
         return year + " lat i " + month + " mieś. i "+ dagar + "dni";
     };
     
+//    $scope.przyrost_sredni = function przyrost_sredni(){
+//        var waga_01 = 0;
+//        var waga_02 = 0;
+//        var waga_03 = 0;
+//        var waga_04 = 0;
+//        
+//        if($scope.masa_ur != 0 && $scope.masa_min!= 0 && $scope.masa_inne != 0 && $scope.masa_obecna != 0){
+//            waga_01 = $scope.masa_ur;
+//            waga_02 = $scope.masa_min;
+//            waga_03 = $scope.masa_inne;
+//            waga_04 = $scope.masa_obecna;
+//        }
+//        
+//        var przyrost = waga_01 + waga_02 + waga_03 + waga_04;
+//        
+//        return przyrost;
+//    };
+    
     $scope.calculateAge2 = function calculateAge2(var_data1, var_data2) { // birthday is a date1, make form is date2
         
         var years = "";
@@ -247,7 +341,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
 //            console.log("calculateAgeZFormularza: " + years + " lat i " + months + " mieś." + dagar + "dni")
         }
         return years + " lat i " + months + " mieś. i "+ dagar + "dni";
-    };    
+    }; 
 });
 
 

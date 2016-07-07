@@ -23,8 +23,10 @@ function showCoordsCyca(event,text){
         var coords = text+" coords: " + x + ", Y coords: " + y;
         var el = document.getElementById("cords");
         el.innerHTML = coords;
-        var el2 = document.getElementById("cords2");
-        el2.value = coords;
+        el.value = coords;
+        el.trigger('input');
+//        var el2 = document.getElementById("cords2");
+//        el2.value = coords;
 //        alert(text)
         switch(text){
             case "rec1":

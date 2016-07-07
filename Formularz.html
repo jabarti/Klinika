@@ -36,7 +36,8 @@
     
      <script src="js_source/mapper/mapper.js" type="text/javascript"></script><!-- -->
      <script src="js_source/mapper/maputil.js" type="text/javascript"></script><!-- -->
-
+     <script src="js_source/angular-rwdImageMaps.min.js" type="text/javascript"></script>
+     <script src="js_source/angular-rwdImageMaps.js" type="text/javascript"></script>
   </head>
 
   <body>
@@ -592,7 +593,7 @@
                                     <div ng-show="uspokajacz==1" class="col-sm-4">
                                         <input class="form-control" type="text" placeholder="" ng-model="uspokajacz_opis">
                                     </div>                               
-                            </div>
+                          </div>
                             <div class="form-group">
                               <h3 class="col-sm-12">Stosowanie leków</h3>
 
@@ -609,52 +610,64 @@
                       </div>
 <!-- OBSERWACJA MATKI -->
                       <div class="form-group form-buffer-pa">
-                          <h2>Obserwacja matki </h2>
-                          <div class="form-group">
-                                <label class="col-sm-3 control-label">Pierś</label>
+                        <h2>Obserwacja matki </h2>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Pierś</label>
 
-                                  <div class="radio col-sm-1" >
-                                      <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="0" >mała</label>
-                                    </div>
-                                    <div class="radio col-sm-1">
-                                      <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="1">średnia</label>
-                                    </div>
-                                    <div class="radio col-sm-1">
-                                      <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="2">duża</label>
-                                    </div>
-                              
-                          </div>
-                          <div class="form-group">
+                              <div class="radio col-sm-1" >
+                                  <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="0" >mała</label>
+                                </div>
+                                <div class="radio col-sm-1">
+                                  <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="1">średnia</label>
+                                </div>
+                                <div class="radio col-sm-1">
+                                  <label><input type="radio" name="PieWie_radio" ng-model="piers_wielkosc" ng-value="2">duża</label>
+                                </div>
+
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">Czy są zmiany?</label>
                                 <div class="col-sm-1">
                                     <input class="form-control" type="checkbox" ng-model="cycki">
                                 </div> 
-                          </div>  
+                        </div>  
+                          
 
-         
 <!-- CYCKI -FOTO -->
-                           <div ng-show="cycki" class="form-group map">
-                                <img usemap="#planetmap" class="mapper" src="img/anatomy_02.jpg" alt="Brak cycków" />
+                          <!--div ng-show="cycki" class="form-group">
+                             <img class="rwdimgmap" src="img/anatomy_02.jpg" alt="auto" width="571" height="422" border="0" usemap="#auto" />
+                                    <map name="auto" id="auto">
+                                        <area ng-repeat="part in cycki_parts" shape="{{part.shape}}" coords="{{part.coords}}" ng-click="partClicked(part.type)" title="{{part.type}}" />
+                                    </map>
+                                    <p ng-model="obszar">{{odpowiedz_alla}}</p>
+                                    <input class="form-control" type="text" ng-model="kicha" placeholder="{{odpowiedz_alla}}" >
+                          </div><!-- -->
+
+
+                        <div ng-show="cycki" class="col-sm-2 form-group map">
+                                <img usemap="#planetmap" class="col-sm-2 mapper" src="img/anatomy_02.jpg" alt="Brak cycków" />
 
                               <map name="planetmap">
-                                    <area alt="" title="" nohref shape="poly" coords="106,121,176,250,180,81" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="179,250,182,81,256,134" onmouseover="showCoordsCyca(event,'rec2');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="180,253,256,136,268,219" onmouseover="showCoordsCyca(event,'rec3');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="180,255,267,221,257,314" onmouseover="showCoordsCyca(event,'rec4');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="181,258,253,316,231,337,212,350,183,354" onmouseover="showCoordsCyca(event,'rec5');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="178,258,180,355,154,352,129,342,110,331" onmouseover="showCoordsCyca(event,'rec6');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="110,333,93,314,84,290,80,270,176,256" onmouseover="showCoordsCyca(event,'rec7');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="175,254,78,269,79,233,83,214" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="84,211,104,123,174,251" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="394,77,391,251,471,119" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="472,121,490,188,393,251" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="491,192,495,268,395,252" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="495,271,482,303,453,339,393,253" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="453,341,426,351,399,355,391,355,391,254" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="389,253,389,354,361,349,344,340,331,327,326,323,321,317" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="388,251,318,316,310,293,307,261,304,220" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="388,249,306,220,305,178,312,138" onmouseover="showCoordsCyca(event,'rec1');"/>
-                                    <area alt="" title="" nohref shape="poly" coords="388,247,314,136,345,102,393,79" onmouseover="showCoordsCyca(event,'rec1');"/>
+
+                                    <area alt="" title="" nohref shape="poly" coords="179,250,182,81,256,134"  onmouseover="showCoordsCyca(event,'rec1');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="180,253,256,136,268,219" onmouseover="showCoordsCyca(event,'rec2');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="180,255,267,221,257,314" onmouseover="showCoordsCyca(event,'rec3');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="181,258,253,316,231,337,212,350,183,354" onmouseover="showCoordsCyca(event,'rec4');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="178,258,180,355,154,352,129,342,110,331" onmouseover="showCoordsCyca(event,'rec5');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="110,333,93,314,84,290,80,270,176,256" onmouseover="showCoordsCyca(event,'rec6');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="175,254,78,269,79,233,83,214" onmouseover="showCoordsCyca(event,'rec7');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="106,121,176,250,180,81"  onmouseover="showCoordsCyca(event,'rec8');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="84,211,104,123,174,251" onmouseover="showCoordsCyca(event,'rec9');"/>
+                                    
+                                    <area alt="" title="" nohref shape="poly" coords="394,77,391,251,471,119" onmouseover="showCoordsCyca(event,'rec10');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="472,121,490,188,393,251" onmouseover="showCoordsCyca(event,'rec11');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="491,192,495,268,395,252" onmouseover="showCoordsCyca(event,'rec12');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="495,271,482,303,453,339,393,253" onmouseover="showCoordsCyca(event,'rec13');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="453,341,426,351,399,355,391,355,391,254" onmouseover="showCoordsCyca(event,'rec14');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="389,253,389,354,361,349,344,340,331,327,326,323,321,317" onmouseover="showCoordsCyca(event,'rec15');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="388,251,318,316,310,293,307,261,304,220" onmouseover="showCoordsCyca(event,'rec16');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="388,249,306,220,305,178,312,138" onmouseover="showCoordsCyca(event,'rec17');"/>
+                                    <area alt="" title="" nohref shape="poly" coords="388,247,314,136,345,102,393,79" onmouseover="showCoordsCyca(event,'rec18');"/>
                                   
                                     <!--area alt="" title="" href="#" shape="poly" coords="413,121,390,275,415,328,445,358,481,380,517,391,555,381,586,348,604,309,616,255,616,205,596,139" 
                                             onmouseover="showCoordsCyca(event,'rec1')"/>
@@ -662,14 +675,183 @@
                                     <area alt="" title="" href="#" shape="poly" coords="67,109,82,146,84,200,76,254,96,312,119,336,144,349,169,355,191,355,222,345,239,332,258,313,270,305,288,281,291,241,285,194,284,159,289,104,207,37" 
                                             onmouseover="showCoordsCyca(event,'rec2')" /><!-- -->
                               </map>
-                           </div>
-                            <div ng-show="cycki" class="form-group map">
+                        </div>
+                        <div ng-show="cycki" class="form-group map">
                                 <label class="col-sm-2 control-label">Coordinats</label>
                                     <div class="col-sm-3">
-                                        <input id="cords" class="form-control" type="text" placeholder="" ng-model="obszar" value="">
-                                        <input id="cords2" class="form-control" type="text" placeholder="" ng-model="obszar2" ng-value="{{obszar}}">
+                                        <!--p>Obszar: {{obszar}}</p><!-- -->
+                                        <input id="cords" class="form-control" type="text" placeholder="" ng-model="obszar" value=""><!-- -->
+                                        <!--input id="cords2" class="form-control" type="text" placeholder="" ng-model="obszar" ng-value="{{obszar}}"><!-- -->
                                     </div>
-                            </div>
+                        </div>
+                        <p class="col-sm-12"></p>
+                        <div class="form-group">
+
+                                <label class="col-sm-3 control-label">Brodawka</label>
+                                    <div class="col-sm-3">
+                                        <select ng-model="filterConditionBrodawka.operator" ng-options="operator.displayName for operator in operatorsBrodawka"></select>
+                                    </div>
+
+                                <div ng-show="filterConditionBrodawka.operator.value != 'prawidlowa'" >
+                                  <label class="col-sm-1 control-label">po karmieniu?</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="text" placeholder="" ng-model="brodawka_jaka">
+                                        </div>  
+                                </div>
+                        </div>
+                        <div class="form-group">
+                              <label class="col-sm-3 control-label">zmiany</label>
+
+                                  <div class="radio col-sm-1" >
+                                      <label><input type="radio" name="Zmian_radio" ng-model="zmiany" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-1">
+                                      <label><input type="radio" name="Zmian_radio" ng-model="zmiany" ng-value="1">tak</label>
+                                    </div>
+                              
+                              <label ng-show="zmiany==1" class="col-sm-2 control-label">tak,</label>
+                                    <div ng-show="zmiany==1" class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="" ng-model="zmiany_opis">
+                                    </div>                               
+                        </div>
+                        <div class="form-group">
+                                <label class="col-sm-3 control-label">Stan emocjonalny mamy</label>
+                                    <div class="col-sm-5">
+                                        <textarea class="form-control" type="text" placeholder="Stan emocjonalny mamy" ng-model="stan_emocjonalny"></textarea>
+                                    </div>
+                        </div>
+                    </div>
+ <!-- OBSERWACJA DZIECKA -->
+                      <div class="form-group form-buffer-npa">
+                          <h2>Obserwacja dziecka </h2>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Obserwacja dziecka</label>
+                                   <div class="col-sm-7">
+                                        <textarea class="form-control" type="text" placeholder="" ng-model="obserwacja_dziecka"></textarea>
+                                    </div>
+                           </div>
+                          <div class="form-group">
+                                <label class="col-sm-3 control-label">masa urodzeniowa</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_ur">
+                                    </div>
+                                <label class="col-sm-1 control-label">data</label>
+                                    <div class="col-sm-2">
+                                        <input type="date" ng-model="data_01" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                    </div>   
+                                <p class="col-sm-12"></p>
+                                
+                                <label class="col-sm-3 control-label">masa najniższa</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_min">
+                                    </div>
+                                <label class="col-sm-1 control-label">data</label>
+                                    <div class="col-sm-2">
+                                        <input type="date" ng-model="data_02" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                    </div>
+                                <p class="col-sm-12"></p>
+                                
+                                <div>
+                                    <label class="col-sm-3 control-label">inne masy</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_inne_a">
+                                        </div>
+                                    <label class="col-sm-1 control-label">data</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" ng-model="data_03a" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                        </div>
+                                    <label class="col-sm-1 control-label">dodaj</label>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" ng-model="add_01">
+                                        </div>
+                                    <p class="col-sm-12"></p>
+                                </div>
+                                <div ng-show='add_01'>
+                                    <label class="col-sm-3 control-label">inne masy</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_inne_b">
+                                        </div>
+                                    <label class="col-sm-1 control-label">data</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" ng-model="data_03b" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                        </div>
+                                    <label class="col-sm-1 control-label">dodaj</label>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" ng-model="add_02">
+                                        </div>
+                                    <p class="col-sm-12"></p>
+                                </div>
+                                <div ng-show='add_02'>
+                                    <label class="col-sm-3 control-label">inne masy</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_inne_c">
+                                        </div>
+                                    <label class="col-sm-1 control-label">data</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" ng-model="data_03c" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                        </div>
+                                    <label class="col-sm-1 control-label">dodaj</label>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" ng-model="add_03">
+                                        </div>
+                                    <p class="col-sm-12"></p>
+                                </div>
+                                <div ng-show='add_03'>
+                                    <label class="col-sm-3 control-label">inne masy</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_inne_d">
+                                        </div>
+                                    <label class="col-sm-1 control-label">data</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" ng-model="data_03d" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                        </div>
+                                    <label class="col-sm-1 control-label">dodaj</label>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" ng-model="add_04">
+                                        </div>
+                                    <p class="col-sm-12"></p>
+                                </div>
+                                <div ng-show='add_04'>
+                                    <label class="col-sm-3 control-label">inne masy</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_inne_e">
+                                        </div>
+                                    <label class="col-sm-1 control-label">data</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" ng-model="data_03e" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                        </div>
+                                    <label class="col-sm-1 control-label">dodaj</label>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" ng-model="add_05">
+                                        </div>
+                                    <p class="col-sm-12"></p>
+                                </div>
+                                <div ng-show='add_05'>
+                                    <label class="col-sm-3 control-label">inne masy</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_inne_f">
+                                        </div>
+                                    <label class="col-sm-1 control-label">data</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" ng-model="data_03f" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                        </div>
+                                    <p class="col-sm-12"></p>
+                                </div>
+                                
+                                <label class="col-sm-3 control-label">masa obecna</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="masa_obecna">
+                                    </div>
+                                <label class="col-sm-1 control-label">data</label>
+                                    <div class="col-sm-2">
+                                        <input type="date" ng-model="data_04" placeholder="yyyy-MM-dd" min="2000-01-01" max="2018-12-31" />
+                                    </div>
+                                <p class="col-sm-12"></p>
+                                <label class="col-sm-3 control-label">przyrost średni</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="przyrost_sredni"">
+                                    </div>
+                          </div>
                       </div>
                       
                       
