@@ -11,6 +11,7 @@
 
 include 'DB/Connection.php';
 include 'Functions/functions.php';
+$baza = "`bartilev_klinika`.";
 
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
@@ -180,31 +181,31 @@ include 'Functions/functions.php';
 //        echo ", Matka[$data], Dziecko[$data2], Formularz[$data1]";
         
 //        // czy figuruje w BD taka matka!! KLIENT NIE CHCE TESTOWAĆ CZY MATKA JEST W BD
-//        $MamaTESTsql = "SELECT idMatka FROM `Matka` WHERE `mama_firstname` = '$mama_firstname' "
+//        $MamaTESTsql = "SELECT idMatka FROM $baza`matka` WHERE `mama_firstname` = '$mama_firstname' "
 //                        . "AND `mama_lastname` = '$mama_lastname' AND `data_urodzenia_matka` = '$data_urodzenia_matka' LIMIT 1;";
         
 //        echo "($MamaTESTsql)($data_urodzenia_matka)($data)";
-        $MamaSql_q_TEST = mysqli_query($DBConn,$MamaTESTsql);
+//        $MamaSql_q_TEST = mysqli_query($DBConn,$MamaTESTsql);
                 
-        if($MamaSql_q_TEST){
-            $row = mysqli_fetch_array($MamaSql_q_TEST);
-
-            if($row[0]>0){
-                $TEST_ID_MAMA = false;
-                $Last_Mama_ID = $row[0];
-                echo ", (MAMA W BAZIE JUŻ - [$row[0]])";
-            }else{
-                $TEST_ID_MAMA = true;
+//        if($MamaSql_q_TEST){
+//            $row = mysqli_fetch_array($MamaSql_q_TEST);
+//
+//            if($row[0]>0){
+//                $TEST_ID_MAMA = false;
 //                $Last_Mama_ID = $row[0];
-                echo ", brak ID MAMY(row:$row[0])";
-            }
-            
-        }
+//                echo ", (MAMA W BAZIE JUŻ - [$row[0]])";
+//            }else{
+//                $TEST_ID_MAMA = true;
+////                $Last_Mama_ID = $row[0];
+//                echo ", brak ID MAMY(row:$row[0])";
+//            }
+//            
+//        }
         
         // Jeśli mamy NIE ma w BD, wstawiamy nowy rekord
 //        if($TEST_ID_MAMA){ // KLIENT NIE CHCE TESTOWAĆ CZY MATKA W BD
         if(true){
-            $MamaSql = "INSERT INTO `bartilev_Klinika`.`Matka` (`mama_firstname`, `mama_lastname`, `data_urodzenia_matka`, `ulica`, "
+            $MamaSql = "INSERT INTO $baza`matka` (`mama_firstname`, `mama_lastname`, `data_urodzenia_matka`, `ulica`, "
                     . "`ulica_nr`, `ulica_nr_mieszkanie`, `kod_poczt`, `miasto`, `telefon`, `email`) "
                     . "VALUES ( '$mama_firstname', '$mama_lastname', '$data_urodzenia_matka', '$ulica', "
                     . "'$ulica_nr', '$ulica_nr_mieszkanie', '$kod_poczt', '$miasto', '$telefon', '$email');";
@@ -216,7 +217,7 @@ include 'Functions/functions.php';
 //                 $data = substr($data_urodzenia_matka, 0,10);        // uzyskanie formatu daty rrrr-mm-dd
         
                 // czy figuruje w BD taka matka!!
-                $MamaTESTsql = "SELECT `idMatka` FROM `Matka` WHERE `mama_firstname` = '$mama_firstname' "
+                $MamaTESTsql = "SELECT `idMatka` FROM $baza`matka` WHERE `mama_firstname` = '$mama_firstname' "
                     . "AND `mama_lastname` = '$mama_lastname' AND `data_urodzenia_matka` = '$data_urodzenia_matka' LIMIT 1;";
         
 //                echo "($MamaTESTsql)($data_urodzenia_matka)($data)";
@@ -235,7 +236,7 @@ include 'Functions/functions.php';
     
     if($miejsce_urodzenia_quest == 0){
         // test czy taki szpital już jest w BD
-        $TakeLastIdSzpit = "SELECT `idSzpital` FROM `Szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica' LIMIT 1;;";
+        $TakeLastIdSzpit = "SELECT `idSzpital` FROM $baza`szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica' LIMIT 1;;";
         $mysql_q1 = mysqli_query($DBConn,$TakeLastIdSzpit);
 
         if (mysqli_num_rows($mysql_q1) > 0) {
@@ -251,7 +252,7 @@ include 'Functions/functions.php';
         }
     }else{
         // test czy taki InneMiejsce już jest w BD
-        $TakeLastIdIM = "SELECT `idInne_miejsca` FROM `Inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia' LIMIT 1;";
+        $TakeLastIdIM = "SELECT `idInne_miejsca` FROM $baza`inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia' LIMIT 1;";
         $mysql_q1 = mysqli_query($DBConn,$TakeLastIdIM);
 
         if (mysqli_num_rows($mysql_q1) > 0) {
@@ -286,7 +287,7 @@ include 'Functions/functions.php';
   
     if($miejsce_urodzenia_quest == 0 && !$CzyIdwBD && !$czyPustaNazwa){
 //        echo ", [WCHODZE DO INSERT SZPITALA!!!!]";
-        $SzpitalSql = "INSERT INTO `bartilev_Klinika`.`Szpital` (`nazwa`, `urodz_ulica`, `urodz_ulica_nr`, `urodz_ulica_nr_mieszkanie`, `urodz_kod_poczt`, `urodz_miasto`, `urodz_kraj`) "
+        $SzpitalSql = "INSERT INTO $baza`szpital` (`nazwa`, `urodz_ulica`, `urodz_ulica_nr`, `urodz_ulica_nr_mieszkanie`, `urodz_kod_poczt`, `urodz_miasto`, `urodz_kraj`) "
                 . "VALUES ('$miejsce_urodzenia', '$urodz_ulica', '$urodz_ulica_nr', NULL, '$urodz_kod_poczt', '$urodz_miasto', '$urodz_kraj');";
 
         $SzpitalSql_q = mysqli_query($DBConn,$SzpitalSql);
@@ -295,7 +296,7 @@ include 'Functions/functions.php';
 //            echo ", Szpital insert OK: $dataSzpitalCallback";
 //            echo ", Szpital insert OK: $dataSzpitalCallback";
 //            echo ", Szpital insert OK";
-//            $TakeLastId = "SELECT `idSzpital` FROM `Szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica';";
+//            $TakeLastId = "SELECT `idSzpital` FROM $baza`szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica';";
 //            $mysql_q1 = mysqli_query($DBConn,$TakeLastId);
 //            $row_id = mysql_fetch_assoc($mysql_q1);
 //            $ID_last_con = $row_id[0];
@@ -306,7 +307,7 @@ include 'Functions/functions.php';
         }
     }else if($miejsce_urodzenia_quest == 1 && !$CzyIdwBD && !$czyPustaNazwa){
 //        echo ", [WCHODZE DO INSERT InneMiejsce!!!!]";
-        $InneMiejsceSql = "INSERT INTO `bartilev_Klinika`.`Inne_miejsca` "
+        $InneMiejsceSql = "INSERT INTO $baza`inne_miejsca` "
                 . "(`idInne_miejsca`, `nazwa`, `place_ulica`, `place_nr`, `place_nr_mieszkanie`, "
                 . "`place_kod_poczt`, `place_miasto`, `place_kraj`) "
                 . "VALUES (NULL, '$miejsce_urodzenia', '$urodz_ulica', '$urodz_ulica_nr', '$urodz_ulica_nr_mieszkanie', '$urodz_kod_poczt', '$urodz_miasto', '$urodz_kraj');";
@@ -330,7 +331,7 @@ include 'Functions/functions.php';
   
 //        echo ", Wchodzę do Formularza";
 //        echo ", ID ostatniego miejsca: [$ID_last_con]";
-        $sql_which_wpis = "SELECT `ID_Wpisu` FROM `Formularz` WHERE year(`data_utworzenia`) = year('$data_utworzenia');";
+        $sql_which_wpis = "SELECT `ID_Wpisu` FROM $baza`formularz` WHERE year(`data_utworzenia`) = year('$data_utworzenia');";
         $mq_01 = mysqli_query($DBConn,$sql_which_wpis);
         
         $array_ID = array();
@@ -374,7 +375,7 @@ include 'Functions/functions.php';
         
         // Sprawdzenie czy taki formularz już jest w BD (wg. ID_Wpis i danych wprowadzanych)
 //        $data_temp = substr($data_urodzenia_dziecko, 0,10);        // uzyskanie formatu daty rrrr-mm-dd
-        $IsFormularzInDB_sql = "SELECT `ID_Wpisu` FROM `Formularz` WHERE `Matka_idMatka` = '$Last_Mama_ID' AND `imie_dziecka` = '$imie_dziecka' AND `data_urodzenia_dziecko` = '$data_urodzenia_dziecko';";
+        $IsFormularzInDB_sql = "SELECT `ID_Wpisu` FROM $baza`formularz` WHERE `Matka_idMatka` = '$Last_Mama_ID' AND `imie_dziecka` = '$imie_dziecka' AND `data_urodzenia_dziecko` = '$data_urodzenia_dziecko';";
         
         $msql_q_FID = mysqli_query($DBConn,$IsFormularzInDB_sql);
         
@@ -396,7 +397,7 @@ include 'Functions/functions.php';
         // Uzyskanie idSzpitala albo idInneMiejsce DO FORMULARZA!!
         if($miejsce_urodzenia_quest == 0){
 //            echo "WCHODZE[".__LINE__."]";
-            $TakeLastId = "SELECT `idSzpital` FROM `Szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica';";
+            $TakeLastId = "SELECT `idSzpital` FROM $baza`szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica';";
             $mysql_q1 = mysqli_query($DBConn,$TakeLastId);
             if (mysqli_num_rows($mysql_q1) > 0) {
                 while($row = mysqli_fetch_assoc($mysql_q1)) {
@@ -407,7 +408,7 @@ include 'Functions/functions.php';
             }
         }else{
 //            echo "WCHODZE[".__LINE__."]";
-            $TakeLastId = "SELECT `idInne_miejsca` FROM `Inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia'";
+            $TakeLastId = "SELECT `idInne_miejsca` FROM $baza`inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia'";
             $mysql_q1 = mysqli_query($DBConn,$TakeLastId);
             if (mysqli_num_rows($mysql_q1) > 0) {
                 while($row = mysqli_fetch_assoc($mysql_q1)) {
@@ -427,7 +428,7 @@ include 'Functions/functions.php';
         
         echo "[DATA: ($data_utworzenia)($dataUtw_rok)($NEW_FORM_ID)]";
         
-        $FormularzSql = "INSERT INTO `bartilev_Klinika`.`Formularz` ( "
+        $FormularzSql = "INSERT INTO $baza`formularz` ( "
                 . "`ID_Wpisu`, `data_utworzenia`, `Matka_idMatka`, `imie_dziecka`, "
                 . "`data_urodzenia_dziecko`, `ktore_dziecko`,`urodzone_czas`, `ile_wczesniej`, "
                 . "`porod`, `jaki_porod`, `leki_porod`, `leki_polog`,`powod_zgloszenia`,`miejsce`,`id_SzpitalOrInne`) "
@@ -437,7 +438,7 @@ include 'Functions/functions.php';
                 . "'$porod', '$jaki_porod', '$leki_porod', '$leki_polog','$powod_zgloszenia','$miejsce_urodzenia_quest','$ID_last_con');";
         
         // Kloejnośc prawidłowa ID_Wpis(string)
-        $ID_Wpis_queue = "INSERT INTO `bartilev_Klinika`.`id_wpis_queue`(`ID_Wpis`, `ID`, `Rok`) "
+        $ID_Wpis_queue = "INSERT INTO $baza`id_wpis_queue`(`ID_Wpis`, `ID`, `Rok`) "
                 . "VALUES ('$NEW_FORM_ID','$id_temp','$dataUtw_rok')";
         
         $IsForm1OK = false;
@@ -469,7 +470,7 @@ include 'Functions/functions.php';
 // FORM2 - wprowadzanie jęśli wszedł form 1       
         If($IsForm1OK){
             // FORM2                 
-                $Formularz2Sql = "INSERT INTO `Formularz_2`"
+                $Formularz2Sql = "INSERT INTO $baza`formularz_2`"
                         . "(`Formularz_ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
                         . "`problem_dziecko_opis`,`problem_mama`, `problem_mama_opis`,`karimienie_piersia`,"
                         . "`karimienie_piersia_opis`,`kapturek`,`kapturek_opis`,`dopajanie`,`dopajanie_czym`,`dopajanie_jak_dlugo`,"
@@ -495,7 +496,7 @@ include 'Functions/functions.php';
                     echo "[Form2 ERROR][$Formularz2Sql]";
                 }
                 
-                $Formularz3Sql = "INSERT INTO `formularz_3`"
+                $Formularz3Sql = "INSERT INTO $baza`formularz_3`"
                         . "(`Formularz_ID_Wpisu`,`piers_wielkosc`,`cycki`,`cycki_jakie`,`brodawka`,`brodawka_jaka`,"
                         . "`zmiany`,`zmiany_opis`,`stan_emocjonalny`,`obserwacja_dziecka`,"
                         . "`masa_ur`,`data_01`,`masa_min`,`data_02`,"
