@@ -68,8 +68,88 @@ apka.controller("ControllerFormularz", function($scope,$http){
     $scope.leki_polog = "Pentadrenax śliwkowy 100g/cycek";
     $scope.powod_zgloszenia = "Dziecko gryzie mamę a nie jabłka i kość";
     $scope.pierwsze_karmienie = "od razu, ledwie podniósł sznycel z ziemi";
+    $scope.problem_dziecko = 1;
+    $scope.problem_dziecko_opis = "dziecko zachowuje się dziwnie";
+    $scope.problem_mama = 1;
+    $scope.problem_mama_opis = "mama zachowuje się jeszcze dziwniej";
+    $scope.karimienie_piersia = 1;
+    $scope.karimienie_piersia_opis = "karmienie piersią wygląda wspaniale";
+    $scope.kapturek = 1;
+    $scope.kapturek_opis = "kpturek opisany";
+    $scope.dopajanie =1;
+    $scope.dopajanie_czym ="wódką";
+    $scope.dopajanie_jak_dlugo = "3lata";
+    $scope.dopajanie_opis ="co tam było w butelce";
+    $scope.nawal =1;
+    $scope.nawal_opis = "nawalony opis";
+    $scope.problem_dziecko = 1;
+    $scope.problem_dziecko_opis = "dziecko zachowuje się dziwnie";
+    $scope.problem_mama = 1;
+    $scope.problem_mama_opis = "mama zachowuje się jeszcze dziwniej";
+    $scope.karimienie_piersia = 1;
+    $scope.karimienie_piersia_opis = "karmienie piersią wygląda wspaniale";
+    $scope.kapturek = 1;
+    $scope.kapturek_opis = "kpturek opisany";
+    $scope.dopajanie = 1;
+    $scope.dopajanie_czym ="wódką";
+    $scope.dopajanie_jak_dlugo = "3lata";
+    $scope.dopajanie_opis ="co tam było w butelce";
+    $scope.nawal =1;
+    $scope.nawal_opis = "nawalony opis"
+
+    $scope.karmienie_piers=1;
+    $scope.karmienie_piers_czest = "zawsze";
+    $scope.karmienie_piers_dlugo = "3lata";
+    $scope.kapturek2 = 1;
+    $scope.kapturek2_opis = "kapturek2 opis";
+    $scope.dopajanie2 = 1;
+    $scope.dopajanie2_czym = "wino musujące";
+    $scope.dopajanie2_jak_dlugo = "codziennie";
+    $scope.dopajanie2_opis ="picie, picie, picei";
+    $scope.karmienie_noc = 1;
+    $scope.karmienie_noc_opis = "opis karmienia noca";
+    $scope.sciaganie_pokarm = 1;
+    $scope.sciaganie_pokarm_cel = "nieznany";
+    $scope.sciaganie_pokarm_ile = "ile trzeba";
+    $scope.pieluchy = "tak";
+    $scope.stolec = "smaczny";
+    $scope.aktywnosc   = "znaczna";                                     
+    $scope.zachowanie_karmienia = "Zachowuje się wspaniale";
+    $scope.kolka = 1;
+    $scope.uspokajacz = 1;
+    $scope.uspokajacz_opis = "bardzo uspokajacz";
+    $scope.leki_matka = "Perniloftaleina waginalna 200mg";
+    $scope.leki_dziecko = "laktopiszczatol nawzjebny 20mg/kg";
     
+    $scope.cycki_jakie = "wielkie";
+
+    $scope.brodawka_jaka = "żarliwa";
+    $scope.zmiany = 1;
+    $scope.zmiany_opis = "zmainy są wielkie";
+    $scope.stan_emocjonalny = "stan emocjonalny mnie powalił";
+    $scope.obserwacja_dziecka = "dziecko jest czarne i nie nadaje się do prania";
+    $scope.masa_ur = 123.34;
+    $scope.data_01 = "2015-02-01";
+    $scope.masa_min = 11.25;
+    $scope.data_02
+    $scope.masa_inne_a = 35.25;
+    $scope.masa_inne_b = 4563.25;
+    $scope.masa_inne_c = 5463.21;
+    $scope.masa_inne_d = 585.32;
+    $scope.masa_inne_e = 2451.32;
+    $scope.masa_inne_f = 6654.21;
+    $scope.masa_obecna = 4585.32;
+    $scope.przyrost_sredni = 14585.32;
     
+    $scope.zachowanie_dziecka_wizyta = "dziecko zachowuje sie wyniośle";
+    $scope.otwieranie_ust = 1;
+    $scope.ulozenie_ust=1;
+    $scope.ulozenie_jezyka=1;
+    $scope.ruchy_kasajace=1;
+    $scope.ruchy_ssace=1
+    $scope.ocena_karmienie_piers = "Karmienie przy piersi satysfakcjonuje obie strony";
+    $scope.rozpoznanie = "Rozpoznano pierś prawdziwą (cycus factus)";
+        
     $scope.cycki_parts = [
       {
         "shape": "poly",
@@ -134,6 +214,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
 //        operator: 'normalny'
     };
     
+    // DO select: brodawka
     $scope.operatorsBrodawka = [
         {value: 'prawidlowa', displayName: 'prawidłowa'},
         {value: 'rzekomo_wklesla', displayName: 'rzekomo wklęsła'},
@@ -205,7 +286,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
               dopajanie_opis:               $scope.dopajanie_opis,
               nawal:                        $scope.nawal,
               nawal_opis:                   $scope.nawal_opis,
-              pobyt:                        $scope.pobyt.valueOf(),
+              pobyt:                        $scope.pobyt,
               karmienie_piers:              $scope.karmienie_piers,
               karmienie_piers_czest:        $scope.karmienie_piers_czest,
               karmienie_piers_dlugo:        $scope.karmienie_piers_dlugo,
@@ -226,6 +307,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
               ,zachowanie_karmienia:        $scope.zachowanie_karmienia
               ,kolka:                       $scope.kolka
               ,uspokajacz:                  $scope.uspokajacz
+              ,uspokajacz_opis:             $scope.uspokajacz_opis
               ,leki_matka:                  $scope.leki_matka
               ,leki_dziecko:                $scope.leki_dziecko
               
@@ -236,7 +318,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
               
               //cyce
               ,obszar:                      $scope.obszar
-              ,kicha:                       $scope.kicha
+//              ,kicha:                       $scope.kicha
               
               ,brodawka:                    $scope.filterConditionBrodawka.operator.value
               ,brodawka_jaka:               $scope.brodawka_jaka
@@ -264,6 +346,21 @@ apka.controller("ControllerFormularz", function($scope,$http){
               
               ,masa_obecna:                 $scope.masa_obecna
               ,data_04:                     $scope.data_04
+              ,przyrost_sredni:             $scope.przyrost_sredni
+              
+              ,zachowanie_dziecka_wizyta:   $scope.zachowanie_dziecka_wizyta
+              ,otwieranie_ust:              $scope.otwieranie_ust
+              ,ulozenie_ust:                $scope.ulozenie_ust
+              ,ulozenie_jezyka:             $scope.ulozenie_jezyka
+              ,ruchy_kasajace:              $scope.ruchy_kasajace
+              ,ruchy_ssace:                 $scope.ruchy_ssace
+              ,ocena_karmienie_piers:                 $scope.ocena_karmienie_piers
+              ,rozpoznanie:                 $scope.rozpoznanie
+              ,korekta_poz:                 $scope.korekta_poz
+              ,trening_ssania:                 $scope.trening_ssania
+              ,dokarmianie:                 $scope.dokarmianie
+              
+              ,zalecenia_inne:                 $scope.zalecenia_inne
               
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)

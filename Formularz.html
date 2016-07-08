@@ -300,7 +300,7 @@
                       
 
 <!-- div ng-include="'Formularz_2.html'"></div-->
-                    <!-- POWÓD ZGŁOSZENIA -->
+<!-- POWÓD ZGŁOSZENIA -->
                       <div class="form-group form-buffer-npa">
                           <h2>Powód zgłoszenia </h2>
                           <div class="form-group">
@@ -849,11 +849,112 @@
                                 <p class="col-sm-12"></p>
                                 <label class="col-sm-3 control-label">przyrost średni</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" type="number" min='0' step='0.01' placeholder="0,00" ng-model="przyrost_sredni"">
+                                        <input class="form-control" type="number" min='0' step="0.01" placeholder="0,00" ng-model="przyrost_sredni">
                                     </div>
                           </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Zachowanie dziecka w trakcie wizyty</label>
+                                   <div class="col-sm-7">
+                                        <textarea class="form-control" type="text" placeholder="zachowanie dziecka" ng-model="zachowanie_dziecka_wizyta"></textarea>
+                                    </div>
+                           </div>
                       </div>
-                      
+ <!-- MECHANIZM SSANIA -->
+                      <div class="form-group form-buffer-pa">
+                          <h2>Mechanizm ssania </h2>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Otwieranie ust</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="OtwUst_radio" ng-model="otwieranie_ust" ng-value="0" >wystarczjące</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="OtwUst_radio" ng-model="otwieranie_ust" ng-value="1">niewystarczjące</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                            <label class="col-sm-3 control-label">Ułożenie ust</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="UloUst_radio" ng-model="ulozenie_ust" ng-value="0" >wywinięte</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="UloUst_radio" ng-model="ulozenie_ust" ng-value="1">wciągnięte</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                            <label class="col-sm-3 control-label">Ułożenie języka</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="UloJez_radio" ng-model="ulozenie_jezyka" ng-value="0" >do przodu</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="UloJez_radio" ng-model="ulozenie_jezyka" ng-value="1">cofnięty</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                            <label class="col-sm-3 control-label">Ruchy kąsająe</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="RuKas_radio" ng-model="ruchy_kasajace" ng-value="0" >nieobecne</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="RuKas_radio" ng-model="ruchy_kasajace" ng-value="1">obecne</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                            <label class="col-sm-3 control-label">Ruchy ssące</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="RuSsa_radio" ng-model="ruchy_ssace" ng-value="0" >głębokie</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="RuSsa_radio" ng-model="ruchy_ssace" ng-value="1">płytkie</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                           </div>
+                           <div class="form-group">
+                            <label class="col-sm-3 control-label">Ocena karmienia przy piersi</label>
+                                   <div class="col-sm-7">
+                                        <textarea class="form-control" type="text" placeholder="Ocena karmienia przy piersi" ng-model="ocena_karmienie_piers"></textarea>
+                                    </div>
+                           </div>
+                      </div>
+<!-- ROZPOZNANIE -->
+                      <div class="form-group form-buffer-npa">
+                          <h2>Rozpoznanie</h2>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Rozpoznanie</label>
+                                   <div class="col-sm-7">
+                                        <textarea class="form-control" type="text" placeholder="rozpoznanie" ng-model="rozpoznanie"></textarea>
+                                    </div>
+                           </div>
+                      </div>
+<!-- ZALECENIA -->
+                      <div class="form-group form-buffer-pa">
+                          <h2>Zalecenia</h2>
+                          <div class="form-group">
+                                <label class="col-sm-3 control-label">Korekta pozycji</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="KorPoz_radio" ng-model="korekta_poz" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="KorPoz_radio" ng-model="korekta_poz" ng-value="1">tak</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                                <label class="col-sm-3 control-label">trening ssania</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="TrSsa_radio" ng-model="trening_ssania" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="TrSsa_radio" ng-model="trening_ssania" ng-value="1">tak</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                                <label class="col-sm-3 control-label">dokarmianie</label>
+                                  <div class="radio col-sm-2" >
+                                      <label><input type="radio" name="Dokar_radio" ng-model="dokarmianie" ng-value="0" >nie</label>
+                                    </div>
+                                    <div class="radio col-sm-2">
+                                      <label><input type="radio" name="Dokar_radio" ng-model="dokarmianie" ng-value="1">tak</label>
+                                    </div>
+                                <p class="col-sm-12"></p>
+                            <label class="col-sm-3 control-label">inne</label>
+                                   <div class="col-sm-7">
+                                        <textarea class="form-control" type="text" placeholder="zalecenia inne" ng-model="zalecenia_inne"></textarea>
+                                    </div>
+                           </div>
+                      </div>
                       
 <!-- SUBMIT -->
                         <button type="submit" class="btn btn-success btn-lg btn-block">
