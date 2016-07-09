@@ -49,10 +49,19 @@
           <thead>
               <tr>
                 <th>ID_Wpisu</th>
-                <th>data_utworzenia</th>
+                <th>data_utworzenia
+                      <button type="button" ng-click="TakeDatainOrder('data_utworzenia','down')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
+                      <button type="button" ng-click="TakeDatainOrder('data_utworzenia','up')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>                
+                </th>
                 <th>Imie Mamy</th>
-                <th>Nazwisko mamy</th>
-                <th>imie dziecka</th>
+                <th>Nazwisko mamy
+                      <button type="button" ng-click="TakeDatainOrder('mama_lastname','down')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
+                      <button type="button" ng-click="TakeDatainOrder('mama_lastname','up')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>
+                </th>
+                <th>imie dziecka
+                      <button type="button" ng-click="TakeDatainOrder('imie_dziecka','down')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
+                      <button type="button" ng-click="TakeDatainOrder('imie_dziecka','up')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>
+                </th>
                 <th>które dziecko</th>
               </tr>
             </thead>
@@ -67,7 +76,7 @@
               </tr>
             </tbody>
         </table>
-          
+      </form>    
           
           
           

@@ -370,7 +370,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
             document.getElementById("message").textContent = "OK: "+data;
         });
     request.error(function (data) {
-//            alert(data);
+            alert(data);
             document.getElementById("message").textContent = "error: "+data;
         }); 
     };
@@ -440,7 +440,3 @@ apka.controller("ControllerFormularz", function($scope,$http){
         return years + " lat i " + months + " mieś. i "+ dagar + "dni";
     }; 
 });
-
-
-  
-

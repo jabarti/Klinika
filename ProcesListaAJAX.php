@@ -2,9 +2,9 @@
 
 /****************************************************
  * Project:     Klinika
- * Filename:    QuerryAJAX.php
+ * Filename:    ProcesAJAX.php
  * Encoding:    UTF-8
- * Created:     2016-06-22
+ * Created:     2016-06-20
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
@@ -15,7 +15,15 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $baza = "`bartilev_klinika`";
 
-$SQL_View_mama_dziecko = "SELECT * FROM $baza.`view_matka_dziecko`;";
+$var_search = $_GET["var_search"];
+$var_upordown = $_GET["var_upordown"];
+if($var_upordown == "down"){
+    $how = "ASC";
+}else{
+    $how = "DESC";
+}
+
+$SQL_View_mama_dziecko = "SELECT * FROM $baza.`view_matka_dziecko` order by `$var_search` $how;";
 
 $result = mysqli_query($DBConn, $SQL_View_mama_dziecko);
 
@@ -27,7 +35,7 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     $outp .= '"mama_firstname":"'  . $rs["mama_firstname"] . '",';
     $outp .= '"mama_lastname":"'   . $rs["mama_lastname"]        . '",';
     $outp .= '"imie_dziecka":"'   . $rs["imie_dziecka"]        . '",';
-    $outp .= '"ktore_dziecko":"'. $rs["ktore_dziecko"]     . '"}'; 
+    $outp .= '"ktore_dziecko":"'. $rs["ktore_dziecko"]    . '"}'; 
 }
 $outp ='{"records":['.$outp.']}';
 //$conn->close();
