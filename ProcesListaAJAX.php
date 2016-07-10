@@ -2,7 +2,7 @@
 
 /****************************************************
  * Project:     Klinika
- * Filename:    ProcesAJAX.php
+ * Filename:    ProcesListaAJAX.php
  * Encoding:    UTF-8
  * Created:     2016-06-20
  *
@@ -14,16 +14,31 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 $baza = "`bartilev_klinika`";
+$where = "";
+$order = "";
 
-$var_search = $_GET["var_search"];
-$var_upordown = $_GET["var_upordown"];
-if($var_upordown == "down"){
-    $how = "ASC";
-}else{
-    $how = "DESC";
+if(isset($_GET["var_search"])){
+    $var_search = $_GET["var_search"];
+    $var_upordown = $_GET["var_upordown"];
+
+    if($var_upordown == "down"){
+        $order = "order by `$var_search` ASC";
+    }else{
+        $order = "order by `$var_search` DESC";
+    }
 }
 
-$SQL_View_mama_dziecko = "SELECT * FROM $baza.`view_matka_dziecko` order by `$var_search` $how;";
+if(isset($_GET['mama_lastname'])){
+    $mama_lastname  = $_GET['mama_lastname'];
+
+    if ($mama_lastname == ""){
+        $where = "";
+    }else{
+        $where = "WHERE `mama_lastname` LIKE '%$mama_lastname%'";
+    }
+}
+
+$SQL_View_mama_dziecko = "SELECT * FROM $baza.`view_matka_dziecko` $where $order;";
 
 $result = mysqli_query($DBConn, $SQL_View_mama_dziecko);
 

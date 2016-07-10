@@ -17,9 +17,26 @@ apka.controller("ControllerLista", function($scope,$http){
         var var_search = var_search;
         var var_upordown = var_upordown;
         var url = "ProcesListaAJAX.php?var_search="+var_search+"&var_upordown="+var_upordown;
-//        alert(url)
+        alert(url)
         $http.get(url)
-            .then(function (response) {$scope.wpisy = response.data.records;});
+            .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;});
+    };
+    
+    $scope.SearchMom = function(mamas_name){
+        alert(mamas_name)
+//        var mama_lastname = mamas_name;
+        var url = "ProcesListaAJAX.php?mama_lastname="+mamas_name;
+        alert(url)
+        $http.get(url)
+            .then(
+            function SuccesCallback(response) {
+                $scope.wpisy = response.data.records;
+            }, 
+            function ErrorCallback(response){
+                alert("error: "+response +"/"+ response.data);
+            }
+            );
+
     };
 
 });

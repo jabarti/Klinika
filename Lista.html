@@ -44,6 +44,17 @@
       </div>
       
       <div class="container" ng-controller='ControllerLista'>
+       <form class="form-horizontal" role="form">   
+            <label class="col-sm-3 control-label">nazwisko mamy</label>
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" value="podaj nazwisko mamy" ng-model="mama_lastname">
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" ng-click="SearchMom(mama_lastname)" class="btn btn-success btn-xs">szukaj</button>
+                </div>
+       </form>
+          
+          
 
           <table class="table table-striped">
           <thead>
@@ -76,12 +87,6 @@
               </tr>
             </tbody>
         </table>
-      </form>    
-          
-          
-          
-          
-          
       </div>
   </body>
 </html>
