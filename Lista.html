@@ -44,17 +44,20 @@
       </div>
       
       <div class="container" ng-controller='ControllerLista'>
-       <form class="form-horizontal" role="form">   
-            <label class="col-sm-3 control-label">nazwisko mamy</label>
+       <form class="form-horizontal" role="form">
+           <div class="form-group form-buffer-pa">
+            <p class="col-sm-12"></p>
+            <label class="col-sm-2 control-label">Szukaj nazwisko mamy</label>
                 <div class="col-sm-3">
                     <input class="form-control" type="text" value="podaj nazwisko mamy" ng-model="mama_lastname">
                 </div>
                 <div class="col-sm-3">
-                    <button type="button" ng-click="SearchMom(mama_lastname)" class="btn btn-success btn-xs">szukaj</button>
+
+                    <button type="button" ng-click="SearchData(mama_lastname)" class="btn btn-success">Szukaj</button>
                 </div>
+            <p class="col-sm-12"></p>
+           </div>
        </form>
-          
-          
 
           <table class="table table-striped">
           <thead>
@@ -74,6 +77,7 @@
                       <button type="button" ng-click="TakeDatainOrder('imie_dziecka','up')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>
                 </th>
                 <th>które dziecko</th>
+                <th>Usuń</th>
               </tr>
             </thead>
             <tbody>
@@ -84,6 +88,7 @@
                 <td>{{ x.mama_lastname }}</td>
                 <td>{{ x.imie_dziecka }}</td>
                 <td>{{ x.ktore_dziecko }}</td>
+                <td><button type="button" ng-click="DeleteRecord(x.ID_Wpisu)" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button></td>
               </tr>
             </tbody>
         </table>

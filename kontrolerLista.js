@@ -16,17 +16,17 @@ apka.controller("ControllerLista", function($scope,$http){
 //        alert(var_search +" "+ var_upordown);
         var var_search = var_search;
         var var_upordown = var_upordown;
-        var url = "ProcesListaAJAX.php?var_search="+var_search+"&var_upordown="+var_upordown;
-        alert(url)
+        var url = "ProcesListaAJAX.php?switch=TakeDatainOrder&var_search="+var_search+"&var_upordown="+var_upordown;
+//        alert(url)
         $http.get(url)
             .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;});
     };
     
-    $scope.SearchMom = function(mamas_name){
-        alert(mamas_name)
+    $scope.SearchData = function(mamas_name){
+//        alert(mamas_name)
 //        var mama_lastname = mamas_name;
-        var url = "ProcesListaAJAX.php?mama_lastname="+mamas_name;
-        alert(url)
+        var url = "ProcesListaAJAX.php?switch=SearchData&mama_lastname="+mamas_name;
+//        alert(url)
         $http.get(url)
             .then(
             function SuccesCallback(response) {
@@ -38,6 +38,14 @@ apka.controller("ControllerLista", function($scope,$http){
             );
 
     };
+    
+    $scope.DeleteRecord = function(id_record){
+        alert(id_record);
+        var url = "ProcesListaAJAX.php?switch=DeleteRecord&id_record="+id_record;
+        alert(url)
+        $http.get(url)
+            .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;});
+    }
 
 });
 
