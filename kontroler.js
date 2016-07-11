@@ -370,8 +370,8 @@ apka.controller("ControllerFormularz", function($scope,$http){
             document.getElementById("message").textContent = "OK: "+data;
         });
     request.error(function (data) {
-            alert(data);
-            document.getElementById("message").textContent = "error: "+data;
+            alert("ERROR: "+data);
+            document.getElementById("message").textContent = "ERROR: "+data;
         }); 
     };
 

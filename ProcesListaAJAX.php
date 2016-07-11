@@ -16,6 +16,7 @@ header("Content-Type: application/json; charset=UTF-8");
 $baza = "`bartilev_klinika`";
 $where = "";
 $order = "";
+$comm = "";
 
 if(isset($_GET['switch']) && $_GET['switch'] = 'DeleteRecord'){
     $id_record = $_GET['id_record'];
@@ -31,10 +32,21 @@ if(isset($_GET['switch']) && $_GET['switch'] = 'DeleteRecord'){
             mysqli_query($DBConn, $SQL_Delete_3);
             
             if( mysqli_query($DBConn, $SQL_Delete_3)){
-            $SQL_Delete_4 = "DELETE FROM $baza.`view_matka_dziecko` WHERE `ID_Wpisu`  = '$id_record';"; 
+            $SQL_Delete_4 = "DELETE FROM $baza.`id_wpis_queue` WHERE `ID_Wpis`  = '$id_record';"; 
             mysqli_query($DBConn, $SQL_Delete_4);
+            if(mysqli_query($DBConn, $SQL_Delete_4)){
+                $comm .= "[All OK!]";
+            }else{
+                $comm .= "[ERR: $SQL_Delete_4]";
             }
+            }else{
+                $comm .= "[ERR: $SQL_Delete_3]";
+            }
+        }else{
+            $comm .= "[ERR: $SQL_Delete_2]";
         }
+    }else{
+        $comm .= "[ERR: $SQL_Delete]";
     }
 }
 //    $caseVal = $_GET['switch'];
@@ -110,7 +122,7 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     $outp .= '"mama_firstname":"'  . $rs["mama_firstname"] . '",';
     $outp .= '"mama_lastname":"'   . $rs["mama_lastname"]        . '",';
     $outp .= '"imie_dziecka":"'   . $rs["imie_dziecka"]        . '",';
-    $outp .= '"ktore_dziecko":"'. $rs["ktore_dziecko"]    . '"}'; 
+    $outp .= '"ktore_dziecko":"'. $rs["ktore_dziecko"]    . $comm.'"}'; 
 }
 $outp ='{"records":['.$outp.']}';
 //$conn->close();

@@ -537,5 +537,7 @@ $baza = "`bartilev_klinika`";
                     echo "[Form3 ERROR][$Formularz3Sql]";
                 }
                 
+        }else{
+            echo "IsForm1OK:[$IsForm1OK]";
         }
         
