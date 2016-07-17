@@ -7,13 +7,13 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 
-apka.controller("ControllerEdit", function($scope,$http){
+apka.controller("ControllerEdit", function($scope,$http,Datas){
     // nazwy
     $scope.menu_btn_01 = "Home";
     $scope.menu_btn_02 = "Nowy Formularz";
     $scope.menu_btn_02_try = "FormularzTRY";
     $scope.menu_btn_03 = "Do Svenska";
-    $scope.menu_btn_04 = "Lista";
+    $scope.menu_btn_04 = "Lista"; 
     
     $scope.Title_Page_01 = "Klinika";
     $scope.Title_Page_02 = "Lista";

@@ -6,8 +6,50 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
+apka.controller("ControllerFormularz", function($scope,$http,Datas){
+    
+    function myIP() {
+         var request = {
+             method: 'POST',
+             url : 'LoginAJAX.php?action=IP'
+         };
+         $http(request).success(function(data){
+//             alert("IP:"+data.IP);
+//             alert("IP2:"+data.IP2);
+//             $scope.AAAA = data.IP
+            $scope.AAAA =  data.IP2;
+         });
+         $http(request).error(function(data, status){
+             alert(data);
+         });  
+    };
+    myIP();
+    
 
-apka.controller("ControllerFormularz", function($scope,$http){
+    
+    logOut = function(){
+         var request = {
+             method: 'POST',
+             url : 'LoginAJAX.php?action=logOut'
+         };
+         $http(request).success(function(data){
+//             alert(data.SQL)
+//             alert("OK, \n outp:("+data.outp+")\n action:("+data.actions+")\n sql:("+data.SQL+")")
+//             
+//             // test data
+             $scope.user.email = 'jabarti@wp.pl';
+             $scope.user.pass = 'bml75bml75';
+
+            $scope.correctLogIn = false;
+            window.location.href = 'index.html';
+         });
+         $http(request).error(function(data, status){
+             alert(data.SQL);
+         });   
+    };
+    
+//    $scope.AAAA = Datas.getLogCru();
+
     // nazwy
     $scope.menu_btn_01 = "Home";
     $scope.menu_btn_02 = "Nowy Formularz";
@@ -181,6 +223,7 @@ apka.controller("ControllerFormularz", function($scope,$http){
 
 //    alert($scope.odpowiedz_alla)
   };
+  
 
     
 //    var data_temp = $filter('date')(data_utworzenia, 'yyyy/mm/dd');

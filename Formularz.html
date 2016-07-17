@@ -27,6 +27,7 @@
     <script src="aplikacja.js" type="text/javascript"></script> <!-- aplikacja angularJS -->
     <script src="kontroler.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
     <script src="kontrolerLista.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
+    <script src="kontrolerLogin.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
 
     <script src="Functions/functions.js" type="text/javascript"></script><!-- -->
     
@@ -40,13 +41,18 @@
      <script src="js_source/angular-rwdImageMaps.js" type="text/javascript"></script>
   </head>
 
-  <body>
-     
-      <div class="container" ng-app='Klinika' ng-controller='ControllerFormularz'>
+  <body ng-app='Klinika'>
+    <div  class="container" data-ng-controller="formCtrl" data-ng-init="init();">  
+
+      <div data-ng-hide="correctLogIn"><button class="btn btn-primary" onclick="window.location.href='index.html'">Logowanie</button></div> 
+
+      <div data-ng-show="correctLogIn" class="container" ng-controller='ControllerFormularz'>
+         
         
-          <header><h1 class="head">{{Title_Page_01}}</h1></header>
+          <!--header><h1 class="head">{{Title_Page_01}}</h1></header-->
       
           <div ng-include="'View/Static/Menu.html'"></div>
+          <div class="pull-right" data-ng-show="correctLogIn">{{LOGCru}}</div> 
           
           <h1><u>Opisujesz panią (rodzic)<span style="color:blue;"> {{mama_firstname}} {{mama_lastname}}</span> i dziecko <span style="color:blue;">{{imie_dziecka}}</span></u></h1>
           
@@ -968,7 +974,9 @@
           <pre>
                 <span id="message"></span>
           </pre>
+        </div>
       <footer>Copyright by @Bartosz Lewiński</footer>
-      </div>
+      
+    </div>
   </body>
 </html>

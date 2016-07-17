@@ -7,11 +7,12 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
 ------------------------------------------------------>
-<html>
+<html data-ng-app="Klinika">
   <head>
-    <title>Klinika 1</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+
     <link rel="stylesheet" href="js_source/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css" />
@@ -25,38 +26,48 @@
     
     <script src="aplikacja.js" type="text/javascript"></script> <!-- aplikacja angularJS -->
     <script src="kontroler.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
-    <script src="kontrolerLista.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
+    <script src="kontrolerLogin.js" type="text/javascript"></script> <!-- glowny controller przypisany do aplikacji AngularJS -->
 
     <script src="Functions/functions.js" type="text/javascript"></script><!-- -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script><!-- -->
     <script src="js_source/bootstrap336.min.js"></script><!-- -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script><!-- -->
-    
-     <script src="js_source/mapper/mapper.js" type="text/javascript"></script><!-- -->
-     <script src="js_source/mapper/maputil.js" type="text/javascript"></script><!-- -->
-     <script src="js_source/angular-rwdImageMaps.min.js" type="text/javascript"></script>
-     <script src="js_source/angular-rwdImageMaps.js" type="text/javascript"></script>
-  </head>
+
+  </head> 
   <body>
-      <div class="container" ng-app='Klinika' ng-controller='ControllerFormularz'>
-        
-          <header><h1 class="head">{{Title_Page_01}}</h1></header>    
+      <div data-ng-controller="formCtrl" data-ng-init="init();"> 
+          <div ng-controller='ControllerFormularz' data-ng-show="correctLogIn" ng-include="'View/Static/Menu.html'"></div>
 
-          <div ng-include="'View/Static/Menu.html'"></div>
-
-           <div class="row">
-               <div class="col-md-12">
-                   <p>Input something in the input box:</p>
-                    <p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
-                    <h1>Ditt name {{name}}</h1>
-
-               </div>
-
-
-              
-          </div>
-      <footer>Copyright by @Bartosz Lewiński</footer>
+	<div class="panel">
+		<h3 class="panel-heading" ng-hide="correctLogIn">Login form</h3>
+		<h3 class="panel-heading" ng-show="correctLogIn">{{LOGCru}}</h3>
+		<form name="angularForm" class="panel-body" method="POST" novalidate action="//api.test/auth" data-ng-hide="correctLogIn" data-ng-submit="submitData($event)">
+				<fieldset class="well">
+					<div class="form-group">
+						<label for="email">E-mail: </label>
+						<input type="email" required name="email" id="email" class="form-control" data-ng-pattern="emailPattern" ng-model="user.email">
+						<div class="error" ng-show="angularForm.email.$invalid && angularForm.email.$dirty">
+							<span ng-show="angularForm.email.$error.pattern">Please enter a valid email address </span>
+							<span ng-show="angularForm.email.$error.required">Please enter a value</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="password">Password: </label>
+						<input type="password" required name="password" id="password" class="form-control" data-ng-minlength='6' data-ng-pattern="passPattern" data-ng-model="user.pass">
+						<div class="error" ng-show="angularForm.password.$invalid && angularForm.password.$dirty">
+							<span ng-show="angularForm.password.$error">Please enter a valid password (6 signs, at least one small or one capital letter and one nubmer)</span>
+						</div>
+					</div>
+					<input type="submit" value="Login" class="btn btn-primary btn-block" data-ng-disabled="angularForm.$invalid">
+				</fieldset>
+		</form>
+ 
+		<p class="bg-success login-info" data-ng-show="correctLogIn">Logowanie poprawne[{{correctLogIn}}]</p>
+		<p class="bg-warning login-info" data-ng-show="incorrectLogIn">Niepoprawne login lub hasło</p>
+		<p class="bg-danger login-info" data-ng-show="serverProblem">Błąd usługi</p>
+	</div>
       </div>
-  </body>
+      <footer>Copyright by @Bartosz Lewiński</footer>
+    </body>
 </html>

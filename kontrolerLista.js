@@ -7,10 +7,12 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 
-apka.controller("ControllerLista", function($scope,$http){
+apka.controller("ControllerLista", function($scope,$http,Datas){
     
      $http.get("QuerryAJAX.php")
     .then(function (response) {$scope.wpisy = response.data.records;});
+    
+    $scope.BBBB = Datas.getLogCru();
     
     $scope.TakeDatainOrder = function(var_search, var_upordown){
 //        alert(var_search +" "+ var_upordown);
@@ -19,7 +21,7 @@ apka.controller("ControllerLista", function($scope,$http){
         var url = "ProcesListaAJAX.php?switch=TakeDatainOrder&var_search="+var_search+"&var_upordown="+var_upordown;
 //        alert(url)
         $http.get(url)
-            .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;});
+            .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;}); 
     };
     
     $scope.SearchData = function(mamas_name){
