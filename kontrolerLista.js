@@ -12,16 +12,23 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
      $http.get("QuerryAJAX.php")
     .then(function (response) {$scope.wpisy = response.data.records;});
     
-    $scope.BBBB = Datas.getLogCru();
+//    $scope.BBBB = Datas.getLogCru();
     
     $scope.TakeDatainOrder = function(var_search, var_upordown){
-//        alert(var_search +" "+ var_upordown);
+        alert(var_search +" "+ var_upordown);
         var var_search = var_search;
         var var_upordown = var_upordown;
         var url = "ProcesListaAJAX.php?switch=TakeDatainOrder&var_search="+var_search+"&var_upordown="+var_upordown;
-//        alert(url)
+        alert(url)
         $http.get(url)
-            .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;}); 
+            .then(
+            function SuccesCallback(response) {
+                $scope.wpisy = response.data.records;
+            },
+            function ErrorCallback(response){
+                alert("ErrorCallback"+response)
+            }
+                    ); 
     };
     
     $scope.SearchData = function(mamas_name){
@@ -35,7 +42,7 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
                 $scope.wpisy = response.data.records;
             }, 
             function ErrorCallback(response){
-                alert("error: "+response +"/"+ response.data);
+                alert("error: "+response +"/"+ response.data.records.sql);
             }
             );
 
@@ -46,7 +53,13 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
         var url = "ProcesListaAJAX.php?switch=DeleteRecord&id_record="+id_record;
         alert(url)
         $http.get(url)
-            .then(function SuccesCallback(response) {$scope.wpisy = response.data.records;});
+            .then(
+            function SuccesCallback(response) {
+                $scope.wpisy = response.data.records;
+            },
+            function ErrorCallback(response){
+                alert("ErrorCallback"+response)
+            });
     }
 
 });

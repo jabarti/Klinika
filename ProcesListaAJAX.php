@@ -18,7 +18,7 @@ $where = "";
 $order = "";
 $comm = "";
 
-if(isset($_GET['switch']) && $_GET['switch'] = 'DeleteRecord'){
+if(isset($_GET['switch']) && $_GET['switch'] == 'DeleteRecord'){
     $id_record = $_GET['id_record'];
     $SQL_Delete = "DELETE FROM $baza.`formularz` WHERE `ID_Wpisu`  = '$id_record';"; 
     mysqli_query($DBConn, $SQL_Delete);
