@@ -15,11 +15,11 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
 //    $scope.BBBB = Datas.getLogCru();
     
     $scope.TakeDatainOrder = function(var_search, var_upordown){
-        alert(var_search +" "+ var_upordown);
+//        alert(var_search +" "+ var_upordown);
         var var_search = var_search;
         var var_upordown = var_upordown;
         var url = "ProcesListaAJAX.php?switch=TakeDatainOrder&var_search="+var_search+"&var_upordown="+var_upordown;
-        alert(url)
+//        alert(url)
         $http.get(url)
             .then(
             function SuccesCallback(response) {
@@ -28,7 +28,7 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
             function ErrorCallback(response){
                 alert("ErrorCallback"+response)
             }
-                    ); 
+            ); 
     };
     
     $scope.SearchData = function(mamas_name){
@@ -49,9 +49,9 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
     };
     
     $scope.DeleteRecord = function(id_record){
-        alert(id_record);
+//        alert(id_record);
         var url = "ProcesListaAJAX.php?switch=DeleteRecord&id_record="+id_record;
-        alert(url)
+//        alert(url)
         $http.get(url)
             .then(
             function SuccesCallback(response) {

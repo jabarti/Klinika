@@ -18,95 +18,64 @@ $where = "";
 $order = "";
 $comm = "";
 
-if(isset($_GET['switch']) && $_GET['switch'] == 'DeleteRecord'){
-    $id_record = $_GET['id_record'];
-    $SQL_Delete = "DELETE FROM $baza.`formularz` WHERE `ID_Wpisu`  = '$id_record';"; 
-    mysqli_query($DBConn, $SQL_Delete);
-    
-    if(mysqli_query($DBConn, $SQL_Delete)){
-        $SQL_Delete_2 = "DELETE FROM $baza.`formularz_2` WHERE `Formularz_ID_Wpisu`  = '$id_record';"; 
-        mysqli_query($DBConn, $SQL_Delete_2);
-        
-        if( mysqli_query($DBConn, $SQL_Delete_2)){
-            $SQL_Delete_3 = "DELETE FROM $baza.`formularz_3` WHERE `Formularz_ID_Wpisu`  = '$id_record';"; 
-            mysqli_query($DBConn, $SQL_Delete_3);
-            
-            if( mysqli_query($DBConn, $SQL_Delete_3)){
-            $SQL_Delete_4 = "DELETE FROM $baza.`id_wpis_queue` WHERE `ID_Wpis`  = '$id_record';"; 
-            mysqli_query($DBConn, $SQL_Delete_4);
-            if(mysqli_query($DBConn, $SQL_Delete_4)){
-                $comm .= "[All OK!]";
-            }else{
-                $comm .= "[ERR: $SQL_Delete_4]";
+if(isset($_GET['switch'])){
+    switch($_GET['switch']){
+        case 'TakeDatainOrder':
+            if(isset($_GET["var_search"])){
+                $var_search = $_GET["var_search"];
+                $var_upordown = $_GET["var_upordown"];
+
+                if($var_upordown == "down"){
+                    $order = "order by `$var_search` ASC";
+                }else{
+                    $order = "order by `$var_search` DESC";
+                }
             }
-            }else{
-                $comm .= "[ERR: $SQL_Delete_3]";
+            break;
+        case 'SearchData':
+            if(isset($_GET['mama_lastname'])){
+                $mama_lastname  = $_GET['mama_lastname'];
+
+                if ($mama_lastname == ""){
+                    $where = "";
+                }else{
+                    $where = "WHERE `mama_lastname` LIKE '%$mama_lastname%'";
+                }
             }
-        }else{
-            $comm .= "[ERR: $SQL_Delete_2]";
-        }
-    }else{
-        $comm .= "[ERR: $SQL_Delete]";
-    }
-}
-//    $caseVal = $_GET['switch'];
-//    switch($caseVal){
-//        case "TakeDatainOrder":
-//
-//            if(isset($_GET["var_search"])){
-//                $var_search = $_GET["var_search"];
-//                $var_upordown = $_GET["var_upordown"];
-//
-//                if($var_upordown == "down"){
-//                    $order = "order by `$var_search` ASC";
-//                }else{
-//                    $order = "order by `$var_search` DESC";
-//                }
-//            }
-//            break;
-//        case "SearchData":
-//
-//            if(isset($_GET['mama_lastname'])){
-//                $mama_lastname  = $_GET['mama_lastname'];
-//
-//                if ($mama_lastname == ""){
-//                    $where = "";
-//                }else{
-//                    $where = "WHERE `mama_lastname` LIKE '%$mama_lastname%'";
-//                }
-//            }
-//            break;
-//        case "DeleteRecord":
-//            
-//            $id_record = $_GET['id_record'];
-//            
-//            $SQL_Delete = "DELETE FROM $baza.`` WHERE  `ID_Wpisu`  = '$id_record';";
-//            
-//            break;
-//        
-//        default:
-//            break;
-//    }
-//}
+            break;
+        case 'DeleteRecord':
+                $id_record = $_GET['id_record'];
+                $SQL_Delete = "DELETE FROM $baza.`formularz` WHERE `ID_Wpisu`  = '$id_record';"; 
+                mysqli_query($DBConn, $SQL_Delete);
 
-if(isset($_GET["var_search"])){
-    $var_search = $_GET["var_search"];
-    $var_upordown = $_GET["var_upordown"];
+                if(mysqli_query($DBConn, $SQL_Delete)){
+                    $SQL_Delete_2 = "DELETE FROM $baza.`formularz_2` WHERE `Formularz_ID_Wpisu`  = '$id_record';"; 
+                    mysqli_query($DBConn, $SQL_Delete_2);
 
-    if($var_upordown == "down"){
-        $order = "order by `$var_search` ASC";
-    }else{
-        $order = "order by `$var_search` DESC";
-    }
-}
+                    if( mysqli_query($DBConn, $SQL_Delete_2)){
+                        $SQL_Delete_3 = "DELETE FROM $baza.`formularz_3` WHERE `Formularz_ID_Wpisu`  = '$id_record';"; 
+                        mysqli_query($DBConn, $SQL_Delete_3);
 
-if(isset($_GET['mama_lastname'])){
-    $mama_lastname  = $_GET['mama_lastname'];
-
-    if ($mama_lastname == ""){
-        $where = "";
-    }else{
-        $where = "WHERE `mama_lastname` LIKE '%$mama_lastname%'";
+                        if( mysqli_query($DBConn, $SQL_Delete_3)){
+                        $SQL_Delete_4 = "DELETE FROM $baza.`id_wpis_queue` WHERE `ID_Wpis`  = '$id_record';"; 
+                        mysqli_query($DBConn, $SQL_Delete_4);
+                        if(mysqli_query($DBConn, $SQL_Delete_4)){
+//                            $comm .= "[All OK!]";
+                        }else{
+                            $comm .= "[ERR: $SQL_Delete_4]";
+                        }
+                        }else{
+                            $comm .= "[ERR: $SQL_Delete_3]";
+                        }
+                    }else{
+                        $comm .= "[ERR: $SQL_Delete_2]";
+                    }
+                }else{
+                    $comm .= "[ERR: $SQL_Delete]";
+                }
+            break;
+        default:
+            break;
     }
 }
 
