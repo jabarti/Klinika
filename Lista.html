@@ -88,7 +88,7 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="x in wpisy">
-                        <td><a href='Edit.html?id_wpis={{x.ID_Wpisu }}' >{{ x.ID_Wpisu }}</a></td>
+                        <td><button class="btn btn-primary" ng-click="EditRecord(x.ID_Wpisu, 'editStart')" formtarget="_blank">{{ x.ID_Wpisu }}</button></td>
                         <td>{{ x.data_utworzenia }}</td>
                         <td>{{ x.mama_firstname }}</td>
                         <td>{{ x.mama_lastname }}</td>

@@ -31,6 +31,12 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
             ); 
     };
     
+    $scope.EditRecord = function(id_wpisu, aktion){
+        var url = "Edit.html#?id_wpis="+id_wpisu+"&aktion="+aktion
+//        alert(url)
+        window.open(url);
+    };
+    
     $scope.SearchData = function(mamas_name){
 //        alert(mamas_name)
 //        var mama_lastname = mamas_name;
@@ -52,14 +58,18 @@ apka.controller("ControllerLista", function($scope,$http,Datas){
 //        alert(id_record);
         var url = "ProcesListaAJAX.php?switch=DeleteRecord&id_record="+id_record;
 //        alert(url)
-        $http.get(url)
-            .then(
-            function SuccesCallback(response) {
-                $scope.wpisy = response.data.records;
-            },
-            function ErrorCallback(response){
-                alert("ErrorCallback"+response)
-            });
+
+        var del = confirm("Czy faktycznie skasować ten rekord?")
+        if(del == true){
+            $http.get(url)
+                .then(
+                function SuccesCallback(response) {
+                    $scope.wpisy = response.data.records;
+                },
+                function ErrorCallback(response){
+                    alert("ErrorCallback"+response)
+                });
+        }
     }
 
 });

@@ -8,22 +8,22 @@
  ***************************************************/
 apka.controller("ControllerFormularz", function($scope,$http,Datas){
     
-    function myIP() {
-         var request = {
-             method: 'POST',
-             url : 'LoginAJAX.php?action=IP'
-         };
-         $http(request).success(function(data){
-//             alert("IP:"+data.IP);
-//             alert("IP2:"+data.IP2);
-//             $scope.AAAA = data.IP
-            $scope.AAAA =  data.IP2;
-         });
-         $http(request).error(function(data, status){
-             alert(data);
-         });  
-    };
-    myIP();
+//    function myIP() {
+//         var request = {
+//             method: 'POST',
+//             url : 'LoginAJAX.php?action=IP'
+//         };
+//         $http(request).success(function(data){
+////             alert("IP:"+data.IP);
+////             alert("IP2:"+data.IP2);
+////             $scope.AAAA = data.IP
+//            $scope.AAAA =  data.IP2;
+//         });
+//         $http(request).error(function(data, status){
+//             alert(data);
+//         });  
+//    };
+//    myIP();
     
 
     
@@ -56,7 +56,7 @@ apka.controller("ControllerFormularz", function($scope,$http,Datas){
     $scope.menu_btn_02_try = "FormularzTRY";
     $scope.menu_btn_03 = "Do Svenska";
     $scope.menu_btn_04 = "Lista";
-    $scope.menu_btn_05 = "Edit";
+    $scope.menu_btn_05 = "Edycja";
     
     $scope.Title_Page_01 = "Klinika";
     $scope.Title_Page_02 = "Lista";
@@ -274,6 +274,7 @@ apka.controller("ControllerFormularz", function($scope,$http,Datas){
     $scope.processForm = function() {
         
       document.getElementById("message").textContent = "";
+      
       var request = $http({
           method  : 'POST',
           url     : "ProcesAJAX.php",
