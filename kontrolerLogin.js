@@ -121,6 +121,56 @@ apka.controller("formCtrl", function ($scope, $http, Datas) {
 
 		$event.preventDefault();
 	};
+        
+	$scope.EditData = function($event){
+		var dataObj = {
+				email : $scope.user.email,
+				pass : $scope.user.pass,
+		};
+
+		var request = {
+			method : 'POST',
+			url : 'LoginAJAX.php?action=editCrud',
+//                        action: 'logSubmitData',
+			data : dataObj
+		};
+
+		$http(request).success(function(data){
+
+//                        alert("OK"+data.SQL); 
+//                        alert("OK"+data.outp); 
+			$scope.serverProblem = false;
+			if(data.valid === true ) {
+//                                alert("OK, valid:"+data.valid);
+                                
+//                                alert("OK, info:"+data.info);
+				$scope.correctLogIn = true;
+//                                $window.location.href = "/Formularz.html";
+                                    try{
+//                                        Datas.setLogCru($scope.correctLogIn);
+//                                        alert("$scope.correctLogIn: "+$scope.correctLogIn)
+//                                        alert("Wynik:"+Datas.getLogCru())
+                                        history.go(0)
+                                    }catch(e){
+                                        alert(e)
+                                    }
+			} else {
+                                alert("NOT OK, valid:"+data.valid);
+			}
+//			$scope.clearForm();
+		});
+
+		$http(request).error(function(data, status){
+                        alert("NOT OK"+data.error); 
+			$scope.incorrectLogIn = false;
+			$scope.serverProblem = true;
+//			$scope.clearForm();
+		});
+                
+                
+
+		$event.preventDefault();
+	};
 
 	$scope.clearForm = function(){
 		$scope.user.email = "";

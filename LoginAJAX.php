@@ -97,10 +97,10 @@ if(isset($_GET['action'])){
                     
                     if($IP == $IP_DB){
                         $valid = true;
-                        $outp .= "[IP zgodne]";
+                        $outp .= "[IP zgodne]('$IP')('$IP_DB')";
                     }else{
                         $valid = false;
-                        $outp .= "[IP NIE zgodne]";
+                        $outp .= "[IP NIE zgodne]('$IP')('$IP_DB')";
                     }
                     
                     break;
@@ -147,6 +147,44 @@ if(isset($_GET['action'])){
                         $valid = true;
 
                         $SQL_set_crud = "UPDATE $baza.`users` SET `activ`=true,`last_logg`=CURRENT_TIMESTAMP ,`IP` = '$IP' WHERE `idUsers` = '".$rs['idUsers']."';";
+                        if( mysqli_query($DBConn, $SQL_set_crud)){
+                            $actions .="SQL_set_crud OK";
+                        }else{
+                            $error .="nie poszedł SQL_set_crud:[$SQL_set_crud]";
+                        }
+                    }
+                }else{
+                    $error .="nie poszedł SQL:$SQL";
+                }
+                
+                $Fin_Arr = array(
+                                "valid"=>$valid,
+                                "actions"=>$actions,
+                                "error"=>$error, 
+                                "SQL"=>$SQL, 
+                                "outp"=>$outp, 
+                                "SQL_set_crud"=>$SQL_set_crud);
+            }else{
+                $error = "puste:(log:$log)lub/i(pass:$pass)";
+            }
+            break;
+            
+        case 'editCrud':
+            $log = $request->email;
+            $pass = $request->pass;
+            
+            if($log!="" && $pass!=""){
+                $SQL = "SELECT * FROM $baza.`users` WHERE (`anvandersnamn` = '$log' OR `losenord` = '$pass') AND `email` = '$log';";
+
+                if($result = mysqli_query($DBConn, $SQL)){
+                    $rs = $result->fetch_array(MYSQLI_ASSOC);
+                    $outp = $rs['imie']." ".$rs['nazwisko'];
+                                        
+                    if($rs['idUsers']!=""){
+                        $valid = true;
+
+//                        $SQL_set_crud = "UPDATE $baza.`users` SET `activ`=true,`last_logg`=CURRENT_TIMESTAMP ,`IP` = '$IP' WHERE `idUsers` = '".$rs['idUsers']."';";
+                        $SQL_set_crud = "";
                         if( mysqli_query($DBConn, $SQL_set_crud)){
                             $actions .="SQL_set_crud OK";
                         }else{

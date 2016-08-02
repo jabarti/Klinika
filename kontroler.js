@@ -7,26 +7,7 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 apka.controller("ControllerFormularz", function($scope,$http,Datas){
-    
-//    function myIP() {
-//         var request = {
-//             method: 'POST',
-//             url : 'LoginAJAX.php?action=IP'
-//         };
-//         $http(request).success(function(data){
-////             alert("IP:"+data.IP);
-////             alert("IP2:"+data.IP2);
-////             $scope.AAAA = data.IP
-//            $scope.AAAA =  data.IP2;
-//         });
-//         $http(request).error(function(data, status){
-//             alert(data);
-//         });  
-//    };
-//    myIP();
-    
 
-    
     logOut = function(){
          var request = {
              method: 'POST',

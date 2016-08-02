@@ -21,8 +21,8 @@ apka.controller("ControllerEdit", function($scope,$location, $http,Datas){
         var aktion = $location.search().aktion;
 //        var absUrl = $location.search();
 
-        alert("AbsUrl: "+absUrl)
-        alert("aktion: "+aktion)
+//        alert("AbsUrl: "+absUrl)
+//        alert("aktion: "+aktion)
         
         var request = {
                  method: 'POST',
@@ -33,9 +33,8 @@ apka.controller("ControllerEdit", function($scope,$location, $http,Datas){
                     }
              };
              $http(request).success(function(data){
-                 alert("first: "+data.text)
-                 alert("sql: "+data.sql)
-                 alert("id_wpis: "+data.id_wpisu)
+//                 alert("text: "+data)
+                 $scope.text = data;
              });
              $http(request).error(function(data, status){
                  alert(data);

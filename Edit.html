@@ -13,6 +13,8 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <meta http-equiv="refresh" content="3600">
+    
     <link rel="stylesheet" href="js_source/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css" />
@@ -43,7 +45,20 @@
           <div data-ng-show="correctLogIn" class="container" ng-controller='ControllerEdit'>
               <div ng-include="'View/Static/Menu.html'"></div>
               <div class="pull-right" data-ng-show="correctLogIn">{{LOGCru}}</div>
-              
+                
+              <br>
+              <!--div>TEXT: {{text}}</div-->
+              <br>
+              <form class="form-horizontal" role="form" ng-submit="">
+                  <table class="table table-striped">
+                    <tr ng-repeat="(key, val) in text">
+                        <td>
+                            <label for="{{key}}" class="col-sm-3 control-label">{{key}}</label>
+                                <input type="text" id="{{key}}}" name="{{key}}" value="{{val}}">
+                        </td>
+                  </table>
+                  <button type="button" ng-click="DeleteRecord(x.ID_Wpisu)" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> </button>
+              </form>              
           </div>
       </div>
   </body>
