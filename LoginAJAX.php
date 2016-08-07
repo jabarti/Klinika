@@ -8,6 +8,10 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
+// Zapobiega wyświetlaniu warningów, dzięki czemu ajax działa lepiej
+error_reporting(E_ERROR | E_PARSE);
+
+require_once "common.inc.php";
 include 'DB/Connection.php';
 
 $postdata = file_get_contents("php://input");
@@ -19,6 +23,7 @@ $error = "";
 $valid = false;
 $actions = '';
 $SQL = '';
+$SQL_init = '';
 $SQL_set_crud = '';
 $outp = '';
 $name = '';
@@ -28,10 +33,18 @@ $IP_DB = '';
 
 // sprawdzenie bieżącego IP!!!!!!!
 $u = "http://ipv4.myexternalip.com/raw";
-$IP =  file_get_contents($u);
+
+if(file_get_contents($u)){
+//    echo "<br>".__LINE__.file_get_contents($u);
+    $IP =  file_get_contents($u);
+}else{
+//    $IP = "234.321.334.823";
+    $IP = "127.0.0.1";
+//    echo "<br>".__LINE__."fel id".$IP;
+}
 
 if(isset($_GET['action'])){
-    $actions = "AKCJA JEST";
+    $actions = "AKCJA JEST".$_GET['action'];
     
     switch($_GET['action']){
         case 'IP':
@@ -133,16 +146,22 @@ if(isset($_GET['action'])){
             break;
         
         case 'login':
-            $log = $request->email;
-            $pass = $request->pass;
             
+            if(isset($request->email) && isset($request->pass)){
+                $log = $request->email;
+                $pass = $request->pass;               
+            }else{
+                // DLA TESTÓW !!!!
+//                $log = 'test@test.com';
+//                $pass = 'test1234';               
+            }
+                        
             if($log!="" && $pass!=""){
                 $SQL = "SELECT * FROM $baza.`users` WHERE (`anvandersnamn` = '$log' OR `losenord` = '$pass') AND `email` = '$log';";
-
                 if($result = mysqli_query($DBConn, $SQL)){
                     $rs = $result->fetch_array(MYSQLI_ASSOC);
                     $outp = $rs['imie']." ".$rs['nazwisko'];
-                                        
+                                                            
                     if($rs['idUsers']!=""){
                         $valid = true;
 
@@ -219,6 +238,14 @@ if(isset($_GET['action'])){
     }
 }else{
     $actions = "NIE JEST AKCJA";
+    $Fin_Arr = array(
+                    "valid"=>'err',
+                    "actions"=>'err',
+                    "error"=>'err', 
+                    "SQL"=>'err', 
+                    "name"=>'err',
+                    "outp"=>'err', 
+                    "SQL_set_crud"=>'err');
 }
 
  echo json_encode($Fin_Arr);

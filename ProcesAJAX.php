@@ -8,6 +8,8 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
+// Zapobiega wyświetlaniu warningów, dzięki czemu ajax działa lepiej
+//error_reporting(E_ERROR | E_PARSE);
 
 include 'DB/Connection.php';
 include 'Functions/functions.php';
@@ -101,6 +103,7 @@ $baza = "`bartilev_klinika`";
        
        //cycce
        $obszar =                        $request->obszar;
+       $zmiana_opis_pict =                        $request->zmiana_opis_pict;
 //       $obszar2 =                       $request->obszar2;
 //       $kicha =                         $request->kicha;
        
@@ -149,7 +152,7 @@ $baza = "`bartilev_klinika`";
        $zalecenia_inne =                  $request->zalecenia_inne;
 
 //       echo "[$obszar][$obszar2][$kicha]]";
-       echo "[$cycki][$cycki_jakie][$obszar]]";      
+//       echo "[$cycki][$cycki_jakie][$obszar]]";      
 //       echo "($masa_ur)($data_01)($masa_min)($data_02)($masa_inne)($data_03)($masa_obecna)($data_04)";
        
 //        echo "($data_utworzenia)($data_urodzenia_matka)($data_urodzenia_dziecko)";
@@ -270,21 +273,21 @@ $baza = "`bartilev_klinika`";
             echo "[NIE BYŁO SZPITAL w BD]";
         }
     }else{
-        // test czy taki InneMiejsce już jest w BD
-        $TakeLastIdIM = "SELECT `idInne_miejsca` FROM $baza.`inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia' LIMIT 1;";
-        $mysql_q1 = mysqli_query($DBConn,$TakeLastIdIM);
-
-        if (mysqli_num_rows($mysql_q1) > 0) {
-            while($row = mysqli_fetch_assoc($mysql_q1)) {
-    //            echo "id: " . $row['idSzpital'];
-                $ID_last_con = $row['idInne_miejsca'];
-                $CzyIdwBD = true;
-            }
-            echo "[BYŁO InneMiejsce w BD]";
-        }else{
-            $CzyIdwBD = false;
-            echo "[NIE BYŁO InneMiejsce w BD]";
-        }
+//        // test czy taki InneMiejsce już jest w BD
+//        $TakeLastIdIM = "SELECT `idInne_miejsca` FROM $baza.`inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia' LIMIT 1;";
+//        $mysql_q1 = mysqli_query($DBConn,$TakeLastIdIM);
+//
+//        if (mysqli_num_rows($mysql_q1) > 0) {
+//            while($row = mysqli_fetch_assoc($mysql_q1)) {
+//    //            echo "id: " . $row['idSzpital'];
+//                $ID_last_con = $row['idInne_miejsca'];
+//                $CzyIdwBD = true;
+//            }
+//            echo "[BYŁO InneMiejsce w BD]";
+//        }else{
+//            $CzyIdwBD = false;
+//            echo "[NIE BYŁO InneMiejsce w BD]";
+//        }
     }
     
 //    echo ",  ID last[ $ID_last_con][$TakeLastId] , ";
@@ -302,12 +305,13 @@ $baza = "`bartilev_klinika`";
         $czyPustaNazwa = false;
     }
     
-    echo ", Pusta nazwa:($miejsce_urodzenia)[$czyPustaNazwa]";
+//    echo ", Pusta nazwa:($miejsce_urodzenia)[$czyPustaNazwa]";
   
-    if($miejsce_urodzenia_quest == 0 && !$CzyIdwBD && !$czyPustaNazwa){
+//    if($miejsce_urodzenia_quest == 0 && !$CzyIdwBD && !$czyPustaNazwa){
+    if( !$CzyIdwBD && !$czyPustaNazwa){
 //        echo ", [WCHODZE DO INSERT SZPITALA!!!!]";
-        $SzpitalSql = "INSERT INTO $baza.`szpital` (`nazwa`, `urodz_ulica`, `urodz_ulica_nr`, `urodz_ulica_nr_mieszkanie`, `urodz_kod_poczt`, `urodz_miasto`, `urodz_kraj`) "
-                . "VALUES ('$miejsce_urodzenia', '$urodz_ulica', '$urodz_ulica_nr', NULL, '$urodz_kod_poczt', '$urodz_miasto', '$urodz_kraj');";
+        $SzpitalSql = "INSERT INTO $baza.`szpital` (`nazwa`, `urodz_ulica`, `urodz_ulica_nr`, `urodz_ulica_nr_mieszkanie`, `urodz_kod_poczt`, `urodz_miasto`, `urodz_kraj`, `czyNIESzpital`) "
+                . "VALUES ('$miejsce_urodzenia', '$urodz_ulica', '$urodz_ulica_nr', NULL, '$urodz_kod_poczt', '$urodz_miasto', '$urodz_kraj','$miejsce_urodzenia_quest');";
 
         $SzpitalSql_q = mysqli_query($DBConn,$SzpitalSql);
                
@@ -324,26 +328,27 @@ $baza = "`bartilev_klinika`";
         }else{
             echo ", Szpital insert nie OK: $SzpitalSql";
         }
-    }else if($miejsce_urodzenia_quest == 1 && !$CzyIdwBD && !$czyPustaNazwa){
-//        echo ", [WCHODZE DO INSERT InneMiejsce!!!!]";
-        $InneMiejsceSql = "INSERT INTO $baza.`inne_miejsca` "
-                . "(`idInne_miejsca`, `nazwa`, `place_ulica`, `place_nr`, `place_nr_mieszkanie`, "
-                . "`place_kod_poczt`, `place_miasto`, `place_kraj`) "
-                . "VALUES (NULL, '$miejsce_urodzenia', '$urodz_ulica', '$urodz_ulica_nr', '$urodz_ulica_nr_mieszkanie', '$urodz_kod_poczt', '$urodz_miasto', '$urodz_kraj');";
-
-        $InneMiejsceSql_q = mysqli_query($DBConn,$InneMiejsceSql);
-//        $ID_last_con =  LAST_INSERT_ID();
-
-        if($InneMiejsceSql_q){
-//            echo ", Szpital insert OK: $dataSzpitalCallback";
-//            echo ", Inne miejsce insert OK: $InneMiejsceSql";
-            //            echo ", Szpital insert OK: $dataSzpitalCallback";
-        }else{
-            echo ", Szpital insert nie OK: $InneMiejsceSql";
-        }
-    }else{
-        echo ", Ani szpital ani InneMiejsce!!!) ";
     }
+//    else if($miejsce_urodzenia_quest == 1 && !$CzyIdwBD && !$czyPustaNazwa){
+////        echo ", [WCHODZE DO INSERT InneMiejsce!!!!]";
+//        $InneMiejsceSql = "INSERT INTO $baza.`inne_miejsca` "
+//                . "(`idInne_miejsca`, `nazwa`, `place_ulica`, `place_nr`, `place_nr_mieszkanie`, "
+//                . "`place_kod_poczt`, `place_miasto`, `place_kraj`) "
+//                . "VALUES (NULL, '$miejsce_urodzenia', '$urodz_ulica', '$urodz_ulica_nr', '$urodz_ulica_nr_mieszkanie', '$urodz_kod_poczt', '$urodz_miasto', '$urodz_kraj');";
+//
+//        $InneMiejsceSql_q = mysqli_query($DBConn,$InneMiejsceSql);
+////        $ID_last_con =  LAST_INSERT_ID();
+//
+//        if($InneMiejsceSql_q){
+////            echo ", Szpital insert OK: $dataSzpitalCallback";
+////            echo ", Inne miejsce insert OK: $InneMiejsceSql";
+//            //            echo ", Szpital insert OK: $dataSzpitalCallback";
+//        }else{
+//            echo ", Szpital insert nie OK: $InneMiejsceSql";
+//        }
+//    }else{
+//        echo ", Ani szpital ani InneMiejsce!!!) ";
+//    }
        
 //    echo ",  ID last[ $ID_last_con][$TakeLastId] , ";
     
@@ -414,7 +419,7 @@ $baza = "`bartilev_klinika`";
             }
         
         // Uzyskanie idSzpitala albo idInneMiejsce DO FORMULARZA!!
-        if($miejsce_urodzenia_quest == 0){
+//        if($miejsce_urodzenia_quest == 0){
 //            echo "WCHODZE[".__LINE__."]";
             $TakeLastId = "SELECT `idSzpital` FROM $baza.`szpital` WHERE `nazwa` = '$miejsce_urodzenia' AND `urodz_ulica` = '$urodz_ulica';";
             $mysql_q1 = mysqli_query($DBConn,$TakeLastId);
@@ -425,20 +430,20 @@ $baza = "`bartilev_klinika`";
                 }
             echo ",Szpital ID last[$ID_last_con] , ";
             }
-        }else{
-//            echo "WCHODZE[".__LINE__."]";
-            $TakeLastId = "SELECT `idInne_miejsca` FROM $baza.`inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia'";
-            $mysql_q1 = mysqli_query($DBConn,$TakeLastId);
-            if (mysqli_num_rows($mysql_q1) > 0) {
-                while($row = mysqli_fetch_assoc($mysql_q1)) {
-//                    echo "id: " . $row["idInne_miejsca"];
-                    $ID_last_con = $row["idInne_miejsca"];
-                }
-            echo ",InneMiejsca ID last[$ID_last_con] , ";
-            }else{
-//                echo "[$TakeLastId]";
-            }
-        }
+//        }else{
+////            echo "WCHODZE[".__LINE__."]";
+//            $TakeLastId = "SELECT `idInne_miejsca` FROM $baza.`inne_miejsca` WHERE `nazwa` = '$miejsce_urodzenia'";
+//            $mysql_q1 = mysqli_query($DBConn,$TakeLastId);
+//            if (mysqli_num_rows($mysql_q1) > 0) {
+//                while($row = mysqli_fetch_assoc($mysql_q1)) {
+////                    echo "id: " . $row["idInne_miejsca"];
+//                    $ID_last_con = $row["idInne_miejsca"];
+//                }
+//            echo ",InneMiejsca ID last[$ID_last_con] , ";
+//            }else{
+////                echo "[$TakeLastId]";
+//            }
+//        }
         
         // Wprowadzenie rekordu do BD (Formularz)     
         $dataUtw_rok = substr($data_utworzenia, 0,4);
@@ -457,7 +462,7 @@ $baza = "`bartilev_klinika`";
                 . "'$porod', '$jaki_porod', '$leki_porod', '$leki_polog','$powod_zgloszenia','$miejsce_urodzenia_quest','$ID_last_con');";
         
         // Kloejnośc prawidłowa ID_Wpis(string)
-        $ID_Wpis_queue = "INSERT INTO $baza.`id_wpis_queue`(`ID_Wpis`, `ID`, `Rok`) "
+        $ID_Wpis_queue = "INSERT INTO $baza.`id_wpis_queue`(`ID_Wpisu`, `ID`, `Rok`) "
                 . "VALUES ('$NEW_FORM_ID','$id_temp','$dataUtw_rok')";
         
         $IsForm1OK = false;
@@ -490,7 +495,7 @@ $baza = "`bartilev_klinika`";
         If($IsForm1OK){
             // FORM2                 
                 $Formularz2Sql = "INSERT INTO $baza.`formularz_2`"
-                        . "(`Formularz_ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
+                        . "(`ID_Wpisu`, `pierwsze_karmienie`, `problem_dziecko`, "
                         . "`problem_dziecko_opis`,`problem_mama`, `problem_mama_opis`,`karimienie_piersia`,"
                         . "`karimienie_piersia_opis`,`kapturek`,`kapturek_opis`,`dopajanie`,`dopajanie_czym`,`dopajanie_jak_dlugo`,"
                         . "`dopajanie_opis`,`nawal`,`nawal_opis`,`pobyt`,`karmienie_piers`,`karmienie_piers_czest`,"
@@ -516,14 +521,14 @@ $baza = "`bartilev_klinika`";
                 }
                 
                 $Formularz3Sql = "INSERT INTO $baza.`formularz_3`"
-                        . "(`Formularz_ID_Wpisu`,`piers_wielkosc`,`cycki`,`cycki_jakie`,`obszar`,`brodawka`,`brodawka_jaka`,"
+                        . "(`ID_Wpisu`,`piers_wielkosc`,`cycki`,`cycki_jakie`,`obszar`,`zmiana_opis_pict`, `brodawka`,`brodawka_jaka`,"
                         . "`zmiany`,`zmiany_opis`,`stan_emocjonalny`,`obserwacja_dziecka`,"
                         . "`masa_ur`,`data_01`,`masa_min`,`data_02`,"
                         . "`masa_inne_a`,`data_03a`,`masa_inne_b`,`data_03b`,`masa_inne_c`,`data_03c`,`masa_inne_d`,`data_03d`,`masa_inne_e`,`data_03e`,`masa_inne_f`,`data_03f`,"
                         . "`masa_obecna`,`data_04`,`przyrost_sredni`,`zachowanie_dziecka_wizyta`,`otwieranie_ust`,`ulozenie_ust`,"
                         . "`ulozenie_jezyka`,`ruchy_kasajace`,`ruchy_ssace`,`ocena_karmienie_piers`,`rozpoznanie`,`korekta_poz`,`trening_ssania`,`dokarmianie`,`zalecenia_inne`) "
                         . "VALUES "
-                        . "('$NEW_FORM_ID','$piers_wielkosc','$cycki','$cycki_jakie','$obszar','$brodawka','$brodawka_jaka',"
+                        . "('$NEW_FORM_ID','$piers_wielkosc','$cycki','$cycki_jakie','$obszar','$zmiana_opis_pict','$brodawka','$brodawka_jaka',"
                         . "'$zmiany','$zmiany_opis','$stan_emocjonalny','$obserwacja_dziecka',"
                         . "'$masa_ur','$data_01','$masa_min','$data_02',"
                         . "'$masa_inne_a','$data_03a','$masa_inne_b','$data_03b','$masa_inne_c','$data_03c','$masa_inne_d','$data_03d','$masa_inne_e','$data_03e','$masa_inne_f','$data_03f',"

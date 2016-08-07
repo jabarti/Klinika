@@ -8,6 +8,9 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
+// Zapobiega wyświetlaniu warningów, dzięki czemu ajax działa lepiej
+error_reporting(E_ERROR | E_PARSE);
+
 include 'DB/Connection.php';
 
 header("Access-Control-Allow-Origin: *");

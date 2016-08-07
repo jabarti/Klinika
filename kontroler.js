@@ -343,6 +343,7 @@ apka.controller("ControllerFormularz", function($scope,$http,Datas){
               
               //cyce
               ,obszar:                      $scope.obszar
+              ,zmiana_opis_pict:            $scope.zmiana_opis_pict
 //              ,kicha:                       $scope.kicha
               
               ,brodawka:                    $scope.filterConditionBrodawka.operator.value
@@ -379,24 +380,25 @@ apka.controller("ControllerFormularz", function($scope,$http,Datas){
               ,ulozenie_jezyka:             $scope.ulozenie_jezyka
               ,ruchy_kasajace:              $scope.ruchy_kasajace
               ,ruchy_ssace:                 $scope.ruchy_ssace
-              ,ocena_karmienie_piers:                 $scope.ocena_karmienie_piers
+              ,ocena_karmienie_piers:       $scope.ocena_karmienie_piers
               ,rozpoznanie:                 $scope.rozpoznanie
               ,korekta_poz:                 $scope.korekta_poz
-              ,trening_ssania:                 $scope.trening_ssania
+              ,trening_ssania:              $scope.trening_ssania
               ,dokarmianie:                 $scope.dokarmianie
               
-              ,zalecenia_inne:                 $scope.zalecenia_inne
+              ,zalecenia_inne:              $scope.zalecenia_inne
               
           },
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
       });
     request.success(function (data) {
-//            alert(data);
+//            alert("OK"+data);
+//            alert(data.SQL);
             document.getElementById("message").textContent = "OK: "+data;
         });
     request.error(function (data) {
-            alert("ERROR: "+data);
-            document.getElementById("message").textContent = "ERROR: "+data;
+            alert("ERROR_339: "+data);
+            document.getElementById("message").textContent = "ERROR_400: "+data;
         }); 
     };
 

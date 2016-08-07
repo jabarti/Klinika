@@ -8,6 +8,9 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
+// Zapobiega wyświetlaniu warningów, dzięki czemu ajax działa lepiej
+error_reporting(E_ERROR | E_PARSE);
+
 include 'DB/Connection.php';
 
 header("Access-Control-Allow-Origin: *");
@@ -49,15 +52,15 @@ if(isset($_GET['switch'])){
                 mysqli_query($DBConn, $SQL_Delete);
 
                 if(mysqli_query($DBConn, $SQL_Delete)){
-                    $SQL_Delete_2 = "DELETE FROM $baza.`formularz_2` WHERE `Formularz_ID_Wpisu`  = '$id_record';"; 
+                    $SQL_Delete_2 = "DELETE FROM $baza.`formularz_2` WHERE `ID_Wpisu`  = '$id_record';"; 
                     mysqli_query($DBConn, $SQL_Delete_2);
 
                     if( mysqli_query($DBConn, $SQL_Delete_2)){
-                        $SQL_Delete_3 = "DELETE FROM $baza.`formularz_3` WHERE `Formularz_ID_Wpisu`  = '$id_record';"; 
+                        $SQL_Delete_3 = "DELETE FROM $baza.`formularz_3` WHERE `ID_Wpisu`  = '$id_record';"; 
                         mysqli_query($DBConn, $SQL_Delete_3);
 
                         if( mysqli_query($DBConn, $SQL_Delete_3)){
-                        $SQL_Delete_4 = "DELETE FROM $baza.`id_wpis_queue` WHERE `ID_Wpis`  = '$id_record';"; 
+                        $SQL_Delete_4 = "DELETE FROM $baza.`id_wpis_queue` WHERE `ID_Wpisu`  = '$id_record';"; 
                         mysqli_query($DBConn, $SQL_Delete_4);
                         if(mysqli_query($DBConn, $SQL_Delete_4)){
 //                            $comm .= "[All OK!]";

@@ -6,45 +6,43 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
-
-//$(function () {
-//    $('.map').maphilight();
-//});
-
-//(function(jQuery) {
-//  $('#polygon').canvasAreaDraw({
-//    imageUrl: "http://example.com/image.png"
-//  });
-//})(jQuery);
-
 function showCoordsCyca(event,text){
         var x = event.clientX;
         var y = event.clientY;
-        var coords = text+" coords: " + x + ", Y coords: " + y;
+        var coords = text+": coords: " + x + ", Y coords: " + y;
         var el = document.getElementById("cords");
         el.innerHTML = coords;
         el.value = coords;
-        el.trigger('input');
-//        var el2 = document.getElementById("cords2");
-//        el2.value = coords;
-//        alert(text)
         switch(text){
             case "rec1":
+            case "rec7":
+            case "rec13":
                 el.style.backgroundColor = "red";
+//                alert("red")
                 break;
             case "rec2":
+            case "rec8":
+            case "rec14":
                 el.style.backgroundColor = "yellow";
                 break;
             case "rec3":
+            case "rec9":
+            case "rec15":
                 el.style.backgroundColor = "green";
                 break;
             case "rec4":
+            case "rec10":
+            case "rec16":
                 el.style.backgroundColor = "brown";
                 break;
             case "rec5":
+            case "rec11":
+            case "rec17":
                 el.style.backgroundColor = "orange";
                 break;
             case "rec6":
+            case "rec12":
+            case "rec18":
                 el.style.backgroundColor = "pink";
                 break;
                 
@@ -71,3 +69,26 @@ $(document).ready(function(){
 });
 
 
+// funkcje do oblicznia wieku dziś lub w danej dacie
+function CalculateAge( data ){
+    var data_u = new Date(data)
+    var ageDifMs = Date.now() - data_u.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    year = Math.abs(ageDate.getFullYear() - 1970);
+    month = Math.abs(ageDate.getMonth()+1);
+    dagar = Math.abs(ageDate.getDate());
+
+    return year + " lat i " + month + " mieś. i "+ dagar + "dni";
+};
+
+function CalculateAge2( data , data2 ){
+    var data_x = new Date(data)
+    var data_y = new Date(data2)
+    var ageDifMs = data_y.getTime() - data_x.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    year = Math.abs(ageDate.getFullYear() - 1970);
+    month = Math.abs(ageDate.getMonth()+1);
+    dagar = Math.abs(ageDate.getDate());
+
+    return year + " lat i " + month + " mieś. i "+ dagar + "dni";
+};

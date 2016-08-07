@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <body>
+      <div class="container">
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>User</th>
+                      <th>IP</th>
+                      <th>LogTime</th>
+                      <th>LogTime</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><?php echo $_SESSION["user"]; ?></td>
+                      <td><?php echo $_SESSION["logCrud"]['IP']; ?></td>
+                      <td><?php echo $_SESSION["logCrud"]['logTime']; ?></td>
+                      <td><?php echo date("Y-m-d, H:m:s",$_SESSION["logCrud"]['logTime']); ?></td>
+                  </tr>
+              </tbody>
+          </table>  
+      </div>
+  </body>
+</html>
