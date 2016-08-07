@@ -48,3 +48,7 @@ if (isset($_SESSION["user"]) && isset($_SESSION["logCrud"])) {
 <?php
 
 include 'View/Static/footer.html';
+
+if($TEST_VER){
+    include 'TEST_DATA/test_data.php';
+}

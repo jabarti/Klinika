@@ -16,7 +16,7 @@
     <body >
         <div  class="container">
 
-            <div data-ng-show="correctLogIn" class="container" ng-controller='ControllerEdit'>
+            <div class="container" ng-controller='ControllerEdit'>
 
                 <br>
                 <div>TEXT: </div>

@@ -14,14 +14,14 @@ $(document).ready(function () {
     });
 
     $("#toLista").click(function () {
-        alert("To Lista / W budowie");
+//        alert("To Lista / W budowie");
         window.location.href = 'index.php?page=list';
     });
 
-    $("#toEdit").click(function () {
-        alert("To Edycja / W budowie");
-//        window.location.href = 'index.php?page=edit';
-    });
+//    $("#toEdit").click(function () {
+//        alert("To Edycja / W budowie");
+////        window.location.href = 'index.php?page=edit';
+//    });
 
     $("#buttChangeCrud").click(function () {
 //        preventDefault();

@@ -64,7 +64,7 @@ $(document).ready(function () {
                                         '<br>DATA ERRORs:<br>'+data.error+
                                         '<br>DATA Info:<br>'+data.info
                                         );
-                   $("#LoginForm").trigger('reset');
+//                   $("#NyFormularz").trigger('reset');
 //                   location.href = location.href
                },
                error: function(response){

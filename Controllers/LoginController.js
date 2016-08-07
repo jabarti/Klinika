@@ -8,10 +8,6 @@
  ***************************************************/
 $(document).ready(function(){
     
-    // For TEST Data:
-    $("#email").val("test@test.com");
-    $("#password").val("test1234");
-    
     $("#errorPass").hide();
     
     // Submiting Logg form

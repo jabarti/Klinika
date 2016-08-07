@@ -268,6 +268,7 @@ if (isset($_POST['action'])) {
             // TEST czy matka taka jest w BD
 
             $czyMatkaByłaBD = false;
+            $isAddMatkaOK = false;
 
             $MataTESTsql = "SELECT `idMatka` FROM $baza.`matka` WHERE "
                     . "     `mama_firstname` = '" . $_POST['mama_firstname'] . "'"
@@ -285,6 +286,8 @@ if (isset($_POST['action'])) {
                 $error .= "<br>Taka Matka już jest w BD!!";
 
                 $czyMatkaByłaBD = true;
+                $isAddMatkaOK = true;
+                
             } else {
                 $czyMatkaByłaBD = false;
                 $info .= "<br>Takiej Matki BRAK w BD!";
@@ -303,6 +306,7 @@ if (isset($_POST['action'])) {
                         $MamaSql_q_TEST = mysqli_query($DBConn, $MataTESTsql);
                         $row = mysqli_fetch_array($MamaSql_q_TEST);
                         $Last_Mama_ID = $row[0];
+                        $isAddMatkaOK = true;
 
                         $info .= "<br>Last_Mama_ID: $Last_Mama_ID";
                     } else {
@@ -311,22 +315,7 @@ if (isset($_POST['action'])) {
                 } else {
                     $error .= "<br>Nie ma wystarczających danych do dodania matki!!!!!";
                 }
-
-
-//                $MataTESTsql = "SELECT `idMatka` FROM $baza.`matka` WHERE "
-//                        . "     `mama_firstname` = '" . $_POST['mama_firstname'] . "'"
-//                        . "AND  `mama_lastname` = '" . $_POST['mama_lastname'] . "' "
-//                        . "AND  `data_urodzenia_matka` = '" . $_POST['data_urodzenia_matka'] . "' LIMIT 1;";
-//                $SQL .= "<br>MataTESTsql:[$MataTESTsql]";
-
-//                $MamaSql_q_TEST = mysqli_query($DBConn, $MataTESTsql);
-//                $row = mysqli_fetch_array($MamaSql_q_TEST);
-//                $Last_Mama_ID = $row[0];
-//
-//                $info .= "<br>Last_Mama_ID: $Last_Mama_ID";
-//            } else {
-//                $error .= ", MAMA insert nie OK";
-//            }
+            }
 
 // SZPITAL !!!!!
             // Sprawdzam, czy takie miejsce w BD
@@ -343,8 +332,8 @@ if (isset($_POST['action'])) {
 
             if (!$czyPustaNazwa) {
                 $TakeLastIdSzpit = "SELECT `idSzpital` FROM $baza.`szpital` WHERE "
-                        . "         `nazwa`         = '$miejsce_urodzenia' "
-                        . "     AND `urodz_ulica`   = '" . $_POST['urodz_ulica'] . "' LIMIT 1;;";
+                                . "`nazwa` = '$miejsce_urodzenia' "
+                                . "AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "' LIMIT 1;;";
                 $SQL .= "<br>TakeLastIdSzpit:[$TakeLastIdSzpit]";
 
                 $mysql_q1 = mysqli_query($DBConn, $TakeLastIdSzpit);
@@ -370,8 +359,8 @@ if (isset($_POST['action'])) {
 
                     if ($SzpitalSql_q_test) {
                         $TakeLastIdSzpit = "SELECT `idSzpital` FROM $baza.`szpital` WHERE "
-                                . "         `nazwa`         = '$miejsce_urodzenia' "
-                                . "     AND `urodz_ulica`   = '" . $_POST['urodz_ulica'] . "' LIMIT 1;;";
+                                . " `nazwa` = '$miejsce_urodzenia' "
+                                . "  AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "' LIMIT 1;;";
                         $SQL .= "<br>TakeLastIdSzpit2:[$TakeLastIdSzpit]";
 
                         $mysql_q1 = mysqli_query($DBConn, $TakeLastIdSzpit);
@@ -432,9 +421,9 @@ if (isset($_POST['action'])) {
 //          Sprawdzenie czy taki formularz już jest w BD (wg. ID_Wpis i danych wprowadzanych)
 //          $data_temp = substr($data_urodzenia_dziecko, 0,10);        // uzyskanie formatu daty rrrr-mm-dd
             $IsFormularzInDB_sql = "SELECT `ID_Wpisu` FROM $baza.`formularz` WHERE "
-                    . "                     `Matka_idMatka` = '$Last_Mama_ID' "
-                    . "                 AND `imie_dziecka` = '" . $_POST['imie_dziecka'] . "' "
-                    . "                 AND `data_urodzenia_dziecko` = '" . $_POST['data_urodzenia_dziecko'] . "';";
+                                        . "`Matka_idMatka` = '$Last_Mama_ID' "
+                                    . "AND `imie_dziecka` = '" . $_POST['imie_dziecka'] . "' "
+                                    . "AND `data_urodzenia_dziecko` = '" . $_POST['data_urodzenia_dziecko'] . "';";
             $SQL .= "<br>$IsFormularzInDB_sql:[$IsFormularzInDB_sql]";
 
             $msql_q_FID = mysqli_query($DBConn, $IsFormularzInDB_sql);
@@ -477,8 +466,7 @@ if (isset($_POST['action'])) {
 
             $IsForm1OK = false;
 
-            if (!$IsFormularzInDB && $IsProperID) {
-//            if ($IsProperID) {
+            if (!$IsFormularzInDB && $IsProperID && $isAddMatkaOK) {
 
                 $FormularzSql_q = mysqli_query($DBConn, $Formularz_SQL);
 
