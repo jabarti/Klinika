@@ -10,30 +10,33 @@
 ?>
 <html>
     <head>
+        <script src="Controllers/EditController.js" type="text/javascript"></script>
         <script src="js_source/mapper/mapper.js" type="text/javascript"></script> 
         <script src="js_source/mapper/maputil.js" type="text/javascript"></script>       
     </head>
     <body >
         <div  class="container">
+            <div class="row">
+                <div class="col-md-12">
 
-            <div class="container" ng-controller='ControllerEdit'>
+                    <?php echo "<p id='id_wpis_get' >ID_Wpisu: " . $_GET['id_record'] . "</p>" ?>
 
-                <br>
-                <div>TEXT: </div>
-                <br>
-                <h1><u>Opisujesz panią (rodzic)<span style="color:blue;"> </span> i dziecko <span style="color:blue;"></span></u></h1>
+                    <form class="form-horizontal" role="form" id="EditForm" name="EditForm" >
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <form class="form-horizontal" role="form" id="EditForm" name="EditForm" >
-                        </form>
 
-                    </div>
+
+                    </form>
+                    <button id="submit" class="btn btn-success btn-lg btn-block">
+                        <span class="glyphicon glyphicon-flash"></span> Edytuj!
+                    </button>
+
+                    <button id="delete" class="btn btn-warning btn-lg btn-block">
+                        <span class="glyphicon glyphicon-flash"></span> Kasuj!
+                    </button>
 
                 </div>
-            </div>            
+            </div>
         </div>
-
     </body>
 </html>
 

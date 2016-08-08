@@ -21,8 +21,6 @@ if (isset($_SESSION["user"]) && isset($_SESSION["logCrud"])) {
         $page = "";
     }
 
-//    echo "<br>PAGE: ".$page;
-
     switch ($page) {
         case 'nyform':
             include 'Formularz.php';

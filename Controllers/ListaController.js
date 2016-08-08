@@ -23,7 +23,7 @@ $(document).ready(function () {
             Make_Records(data);
         },
         error: function (response) {
-            alert("ERROR" + response);
+//            alert("ERROR" + response);
         }
     });
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
                 Make_Records(data);
             },
             error: function (response) {
-                alert("ERROR" + response);
+//                alert("ERROR" + response);
             }
         });
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
                     Make_Records(data);
                 },
                 error: function (response) {
-                    alert("ERROR" + response);
+//                    alert("ERROR" + response);
                 }
             });
         });
@@ -96,17 +96,17 @@ $(document).ready(function () {
                             Make_Records(data);
                         },
                         error: function (response) {
-                            alert("ERROR" + response);
+//                            alert("ERROR" + response);
                         }
                     });
 
                 } else {
-                    alert("to NIE kasuje");
+//                    alert("to NIE kasuje");
                 }
                 break;
 
             default:
-                alert("Zdarzenie: default?? " + where + ", na rekordzie:" + what);
+//                alert("Zdarzenie: default?? " + where + ", na rekordzie:" + what);
                 break;
         }
     });

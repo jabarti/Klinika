@@ -9,7 +9,9 @@
  * ************************************************* */
 ?>
 <html>
-    <head></head>
+    <head>
+        <script src="Controllers/ListaController.js" type="text/javascript"></script>
+    </head>
     <body >
         <div  class="container"> 
             <form id="ListForm_Search"  name="ListForm_Search" class="form-horizontal" novalidate>
@@ -21,7 +23,7 @@
                     </div>
                     <div class="col-sm-3">
 
-                     <button type="submit" class="btn btn-success">Szukaj</button>
+                        <button type="submit" class="btn btn-success">Szukaj</button>
                     </div>
                     <p class="col-sm-12"></p>
                 </div>
@@ -30,15 +32,15 @@
             <table id="ListForm_Table" class="table table-striped">
                 <thead id="ListForm_Table_head">
                     <tr>
-                        <th>ID_Wpisu</th>
-                        <th>data_utworzenia
-                            <button type="button" onclick="$(this).MessageBox('data_utworzenia','down');" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
-                            <button type="button" onclick="$(this).MessageBox('data_utworzenia','up');" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>                
+                        <th>ID Wpisu</th>
+                        <th>data utworzenia
+                            <button type="button" onclick="$(this).MessageBox('data_utworzenia', 'down');" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
+                            <button type="button" onclick="$(this).MessageBox('data_utworzenia', 'up');" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>                
                         </th>
-                        <th>Imie Mamy</th>
-                        <th>Nazwisko mamy
-                            <button type="button" onclick="$(this).MessageBox('mama_lastname','down');" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
-                            <button type="button" onclick="$(this).MessageBox('mama_lastname','up');"  class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>
+                        <th>imie Mamy</th>
+                        <th>nazwisko mamy
+                            <button type="button" onclick="$(this).MessageBox('mama_lastname', 'down');" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
+                            <button type="button" onclick="$(this).MessageBox('mama_lastname', 'up');"  class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-up"></span> </button>
                         </th>
                         <th>imie dziecka
                             <button type="button" onclick="$(this).MessageBox('imie_dziecka', 'down')" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-arrow-down"></span> </button>
@@ -52,7 +54,7 @@
             </table>
             <?php if ($TEST_VER && !$TEST_VER) { ?>
                 <pre>
-                    <span id="message"></span>
+                        <span id="message"></span>
                 </pre>
             <?php }; ?>
         </div>

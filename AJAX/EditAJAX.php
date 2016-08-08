@@ -24,43 +24,70 @@ $user = '';
 $IP = '';
 $info = '';
 
-//$Fin_Arr = array(
-//    "valid" => false,
-//    "actions" => $actions,
-//    "error" => $error,
-//    "SQL" => $SQL,
-//    "outp" => $outp,
-//    "user" => $user,
-//    "IP" => $IP,
-//    "info" => $info);
+//$id_wpisu = "1/2015";
 
 if (isset($_POST['action'])) {
-    $actions .= "AKCJA JEST: (" . $_POST['action'] . ")";
-
-    foreach ($_POST as $k => $v) {
-        $outp .= "<br>'$k' => '$v',";
-    }
 
     switch ($_POST['action']) {
-        
-        case 'search':
-            $info .= "AKCJA: searcz";
+
+        case 'init':
+            $id_wpisu = $_POST['id_wpisu'];
             break;
         
+        case 'edit':
+            $id_wpisu = $_POST['id_wpisu'];
+            break;
+        
+        
+        case 'delete':
+            $id_record = $_POST['id_wpisu'];
+            $SQL_Delete = "DELETE FROM $baza.`formularz` WHERE `ID_Wpisu`  = '$id_record';";
+            mysqli_query($DBConn, $SQL_Delete);
+
+            if (mysqli_query($DBConn, $SQL_Delete)) {
+                $SQL_Delete_2 = "DELETE FROM $baza.`formularz_2` WHERE `ID_Wpisu`  = '$id_record';";
+                mysqli_query($DBConn, $SQL_Delete_2);
+
+                if (mysqli_query($DBConn, $SQL_Delete_2)) {
+                    $SQL_Delete_3 = "DELETE FROM $baza.`formularz_3` WHERE `ID_Wpisu`  = '$id_record';";
+                    mysqli_query($DBConn, $SQL_Delete_3);
+
+                    if (mysqli_query($DBConn, $SQL_Delete_3)) {
+                        $SQL_Delete_4 = "DELETE FROM $baza.`id_wpis_queue` WHERE `ID_Wpisu`  = '$id_record';";
+                        mysqli_query($DBConn, $SQL_Delete_4);
+                        if (mysqli_query($DBConn, $SQL_Delete_4)) {
+                            
+                        } else {
+                            $error .= "[ERR: $SQL_Delete_4]";
+                        }
+                    } else {
+                        $error .= "[ERR: $SQL_Delete_3]";
+                    }
+                } else {
+                    $error .= "[ERR: $SQL_Delete_2]";
+                }
+            } else {
+                $error .= "[ERR: $SQL_Delete]";
+                echo json_encode($error);
+            }
+            break;
+
         default:
-            $info .= "AKCJA: default";
+
             break;
     }
 }
 
-$Fin_Arr = array(
-    "valid" => false,
-    "actions" => $actions,
-    "error" => $error,
-    "SQL" => $SQL,
-    "outp" => $outp,
-    "user" => $user,
-    "IP" => $IP,
-    "info" => $info);
+// AKCJE SZUKANIA:
 
-echo json_encode($Fin_Arr);
+$SQL_get_Record = "SELECT * FROM `fullform` WHERE `ID_Wpisu` = '$id_wpisu'";
+//echo "<br>SQL_get_Record: [$SQL_get_Record]<br>";
+
+$result = mysqli_query($DBConn, $SQL_get_Record);
+
+$rows = array();
+while ($r = mysqli_fetch_assoc($result)) {
+    array_push($rows, $r);
+}
+
+echo json_encode($rows);
