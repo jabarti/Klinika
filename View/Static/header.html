@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Klinika_PHP</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="refresh" content="3600">
+    <head>
+        <title>Klinika_PHP</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="refresh" content="3600">
 
-    <link rel="stylesheet" href="js_source/bootstrap.min.css"><!-- -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"><!-- -->
-    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css" /><!-- -->
-    <link href="CSS/myCSS.css" rel="stylesheet" type="text/css"/><!-- -->
-    
-    <!--<script src="js_source/angular.min.js"></script><!-- -->
-    <!--script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script><!-- -->
-    <script src="js_source/jquery.min.js"></script><!-- -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- -->
+    <?php if($TEST_VER){ // Ładowanie z sieci jak online i z dysku jak offline ?>
+        <link rel="stylesheet" href="js_source/bootstrap.min.css"><!-- -->
+        <script src="js_source/jquery.min.js"></script><!-- -->
+        <script src="js_source/bootstrap336.min.js"></script><!-- -->
+    <?php }else{ ?>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"><!-- -->
+        <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css" /><!-- -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script><!-- -->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script><!-- -->
+    <?php }?>
 
-    <script src="Functions/functions.js" type="text/javascript"></script><!-- -->
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script><!-- -->
-    <script src="js_source/bootstrap336.min.js"></script><!-- -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script><!-- -->
+        <link href="CSS/myCSS.css" rel="stylesheet" type="text/css"/><!-- -->
+        <script src="Functions/functions.js" type="text/javascript"></script><!-- -->
 
-  </head>
-  <body class="col-md-12">
-  </body>
+    </head>
+    <body class="col-md-12">
+    </body>
 </html>

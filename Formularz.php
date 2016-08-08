@@ -22,7 +22,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <br>
-                    <form id="NyFormularz" name="NyFormularz" class="form-horizontal" novalidate >
+                    <!--<form id="NyFormularz" name="NyFormularz" class="form-horizontal" novalidate >-->
+                    <form id="NyFormularz" name="NyFormularz" class="form-horizontal"  >
 
                         <!-- DANE FORMULARZA -->
                         <?php include $FORM01_PATH . 'NyForm_01_dane.html'; ?>                   

@@ -23,29 +23,285 @@ $outp = '';
 $user = '';
 $IP = '';
 $info = '';
+$SQL_info = "";
+$przerwa = "\n============================================\n";
+$Szpital_akcja_edit = true;
+$NEW_id_szpital = "";
 
-//$id_wpisu = "1/2015";
+//$id_wpisu = "4/2016";
 
 if (isset($_POST['action'])) {
 
-    switch ($_POST['action']) {
+    $action = $_POST['action'];
+//    $action = "edit";
 
+    switch ($action) {
         case 'init':
+            $info .= "\n(" . __LINE__ . ")aktion:init" . $przerwa;
             $id_wpisu = $_POST['id_wpisu'];
             break;
-        
+
         case 'edit':
-            $id_wpisu = $_POST['id_wpisu'];
-            
-//            UPDATE `formularz` SET `ID_Wpisu`=[value-1],`data_utworzenia`=[value-2],`Matka_idMatka`=[value-3],`imie_dziecka`=[value-4],`data_urodzenia_dziecko`=[value-5],`ktore_dziecko`=[value-6],`urodzone_czas`=[value-7],`ile_wczesniej`=[value-8],`porod`=[value-9],`jaki_porod`=[value-10],`leki_porod`=[value-11],`leki_polog`=[value-12],`powod_zgloszenia`=[value-13],`miejsce`=[value-14],`id_SzpitalOrInne`=[value-15] WHERE 1
-//            UPDATE `formularz_2` SET `ID_Wpisu`=[value-1],`pierwsze_karmienie`=[value-2],`problem_dziecko`=[value-3],`problem_dziecko_opis`=[value-4],`problem_mama`=[value-5],`problem_mama_opis`=[value-6],`karimienie_piersia`=[value-7],`karimienie_piersia_opis`=[value-8],`kapturek`=[value-9],`kapturek_opis`=[value-10],`dopajanie`=[value-11],`dopajanie_czym`=[value-12],`dopajanie_jak_dlugo`=[value-13],`dopajanie_opis`=[value-14],`nawal`=[value-15],`nawal_opis`=[value-16],`pobyt`=[value-17],`karmienie_piers`=[value-18],`karmienie_piers_czest`=[value-19],`karmienie_piers_dlugo`=[value-20],`kapturek2`=[value-21],`kapturek2_opis`=[value-22],`dopajanie2`=[value-23],`dopajanie2_czym`=[value-24],`dopajanie2_jak_dlugo`=[value-25],`dopajanie2_opis`=[value-26],`karmienie_noc`=[value-27],`karmienie_noc_opis`=[value-28],`sciaganie_pokarm`=[value-29],`sciaganie_pokarm_cel`=[value-30],`sciaganie_pokarm_ile`=[value-31],`pieluchy`=[value-32],`stolec`=[value-33],`aktywnosc`=[value-34],`zachowanie_karmienia`=[value-35],`kolka`=[value-36],`uspokajacz`=[value-37],`uspokajacz_opis`=[value-38],`leki_matka`=[value-39],`leki_dziecko`=[value-40] WHERE 1
-//            UPDATE `formularz_3` SET `ID_Wpisu`=[value-1],`piers_wielkosc`=[value-2],`cycki`=[value-3],`obszar`=[value-4],`zmiana_opis_pict`=[value-5],`brodawka`=[value-6],`brodawka_jaka`=[value-7],`zmiany`=[value-8],`zmiany_opis`=[value-9],`stan_emocjonalny`=[value-10],`obserwacja_dziecka`=[value-11],`masa_ur`=[value-12],`data_01`=[value-13],`masa_min`=[value-14],`data_02`=[value-15],`masa_inne_a`=[value-16],`data_03a`=[value-17],`masa_inne_b`=[value-18],`data_03b`=[value-19],`masa_inne_c`=[value-20],`data_03c`=[value-21],`masa_inne_d`=[value-22],`data_03d`=[value-23],`masa_inne_e`=[value-24],`data_03e`=[value-25],`masa_inne_f`=[value-26],`data_03f`=[value-27],`masa_obecna`=[value-28],`data_04`=[value-29],`przyrost_sredni`=[value-30],`zachowanie_dziecka_wizyta`=[value-31],`otwieranie_ust`=[value-32],`ulozenie_ust`=[value-33],`ulozenie_jezyka`=[value-34],`ruchy_kasajace`=[value-35],`ruchy_ssace`=[value-36],`ocena_karmienie_piers`=[value-37],`rozpoznanie`=[value-38],`korekta_poz`=[value-39],`trening_ssania`=[value-40],`dokarmianie`=[value-41],`zalecenia_inne`=[value-42] WHERE 1
+
+            // Najpierw czy szpital się zmienił, potem form, form2, itd
+
+            $info .= "\n(" . __LINE__ . ")aktion:edit" . $przerwa;
+
+            if (!isset($_POST['ID_Wpisu'])) {
+                $id_wpisu = $_POST['id_wpisu_pre'];
+            } else {
+                $id_wpisu = $_POST['ID_Wpisu'];
+            }
+
+
+            // sprawdzam czy nie ma takiej nazwy SZPITALA już
+            $SQL_Szpital_Test = "SELECT count(*) FROM $baza.`szpital` WHERE `nazwa` = '" . $_POST['nazwa'] . "' AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "';";
+            $SQL_info .= "\n(" . __LINE__ . ")SQL_Szpital_Test:[$SQL_Szpital_Test]" . $przerwa;
+
+            $mq = mysqli_query($DBConn, $SQL_Szpital_Test);
+            $ile_rec = mysqli_fetch_row($mq)[0];
+            $info .= "\n(" . __LINE__ . ")MQ: $ile_rec";
+
+            if ($ile_rec == 0) {
+                $info .= "\n(" . __LINE__ . ")NOWY REKORD FAKTYCZNIE";
+                $Szpital_akcja_edit = false;
+            } else if ($ile_rec == 1) {
+                $Szpital_akcja_edit = true;
+                $info .= "\n(" . __LINE__ . ")EDYCJA STAREGO";
+            } else {
+                $Szpital_akcja_edit = "ERROR";
+                $info .= "\n(" . __LINE__ . ")EDYCJA STAREGO?? Wiele rekordów o takiej nazwie, ERROR!, ale robimy kolejny!";
+            }
+
+            if ($Szpital_akcja_edit) {
+                $SQL_Szpital = "UPDATE $baza.`szpital` SET `nazwa`='" . $_POST['nazwa'] . "',`urodz_ulica`='" . $_POST['urodz_ulica'] . "',
+                                    `urodz_ulica_nr`='" . $_POST['urodz_ulica_nr'] . "',`urodz_ulica_nr_mieszkanie`='" . $_POST['urodz_ulica_nr_mieszkanie'] . "',
+                                    `urodz_kod_poczt`='" . $_POST['urodz_kod_poczt'] . "',`urodz_miasto`='" . $_POST['urodz_miasto'] . "',`urodz_kraj`='" . $_POST['urodz_kraj'] . "',
+                                    `czyNIESzpital`='" . $_POST['miejsce'] . "' 
+                                    WHERE `idSzpital`= '" . $_POST['id_SzpitalOrInne'] . "';";
+            } else {
+                $SQL_Szpital = "INSERT INTO $baza.`szpital`"
+                        . "( `nazwa`, `urodz_ulica`, `urodz_ulica_nr`, `urodz_ulica_nr_mieszkanie`, "
+                        . "`urodz_kod_poczt`, `urodz_miasto`, `urodz_kraj`, `czyNIESzpital`) "
+                        . "VALUES ('" . $_POST['nazwa'] . "','" . $_POST['urodz_ulica'] . "','" . $_POST['urodz_ulica_nr'] . "',"
+                        . "'" . $_POST['urodz_ulica_nr_mieszkanie'] . "','" . $_POST['urodz_kod_poczt'] . "','" . $_POST['urodz_miasto'] . "',"
+                        . "'" . $_POST['urodz_kraj'] . "','" . $_POST['miejsce'] . "');";
+            }
+
+            $SQL_info .= "\n(" . __LINE__ . ")SQL_Szpital:[$SQL_Szpital]" . $przerwa;
+
+            $mq = mysqli_query($DBConn, $SQL_Szpital);
+            if ($mq) {
+                $info .= "\n(" . __LINE__ . ")Szpital dodany lub zmieniony";
+
+                // Jeśli był zmieniany, musze pobrać nowe ID itp
+                if (!$Szpital_akcja_edit) {
+                    $SQL_take_data = "SELECT `idSzpital` FROM $baza.`szpital` WHERE `nazwa` = '" . $_POST['nazwa'] . "' AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "';";
+                    $SQL_info .= "\n(" . __LINE__ . ")SQL_take_data:[$SQL_take_data]" . $przerwa;
+
+                    $mq = mysqli_query($DBConn, $SQL_take_data);
+                    if ($mq) {
+                        $NEW_id_szpital = mysqli_fetch_row($mq)[0];
+                        $info .= "\n(" . __LINE__ . ")NOWE ID: " . $NEW_id_szpital;
+                    } else {
+                        $error .= "\n(" . __LINE__ . ")Szpital dodany lub zmieniony";
+                    }
+                }
+            } else {
+                $error .= "\n(" . __LINE__ . ")Szpital dodany lub zmieniony";
+            }
+
+            $Set_Form_01 = "";
+            $Set_Form_02 = "";
+            $Set_Form_03 = "";
+
+            foreach ($_POST as $k => $v) {
+                switch ($k) {
+                    // Dane niezmienne!!!
+                    case 'ID_Wpisu':
+                    case 'data_utworzenia':
+                    case 'Matka_idMatka':
+                    case 'Matka_idMatka':
+                    // weszły do szpital wcześniej
+                    case 'urodz_ulica':
+                    case 'urodz_ulica_nr':
+                    case 'urodz_ulica_nr_mieszkanie':
+                    case 'urodz_kod_poczt':
+                    case 'urodz_miasto':
+                    case 'urodz_kraj':
+                        break;
+
+                    // FORM 1
+                    case 'imie_dziecka':
+                    case 'data_urodzenia_dziecko':
+                    case 'ktore_dziecko':
+                    case 'urodzone_czas':
+                    case 'ile_wczesniej':
+                    case 'porod':
+                    case 'jaki_porod':
+                    case 'miejsce':
+                        $Set_Form_01 .= "`$k` = '$v',";
+                        break;
+                    case 'id_SzpitalOrInne': //=> to będzie id_szpitala, nowe lub stare. Ostatni w serii
+
+                        if ($NEW_id_szpital == "") {
+                            $Set_Form_01 .= "`$k` = '$v'";
+                        } else {
+                            $Set_Form_01 .= "`$k` = '$NEW_id_szpital'";
+                        }
+
+                        $info .= "\n(" . __LINE__ . ")NOWE ID_Szp: " . $NEW_id_szpital;
+
+
+                        break;
+                    case 'miejsce': //ostatnie z serii
+                        $Set_Form_01 .= "`$k` = '$v'";
+                        break;
+
+
+                    // FORM 2
+                    case 'pierwsze_karmienie':
+                    case 'problem_dziecko':
+                    case 'problem_dziecko_opis':
+                    case 'problem_mama':
+                    case 'problem_mama_opis':
+                    case 'karimienie_piersia':
+                    case 'karimienie_piersia_opis':
+                    case 'kapturek':
+                    case 'kapturek_opis':
+                    case 'dopajanie':
+                    case 'dopajanie_czym':
+                    case 'dopajanie_jak_dlugo':
+                    case 'dopajanie_opis':
+                    case 'nawal':
+                    case 'nawal_opis':
+                    case 'pobyt':
+                    case 'karmienie_piers':
+                    case 'karmienie_piers_czest':                   
+                    case 'karmienie_piers_dlugo':
+                    case 'kapturek2':
+                    case 'kapturek2_opis':
+                    case 'dopajanie2':
+                    case 'dopajanie2_czym':
+                    case 'dopajanie2_jak_dlugo':
+                    case 'dopajanie2_opis':
+                    case 'karmienie_noc':
+                    case 'karmienie_noc_opis':
+                    case 'sciaganie_pokarm':
+                    case 'sciaganie_pokarm_cel':
+                    case 'sciaganie_pokarm_ile':
+                    case 'pieluchy':
+                    case 'pieluchy':
+                    case 'stolec':
+                    case 'aktywnosc':
+                    case 'zachowanie_karmienia':
+                    case 'kolka':
+                    case 'uspokajacz':
+                    case 'uspokajacz_opis':
+                    case 'leki_matka':
+                        $Set_Form_02 .= "`$k` = '$v',";
+                        break;
+
+                    case 'leki_dziecko': //ostatnie z serii
+                        $Set_Form_02 .= "`$k` = '$v'";
+                        break;
+
+                    // FORM 3
+                  case 'piers_wielkosc':
+                  case 'cycki':
+                  case 'obszar':
+                  case 'zmiana_opis_pict':
+                  case 'brodawka':
+                  case 'brodawka_jaka':
+                  case 'zmiany':
+                  case 'zmiany_opis':
+                  case 'stan_emocjonalny':
+                  case 'obserwacja_dziecka':
+                  case 'masa_ur':
+                  case 'data_01':
+                  case 'masa_min':
+                  case 'data_02':
+                  case 'masa_inne_a':
+                  case 'data_03a':
+                  case 'masa_inne_b':
+                  case 'data_03b':
+                  case 'masa_inne_c':
+                  case 'data_03c':
+                  case 'masa_inne_d':
+                  case 'data_03d':
+                  case 'masa_inne_e':
+                  case 'data_03e':
+                  case 'masa_inne_f':
+                  case 'data_03f':
+                  case 'masa_obecna':
+                  case 'data_04':
+                  case 'przyrost_sredni':
+                  case 'zachowanie_dziecka_wizyta':
+                  case 'otwieranie_ust':
+                  case 'ulozenie_ust':
+                  case 'ulozenie_jezyka':
+                  case 'ruchy_kasajace':
+                  case 'ruchy_ssace':
+                  case 'ocena_karmienie_piers':
+                  case 'rozpoznanie':
+                  case 'korekta_poz':
+                  case 'trening_ssania':
+                  case 'dokarmianie':
+                        $Set_Form_03 .= "`$k` = '$v',";
+                        break;
+                     case 'zalecenia_inne': //ostatnie z serii
+                        $Set_Form_03 .= "`$k` = '$v'";
+                        break;
+                    
+                    default:
+                        $error .= "`$k` = '$v',";
+                        break;
+                }
+            }
+
+            $SQL_Edit_Upp_Form_01 = "UPDATE $baza.`formularz` SET " . $Set_Form_01 . " WHERE `ID_Wpisu` = '$id_wpisu';";
+            $SQL_info .= "SQL_Edit_Upp_Form_01:[$SQL_Edit_Upp_Form_01]" . $przerwa;
+
+            $mq = mysqli_query($DBConn, $SQL_Edit_Upp_Form_01);
+            if ($mq) {
+                $info .= "\n(" . __LINE__ . ") Weszło do FORM_01!";
+
+                // FORM 02
+                $SQL_Edit_Upp_Form_02 = "UPDATE $baza.`formularz_2` SET " . $Set_Form_02 . " WHERE `ID_Wpisu` = '$id_wpisu';";
+                $SQL_info .= "SQL_Edit_Upp_Form_02:[$SQL_Edit_Upp_Form_02]" . $przerwa;
+
+                $mq2 = mysqli_query($DBConn, $SQL_Edit_Upp_Form_02);
+
+                if ($mq2) {
+                    $info .= "\n(" . __LINE__ . ") Weszło do FORM_02!";
+
+                    // FORM 03
+                    $SQL_Edit_Upp_Form_03 = "UPDATE $baza.`formularz_3` SET " . $Set_Form_03 . " WHERE `ID_Wpisu` = '$id_wpisu';";
+                    $SQL_info .= "SQL_Edit_Upp_Form_03:[$SQL_Edit_Upp_Form_03]" . $przerwa;
+
+                    $mq3 = mysqli_query($DBConn, $SQL_Edit_Upp_Form_03);
+
+                    if ($mq3) {
+                        $info .= "\n(" . __LINE__ . ") Weszło do FORM_03!";
+                    } else {
+                        $error .= "\n(" . __LINE__ . ") NIE Weszło do FORM_03!";
+                    }
+                } else {
+                    $error .= "\n(" . __LINE__ . ") NIE Weszło do FORM_02!";
+                }
+            } else {
+                $error .= "\n(" . __LINE__ . ") NIE Weszło do FORM_01!";
+            }
+
+
 //            UPDATE `matka` SET `idMatka`=[value-1],`mama_firstname`=[value-2],`mama_lastname`=[value-3],`data_urodzenia_matka`=[value-4],`ulica`=[value-5],`ulica_nr`=[value-6],`ulica_nr_mieszkanie`=[value-7],`kod_poczt`=[value-8],`miasto`=[value-9],`telefon`=[value-10],`email`=[value-11] WHERE 1
-//            UPDATE `szpital` SET `idSzpital`=[value-1],`nazwa`=[value-2],`urodz_ulica`=[value-3],`urodz_ulica_nr`=[value-4],`urodz_ulica_nr_mieszkanie`=[value-5],`urodz_kod_poczt`=[value-6],`urodz_miasto`=[value-7],`urodz_kraj`=[value-8],`czyNIESzpital`=[value-9] WHERE 1
+
+
+
             break;
-        
-        
+
         case 'delete':
+            $info .= "\n(" . __LINE__ . ")aktion:delete" . $przerwa;
             $id_record = $_POST['id_wpisu'];
             $SQL_Delete = "DELETE FROM $baza.`formularz` WHERE `ID_Wpisu`  = '$id_record';";
             mysqli_query($DBConn, $SQL_Delete);
@@ -64,21 +320,22 @@ if (isset($_POST['action'])) {
                         if (mysqli_query($DBConn, $SQL_Delete_4)) {
                             
                         } else {
-                            $error .= "[ERR: $SQL_Delete_4]";
+                            $error .= "\n(" . __LINE__ . ")ERR: $SQL_Delete_4]";
                         }
                     } else {
-                        $error .= "[ERR: $SQL_Delete_3]";
+                        $error .= "\n(" . __LINE__ . ")ERR: $SQL_Delete_3]";
                     }
                 } else {
-                    $error .= "[ERR: $SQL_Delete_2]";
+                    $error .= "\n(" . __LINE__ . ")ERR: $SQL_Delete_2]";
                 }
             } else {
-                $error .= "[ERR: $SQL_Delete]";
-                echo json_encode($error);
+                $error .= "\n(" . __LINE__ . ")ERR: $SQL_Delete]";
+//                echo json_encode($error);
             }
             break;
 
         default:
+            $info .= "\n(" . __LINE__ . ")aktion:default";
 
             break;
     }
@@ -87,13 +344,17 @@ if (isset($_POST['action'])) {
 // AKCJE SZUKANIA:
 
 $SQL_get_Record = "SELECT * FROM $baza.`FullForm` WHERE `ID_Wpisu` = '$id_wpisu'";
-//echo "<br>SQL_get_Record: [$SQL_get_Record]<br>";
+$SQL_info .= "SQL_get_Record: [$SQL_get_Record]" . $przerwa;
 
 $result = mysqli_query($DBConn, $SQL_get_Record);
 
 $rows = array();
 while ($r = mysqli_fetch_assoc($result)) {
     array_push($rows, $r);
+}
+if ($TEST_VER) {
+    $info = ["sql" => $SQL_info, "info" => $info, "error" => $error];
+    array_push($rows, $info);
 }
 
 echo json_encode($rows);

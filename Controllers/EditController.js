@@ -31,15 +31,15 @@ $(document).ready(function () {
     
 // EDYCJA REKORDU
     $('#submit').click(function () {
-        alert("Submit form - EDIT")
+//        alert("Submit form - EDIT");
         $.ajax({
             type: "POST",
             url: url,
-            data: $("#EditForm").serialize() + 'action=edit&id_wpisu_pre=' + Url_id_record, // serializes the form's elements.
+            data: $("#EditForm").serialize() + '&action=edit&id_wpisu_pre=' + Url_id_record, // serializes the form's elements.
             success: function (response) {
-                alert(response)
+//                alert(response);
                 var data = jQuery.parseJSON(response);
-                alert(data)
+//                alert(data);
 
                 Make_Records(data);
             },
@@ -96,6 +96,18 @@ $(document).ready(function () {
                                 '</div>';
                         trHTML += '';
                         break;
+                    // TYLKO w wersji testowej tworzone!!!
+                    case 'sql':
+                    case 'info':
+                    case 'error':
+                        trHTML += '' +
+                                '<label class="col-sm-1 control-label">'+key+'</label>' +
+                                '<div class="col-sm-5">' +
+                                '<textarea rows="3" class="form-control" >' + data[f][key] + '</textarea>' +
+                                '</div>';
+                        trHTML += '';
+                        break;
+                        
                     default:
                         trHTML += '' +
                                 '<label class="col-sm-3 control-label">' + trans_key + '</label>' +

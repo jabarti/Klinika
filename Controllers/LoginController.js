@@ -44,7 +44,7 @@ $(document).ready(function(){
                    url: url,
                    data: $("#LoginForm").serialize() + '&action=logOut', // serializes the form's elements.
                    success: function(response){
-                       var data = jQuery.parseJSON(response);
+//                       var data = jQuery.parseJSON(response);
                        window.location.href = "index.php";
                    },
                    error: function(response){
