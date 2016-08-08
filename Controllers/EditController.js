@@ -31,7 +31,7 @@ $(document).ready(function () {
     
 // EDYCJA REKORDU
     $('#submit').click(function () {
-        alert("Submit form")
+        alert("Submit form - EDIT")
         $.ajax({
             type: "POST",
             url: url,
@@ -52,8 +52,7 @@ $(document).ready(function () {
     
  // KASOWANIE REKORDU   
     $('#delete').click(function () {
-        var czyDel = confirm("Delete form?");
-        if (czyDel) {
+        if (confirm("Delete form?")) {
             $.ajax({
                 type: "POST",
                 url: url,

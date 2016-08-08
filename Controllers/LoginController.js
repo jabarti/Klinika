@@ -45,7 +45,7 @@ $(document).ready(function(){
                    data: $("#LoginForm").serialize() + '&action=logOut', // serializes the form's elements.
                    success: function(response){
                        var data = jQuery.parseJSON(response);
-                       window.location.href = "http://localhost/Klinika_Local/index.php"
+                       window.location.href = "index.php";
                    },
                    error: function(response){
                        alert("ERROR"+response);
