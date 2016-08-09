@@ -56,7 +56,8 @@ if (isset($_POST['action'])) {
             $SQL_info .= "\n(" . __LINE__ . ")SQL_Szpital_Test:[$SQL_Szpital_Test]" . $przerwa;
 
             $mq = mysqli_query($DBConn, $SQL_Szpital_Test);
-            $ile_rec = mysqli_fetch_row($mq)[0];
+            $ile_rec = mysqli_fetch_row($mq);
+            $ile_rec = $ile_rec[0];
             $info .= "\n(" . __LINE__ . ")MQ: $ile_rec";
 
             if ($ile_rec == 0) {
@@ -98,7 +99,8 @@ if (isset($_POST['action'])) {
 
                     $mq = mysqli_query($DBConn, $SQL_take_data);
                     if ($mq) {
-                        $NEW_id_szpital = mysqli_fetch_row($mq)[0];
+                        $NEW_id_szpital = mysqli_fetch_row($mq);
+                        $NEW_id_szpital = $NEW_id_szpital[0];
                         $info .= "\n(" . __LINE__ . ")NOWE ID: " . $NEW_id_szpital;
                     } else {
                         $error .= "\n(" . __LINE__ . ")Szpital dodany lub zmieniony";
@@ -167,8 +169,8 @@ if (isset($_POST['action'])) {
                     case 'problem_dziecko_opis':
                     case 'problem_mama':
                     case 'problem_mama_opis':
-                    case 'karimienie_piersia':
-                    case 'karimienie_piersia_opis':
+                    case 'karmienie_piersia':
+                    case 'karmienie_piersia_opis':
                     case 'kapturek':
                     case 'kapturek_opis':
                     case 'dopajanie':
@@ -210,7 +212,7 @@ if (isset($_POST['action'])) {
 
                     // FORM 3
                     case 'piers_wielkosc':
-                    case 'cycki':
+//                    case 'cycki':
                     case 'obszar':
                     case 'zmiana_opis_pict':
                     case 'brodawka':
@@ -251,15 +253,24 @@ if (isset($_POST['action'])) {
                     case 'dokarmianie':
                         $Set_Form_03 .= "`$k` = '$v',";
                         break;
+                    
+                    case 'cycki':
+                        if($v == "on"){
+                            $var = true;
+                        }else{
+                            $var = false;
+                        }
+                        $Set_Form_03 .= "`$k` = $var,";
+                        break;
+                    
                     case 'zalecenia_inne': //ostatnie z serii
                         $Set_Form_03 .= "`$k` = '$v'";
                         break;
-                    
+
                     //Matka
-                    
 //  (`idMatka`, `mama_firstname`, `mama_lastname`, `data_urodzenia_matka`, `ulica`, `ulica_nr`, 
 //  `ulica_nr_mieszkanie`, `kod_poczt`, `miasto`, `telefon`, `email`
-                    
+
                     case 'mama_firstname':
                     case 'mama_lastname':
                     case 'data_urodzenia_matka':
@@ -272,7 +283,7 @@ if (isset($_POST['action'])) {
                     case 'telefon':
                         $Set_Matka .= "`$k` = '$v',";
                         break;
-                    
+
                     case 'email': //ostatnie z serii
                         $Set_Matka .= "`$k` = '$v'";
                         break;
@@ -307,19 +318,18 @@ if (isset($_POST['action'])) {
 
                     if ($mq3) {
                         $info .= "\n(" . __LINE__ . ") Weszło do FORM_03!";
-                        
-                                            // Matka
-                    $SQL_Edit_Upp_Matka = "UPDATE $baza.`matka` SET " . $Set_Matka . " WHERE `idMatka` = '".$_POST['Matka_idMatka']."';";
-                    $SQL_info .= "SQL_Edit_Upp_Matka:[$SQL_Edit_Upp_Matka]" . $przerwa;
 
-                    $mqM = mysqli_query($DBConn, $SQL_Edit_Upp_Matka);
-                    
-                    if($mqM){
-                        $info .= "\n(" . __LINE__ . ") Weszło do MATKA!";
-                    }else{
-                        $error .= "\n(" . __LINE__ . ") NIE Weszło do MATKA!";
-                    }
-                        
+                        // Matka
+                        $SQL_Edit_Upp_Matka = "UPDATE $baza.`matka` SET " . $Set_Matka . " WHERE `idMatka` = '" . $_POST['Matka_idMatka'] . "';";
+                        $SQL_info .= "SQL_Edit_Upp_Matka:[$SQL_Edit_Upp_Matka]" . $przerwa;
+
+                        $mqM = mysqli_query($DBConn, $SQL_Edit_Upp_Matka);
+
+                        if ($mqM) {
+                            $info .= "\n(" . __LINE__ . ") Weszło do MATKA!";
+                        } else {
+                            $error .= "\n(" . __LINE__ . ") NIE Weszło do MATKA!";
+                        }
                     } else {
                         $error .= "\n(" . __LINE__ . ") NIE Weszło do FORM_03!";
                     }
@@ -332,8 +342,6 @@ if (isset($_POST['action'])) {
 
             // MATKA!!!!!!!!!!!!!!!!!!!!!!!!!
 //            UPDATE `matka` SET `idMatka`=[value-1],`mama_firstname`=[value-2],`mama_lastname`=[value-3],`data_urodzenia_matka`=[value-4],`ulica`=[value-5],`ulica_nr`=[value-6],`ulica_nr_mieszkanie`=[value-7],`kod_poczt`=[value-8],`miasto`=[value-9],`telefon`=[value-10],`email`=[value-11] WHERE 1
-
-
 
             break;
 
@@ -386,10 +394,25 @@ $SQL_info .= "SQL_get_Record: [$SQL_get_Record]" . $przerwa;
 $result = mysqli_query($DBConn, $SQL_get_Record);
 
 $rows = array();
+$info .= "\n========================= DANE ============================";
 while ($r = mysqli_fetch_assoc($result)) {
     array_push($rows, $r);
 }
-if ($TEST_VER) {
+
+//$l = count($rows);
+//
+//for ($i=0; $i<$l; $i++){
+//    for($j=0; $j<count($rows[$i]); $j++){
+//        $info .= "\n".$rows[$i][$j];
+//    }
+//}
+
+
+
+
+
+
+if ($TEST_VER) { // To nie idzie na bartilevi.pl
     $info = ["sql" => $SQL_info, "info" => $info, "error" => $error];
     array_push($rows, $info);
 }

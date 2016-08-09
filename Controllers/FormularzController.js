@@ -20,7 +20,7 @@ $(document).ready(function () {
     // NyForm5
     $("#problem_dziecko_opis").hide();
     $("#problem_mama_opis").hide();
-    $("#karimienie_piersia_opis").hide();
+    $("#karmienie_piersia_opis").hide();
     $("#kapturek_opis").hide();
     $("#dopajanie_opis_all").hide();
     $("#nawal_opis").hide();
@@ -216,14 +216,14 @@ $(document).ready(function () {
     });
 
     // radiobutton
-    $("input[name='karimienie_piersia']").click(function () {
+    $("input[name='karmienie_piersia']").click(function () {
         var temp = this.value;
         switch (temp) {
             case '0':
-                $("#karimienie_piersia_opis").hide();
+                $("#karmienie_piersia_opis").hide();
                 break;
             case '1':
-                $("#karimienie_piersia_opis").show();
+                $("#karmienie_piersia_opis").show();
                 break;
             default:
                 alert(" o default!");

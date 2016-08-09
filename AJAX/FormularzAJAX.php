@@ -156,8 +156,8 @@ if (isset($_POST['action'])) {
                     case 'problem_dziecko_opis':
                     case 'problem_mama':
                     case 'problem_mama_opis':
-                    case 'karimienie_piersia':
-                    case 'karimienie_piersia_opis':
+                    case 'karmienie_piersia':
+                    case 'karmienie_piersia_opis':
                     case 'kapturek':
                     case 'kapturek_opis':
                     case 'dopajanie':

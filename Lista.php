@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-sm-3">
 
-                        <button type="submit" class="btn btn-success">Szukaj</button>
+                        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Szukaj</button>
                     </div>
                     <p class="col-sm-12"></p>
                 </div>

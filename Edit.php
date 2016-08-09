@@ -27,11 +27,11 @@
 
                     </form>
                     <button id="submit" class="btn btn-success btn-lg btn-block">
-                        <span class="glyphicon glyphicon-flash"></span> Edytuj!
+                        <span class="glyphicon glyphicon-floppy-saved"></span> Edytuj!
                     </button>
 
                     <button id="delete" class="btn btn-warning btn-lg btn-block">
-                        <span class="glyphicon glyphicon-flash"></span> Kasuj!
+                        <span class="glyphicon glyphicon-remove"></span> Kasuj!
                     </button>
 
                 </div>
