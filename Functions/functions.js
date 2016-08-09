@@ -111,22 +111,25 @@ function getUrlProperty(text) {
 }
 
 function trans(text) {
-    var Fintext = ''
-    switch(text){
-        case 'data_urodzenia_matka':
-            Fintext = 'data urodzenia matka'
-            break;
-        case 'mama_firstname':
-            Fintext = 'Imię matki'
-            break;
-        case 'mama_lastname':
-            Fintext = 'Nazwisko matki'
-            break;
-        default:
-            Fintext = text.replace("_"," ");
-//            Fintext = text
-            break;
-    }
+    
+    var Fintext = text;
+//    var Fintext = ''
+//    switch(text){
+//        case 'data_urodzenia_matka':
+//            Fintext = 'data urodzenia matka'
+//            break;
+//        case 'mama_firstname':
+//            Fintext = 'Imię matki'
+//            break;
+//        case 'mama_lastname':
+//            Fintext = 'Nazwisko matki'
+//            break;
+//        default:
+//            Fintext = text.replace("_"," ");
+////            Fintext = text
+//            break;
+//    }
+
     return Fintext;
 }
 

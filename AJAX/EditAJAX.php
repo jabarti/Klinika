@@ -42,9 +42,7 @@ if (isset($_POST['action'])) {
             break;
 
         case 'edit':
-
             // Najpierw czy szpital się zmienił, potem form, form2, itd
-
             $info .= "\n(" . __LINE__ . ")aktion:edit" . $przerwa;
 
             if (!isset($_POST['ID_Wpisu'])) {
@@ -52,7 +50,6 @@ if (isset($_POST['action'])) {
             } else {
                 $id_wpisu = $_POST['ID_Wpisu'];
             }
-
 
             // sprawdzam czy nie ma takiej nazwy SZPITALA już
             $SQL_Szpital_Test = "SELECT count(*) FROM $baza.`szpital` WHERE `nazwa` = '" . $_POST['nazwa'] . "' AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "';";
@@ -114,6 +111,7 @@ if (isset($_POST['action'])) {
             $Set_Form_01 = "";
             $Set_Form_02 = "";
             $Set_Form_03 = "";
+            $Set_Matka = "";
 
             foreach ($_POST as $k => $v) {
                 switch ($k) {
@@ -132,6 +130,10 @@ if (isset($_POST['action'])) {
                         break;
 
                     // FORM 1
+//(`ID_Wpisu`, `data_utworzenia`, `Matka_idMatka`, `imie_dziecka`, `data_urodzenia_dziecko`, `ktore_dziecko`, 
+//`urodzone_czas`, `ile_wczesniej`, `porod`, `jaki_porod`, `leki_porod`, `leki_polog`, `powod_zgloszenia`, 
+//`miejsce`, `id_SzpitalOrInne`)
+
                     case 'imie_dziecka':
                     case 'data_urodzenia_dziecko':
                     case 'ktore_dziecko':
@@ -139,25 +141,25 @@ if (isset($_POST['action'])) {
                     case 'ile_wczesniej':
                     case 'porod':
                     case 'jaki_porod':
+                    case 'leki_porod':
+                    case 'leki_polog':
+//                    case 'powod_zgloszenia':
                     case 'miejsce':
                         $Set_Form_01 .= "`$k` = '$v',";
                         break;
                     case 'id_SzpitalOrInne': //=> to będzie id_szpitala, nowe lub stare. Ostatni w serii
 
                         if ($NEW_id_szpital == "") {
-                            $Set_Form_01 .= "`$k` = '$v'";
+                            $Set_Form_01 .= "`$k` = '$v',";
                         } else {
-                            $Set_Form_01 .= "`$k` = '$NEW_id_szpital'";
+                            $Set_Form_01 .= "`$k` = '$NEW_id_szpital',";
                         }
 
                         $info .= "\n(" . __LINE__ . ")NOWE ID_Szp: " . $NEW_id_szpital;
-
-
                         break;
-                    case 'miejsce': //ostatnie z serii
+                    case 'powod_zgloszenia':
                         $Set_Form_01 .= "`$k` = '$v'";
                         break;
-
 
                     // FORM 2
                     case 'pierwsze_karmienie':
@@ -177,7 +179,7 @@ if (isset($_POST['action'])) {
                     case 'nawal_opis':
                     case 'pobyt':
                     case 'karmienie_piers':
-                    case 'karmienie_piers_czest':                   
+                    case 'karmienie_piers_czest':
                     case 'karmienie_piers_dlugo':
                     case 'kapturek2':
                     case 'kapturek2_opis':
@@ -207,52 +209,74 @@ if (isset($_POST['action'])) {
                         break;
 
                     // FORM 3
-                  case 'piers_wielkosc':
-                  case 'cycki':
-                  case 'obszar':
-                  case 'zmiana_opis_pict':
-                  case 'brodawka':
-                  case 'brodawka_jaka':
-                  case 'zmiany':
-                  case 'zmiany_opis':
-                  case 'stan_emocjonalny':
-                  case 'obserwacja_dziecka':
-                  case 'masa_ur':
-                  case 'data_01':
-                  case 'masa_min':
-                  case 'data_02':
-                  case 'masa_inne_a':
-                  case 'data_03a':
-                  case 'masa_inne_b':
-                  case 'data_03b':
-                  case 'masa_inne_c':
-                  case 'data_03c':
-                  case 'masa_inne_d':
-                  case 'data_03d':
-                  case 'masa_inne_e':
-                  case 'data_03e':
-                  case 'masa_inne_f':
-                  case 'data_03f':
-                  case 'masa_obecna':
-                  case 'data_04':
-                  case 'przyrost_sredni':
-                  case 'zachowanie_dziecka_wizyta':
-                  case 'otwieranie_ust':
-                  case 'ulozenie_ust':
-                  case 'ulozenie_jezyka':
-                  case 'ruchy_kasajace':
-                  case 'ruchy_ssace':
-                  case 'ocena_karmienie_piers':
-                  case 'rozpoznanie':
-                  case 'korekta_poz':
-                  case 'trening_ssania':
-                  case 'dokarmianie':
+                    case 'piers_wielkosc':
+                    case 'cycki':
+                    case 'obszar':
+                    case 'zmiana_opis_pict':
+                    case 'brodawka':
+                    case 'brodawka_jaka':
+                    case 'zmiany':
+                    case 'zmiany_opis':
+                    case 'stan_emocjonalny':
+                    case 'obserwacja_dziecka':
+                    case 'masa_ur':
+                    case 'data_01':
+                    case 'masa_min':
+                    case 'data_02':
+                    case 'masa_inne_a':
+                    case 'data_03a':
+                    case 'masa_inne_b':
+                    case 'data_03b':
+                    case 'masa_inne_c':
+                    case 'data_03c':
+                    case 'masa_inne_d':
+                    case 'data_03d':
+                    case 'masa_inne_e':
+                    case 'data_03e':
+                    case 'masa_inne_f':
+                    case 'data_03f':
+                    case 'masa_obecna':
+                    case 'data_04':
+                    case 'przyrost_sredni':
+                    case 'zachowanie_dziecka_wizyta':
+                    case 'otwieranie_ust':
+                    case 'ulozenie_ust':
+                    case 'ulozenie_jezyka':
+                    case 'ruchy_kasajace':
+                    case 'ruchy_ssace':
+                    case 'ocena_karmienie_piers':
+                    case 'rozpoznanie':
+                    case 'korekta_poz':
+                    case 'trening_ssania':
+                    case 'dokarmianie':
                         $Set_Form_03 .= "`$k` = '$v',";
                         break;
-                     case 'zalecenia_inne': //ostatnie z serii
+                    case 'zalecenia_inne': //ostatnie z serii
                         $Set_Form_03 .= "`$k` = '$v'";
                         break;
                     
+                    //Matka
+                    
+//  (`idMatka`, `mama_firstname`, `mama_lastname`, `data_urodzenia_matka`, `ulica`, `ulica_nr`, 
+//  `ulica_nr_mieszkanie`, `kod_poczt`, `miasto`, `telefon`, `email`
+                    
+                    case 'mama_firstname':
+                    case 'mama_lastname':
+                    case 'data_urodzenia_matka':
+                    case 'ulica':
+                    case 'ulica_nr':
+                    case 'ulica_nr_mieszkanie':
+                    case 'ulica_nr_mieszkanie':
+                    case 'kod_poczt':
+                    case 'miasto':
+                    case 'telefon':
+                        $Set_Matka .= "`$k` = '$v',";
+                        break;
+                    
+                    case 'email': //ostatnie z serii
+                        $Set_Matka .= "`$k` = '$v'";
+                        break;
+
                     default:
                         $error .= "`$k` = '$v',";
                         break;
@@ -283,6 +307,19 @@ if (isset($_POST['action'])) {
 
                     if ($mq3) {
                         $info .= "\n(" . __LINE__ . ") Weszło do FORM_03!";
+                        
+                                            // Matka
+                    $SQL_Edit_Upp_Matka = "UPDATE $baza.`matka` SET " . $Set_Matka . " WHERE `idMatka` = '".$_POST['Matka_idMatka']."';";
+                    $SQL_info .= "SQL_Edit_Upp_Matka:[$SQL_Edit_Upp_Matka]" . $przerwa;
+
+                    $mqM = mysqli_query($DBConn, $SQL_Edit_Upp_Matka);
+                    
+                    if($mqM){
+                        $info .= "\n(" . __LINE__ . ") Weszło do MATKA!";
+                    }else{
+                        $error .= "\n(" . __LINE__ . ") NIE Weszło do MATKA!";
+                    }
+                        
                     } else {
                         $error .= "\n(" . __LINE__ . ") NIE Weszło do FORM_03!";
                     }
@@ -293,7 +330,7 @@ if (isset($_POST['action'])) {
                 $error .= "\n(" . __LINE__ . ") NIE Weszło do FORM_01!";
             }
 
-
+            // MATKA!!!!!!!!!!!!!!!!!!!!!!!!!
 //            UPDATE `matka` SET `idMatka`=[value-1],`mama_firstname`=[value-2],`mama_lastname`=[value-3],`data_urodzenia_matka`=[value-4],`ulica`=[value-5],`ulica_nr`=[value-6],`ulica_nr_mieszkanie`=[value-7],`kod_poczt`=[value-8],`miasto`=[value-9],`telefon`=[value-10],`email`=[value-11] WHERE 1
 
 
