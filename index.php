@@ -32,7 +32,7 @@ if (isset($_SESSION["user"]) && isset($_SESSION["logCrud"])) {
             include 'Edit.php';
             break;
         case 'EditCrud':
-            include 'Formularz.php';
+            include 'EditCrud.php';
             break;
         default:
             include 'View/Static/ShowCrud.html';

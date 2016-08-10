@@ -399,21 +399,8 @@ while ($r = mysqli_fetch_assoc($result)) {
     array_push($rows, $r);
 }
 
-//$l = count($rows);
-//
-//for ($i=0; $i<$l; $i++){
-//    for($j=0; $j<count($rows[$i]); $j++){
-//        $info .= "\n".$rows[$i][$j];
-//    }
-//}
-
-
-
-
-
-
 if ($TEST_VER) { // To nie idzie na bartilevi.pl
-    $info = ["sql" => $SQL_info, "info" => $info, "error" => $error];
+    $info = ["sql" => "$SQL_info", "info" => "$info", "error" => "$error"];
     array_push($rows, $info);
 }
 

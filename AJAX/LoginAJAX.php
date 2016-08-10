@@ -42,12 +42,12 @@ if(isset($_POST['action'])){
 //            echo "\nLOGIN\n";
             if(isset($_POST['email']) && isset($_POST['pass'])){
                 $log = $_POST['email'];
-                $pass = $_POST['pass'];             
+                $pass = sha1($_POST['pass']);             
             }
                         
             if($log!="" && $pass!=""){
-                $SQL = "SELECT * FROM $baza.`users` WHERE (`anvandersnamn` = '$log' OR `losenord` = '$pass') "
-                        . "AND `email` = '$log';";
+                $SQL = "SELECT * FROM $baza.`users` WHERE (`anvandersnamn` = '$log' OR `email` = '$log') "
+                        . "AND `losenord` = '$pass';";
                 
                 if($result = mysqli_query($DBConn, $SQL)){
                     $rs = $result->fetch_array(MYSQLI_ASSOC);
@@ -62,6 +62,7 @@ if(isset($_POST['action'])){
                         if( mysqli_query($DBConn, $SQL_set_crud)){
                             $actions .="SQL_set_crud OK";
                             
+                            $_SESSION["ID_USER"] = $rs['idUsers'];
                             $_SESSION["user"] = $user;
                             $_SESSION["logCrud"]['IP'] = $IP;
                             $_SESSION["logCrud"]['logTime'] = time();
@@ -89,6 +90,7 @@ if(isset($_POST['action'])){
        
         case 'logOut':  
             
+            unset($_SESSION["ID_USER"]);
             unset($_SESSION["user"]);
             unset($_SESSION["logCrud"]);
             
@@ -111,7 +113,7 @@ if(isset($_POST['action'])){
                 "IP"=>$IP);
             break;
                     
-        case 'editCrud':        // Nie zrobione!!!
+        case 'editCrud':        // Nie zrobione!!! => Edycja w EditCrud.php
             $log = $request->email;
             $pass = $request->pass;
             

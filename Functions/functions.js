@@ -111,24 +111,40 @@ function getUrlProperty(text) {
 }
 
 function trans(text) {
-    
-    var Fintext = text;
-//    var Fintext = ''
-//    switch(text){
-//        case 'data_urodzenia_matka':
-//            Fintext = 'data urodzenia matka'
-//            break;
-//        case 'mama_firstname':
-//            Fintext = 'Imię matki'
-//            break;
-//        case 'mama_lastname':
-//            Fintext = 'Nazwisko matki'
-//            break;
-//        default:
-//            Fintext = text.replace("_"," ");
-////            Fintext = text
-//            break;
-//    }
+
+    var Fintext = ''
+    switch(text){
+        case 'mama_firstname':
+            Fintext = 'Imię matki'
+            break;
+        case 'mama_lastname':
+            Fintext = 'Nazwisko matki'
+            break;
+        case 'urodz_ulica':
+            Fintext = 'ulica'
+            break;
+        case 'urodz_ulica_nr':
+            Fintext = 'nr'
+            break;
+        case 'urodz_ulica_nr_mieszkanie':
+            Fintext = 'mieszkania'
+            break;
+        case 'urodz_kod_poczt':
+            Fintext = 'kod pocztowy'
+            break;
+        case 'urodz_miasto':
+            Fintext = 'miasto'
+            break;
+        case 'urodz_kraj':
+            Fintext = 'kraj'
+            break;
+        default:
+            var pattern = "_";
+            re = new RegExp(pattern, "g");
+            Fintext = text.replace(re," ");
+//            Fintext = text
+            break;
+    }
 
     return Fintext;
 }

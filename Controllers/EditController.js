@@ -8,7 +8,6 @@
  ***************************************************/
 $(document).ready(function () {
 
-
     var url = "AJAX/EditAJAX.php"; // the script where you handle the form input.
     var Url_id_record = getUrlProperty("id_record");
 
@@ -18,39 +17,32 @@ $(document).ready(function () {
         url: url,
         data: 'action=init&id_wpisu=' + Url_id_record, // serializes the form's elements.
         success: function (response) {
-//                alert(response)
             var data = jQuery.parseJSON(response);
-//                alert(data)
 
             Make_Records(data);
             loadUstawienia()
         },
         error: function (response) {
-            alert("ERROR w EditCtrl 28" + response);
+            alert("ERROR w EditCtrl 26" + response);
         }
     });
 
-
 // EDYCJA REKORDU
     $('#submit').click(function () {
-//        alert("Submit form - EDIT");
         $.ajax({
             type: "POST",
             url: url,
             data: $("#EditForm").serialize() + '&action=edit&id_wpisu_pre=' + Url_id_record, // serializes the form's elements.
             success: function (response) {
-//                alert(response);
                 var data = jQuery.parseJSON(response);
-//                alert(data);
 
                 Make_Records(data);
                 loadUstawienia()
             },
             error: function (response) {
-                alert("ERROR w EditCtrl 28" + response);
+                alert("ERROR w EditCtrl 43" + response);
             }
         });
-
     });
 
     // KASOWANIE REKORDU   
@@ -64,7 +56,7 @@ $(document).ready(function () {
                     window.location.href = 'index.php?page=list';
                 },
                 error: function (response) {
-                    alert("ERROR w EditCtrl 28" + response);
+                    alert("ERROR w EditCtrl 59" + response);
                 }
             });
         }
@@ -73,17 +65,15 @@ $(document).ready(function () {
 
 // FUNKCJA PAKUJĄCA DANE DO FORMULARZA
     function Make_Records(data) {
-//        var trHTML = '<table class="table-striped">';
         var trHTML = '<div class="form-group form-buffer-pa">';
         for (var f = 0; f < data.length; f++) {
             for (var key in data[f]) {
 //                console.log(key + "=>" + data[f][key]);
 
                 var trans_key = trans(key);
-
+                
 //!!!!!!!!!!!    Zamast switch można to rozplanować jak w Formularz :) !!!!!!!!!!!!!!!!!!!!!!!
                 switch (key) {
-
                     // type = 'text', disabled    
                     case 'ID_Wpisu':
                         trHTML += MakeInput("text", key, trans_key, data[f][key], true, null, null);
@@ -178,7 +168,7 @@ $(document).ready(function () {
 
                     case 'cycki':
 //                        alert(key + ","+ data[f][key])
-                        trHTML += MakeInput("checkbox", key, trans_key, data[f][key], false, null, null);
+                        trHTML += MakeInput("checkbox", key, trans_key+" TO DO!!!!!", data[f][key], false, null, null);
                         break;
 
                         // type = 'radio', NOT disabled, opcje tylko "tak" i "nie"
@@ -332,10 +322,8 @@ $(document).ready(function () {
                 for (var i = 0; i < leng; i++) {
                     if (params[i][0] == value) {
                         checked = "checked";
-//                        alert("CZEKED: param("+key+") = "+params[i][0]+"\n"+"value= "+value)
                     } else {
                         checked = "";
-//                        alert("NIE czeked: param("+key+") = "+params[i][0]+"\n"+"value= "+value)
                     }
 
                     if (width_out == null) {
@@ -346,7 +334,6 @@ $(document).ready(function () {
                                     <label><input type="radio" ' + checked + ' name="' + key + '" id="' + key + '" value="' + params[i][0] + '" >' + params[i][1] + '</label>' +
                             '</div>';
                 }
-
                 trHTML += '<p class="col-sm-12"></p>';
 
                 break;
@@ -363,10 +350,8 @@ $(document).ready(function () {
                 for (var i = 0; i < leng; i++) {
                     if (params[i][0] == value) {
                         selected = "selected=\"selected\"";
-//                        alert("SELECT: param = "+params[i][0]+"\n"+"value= "+value)
                     } else {
                         selected = "";
-//                        alert("NIE select: param = "+params[i][0]+"\n"+"value= "+value)
                     }
                     trHTML += '<option value="' + params[i][0] + '" ' + selected + '>' + params[i][1] + '</option>';
                 }
@@ -379,7 +364,7 @@ $(document).ready(function () {
                     width_in = 3;
                 }
                 trHTML = '<label class="col-sm-3 control-label">' + trans_key + '</label>' +
-                        '<div class="col-sm-'+width_in+'">' +
+                        '<div class="col-sm-' + width_in + '">' +
                         '<textarea class="form-control" name="' + key + '">' + value + '</textarea>' +
                         '</div>';
                 break;
@@ -405,6 +390,7 @@ $(document).ready(function () {
 
 // Funkcja ładująca ustawienia bazowe róznych inputów
     function loadUstawienia() {
+        ShowHide("miejsce", ["urodz_ulica_nr_mieszkanie"]);
         ShowHide("problem_dziecko", ["problem_dziecko_opis"]);
         ShowHide("problem_mama", ["problem_mama_opis"]);
         ShowHide("karmienie_piersia", ["karmienie_piersia_opis"]);
@@ -418,6 +404,7 @@ $(document).ready(function () {
         ShowHide("sciaganie_pokarm", ["sciaganie_pokarm_cel", "sciaganie_pokarm_ile"]);
         ShowHide("uspokajacz", ["uspokajacz_opis"]);
         ShowHide("zmiany", ["zmiany_opis"]);
+
 
         ShowHide_opt("urodzone_czas", ["ile_wczesniej"], "o czasie");
         ShowHide_opt("porod", ["jaki_porod"], "normalny");
@@ -467,8 +454,6 @@ $(document).ready(function () {
 
 // Funkcja ustawiająca akcje dla input typu select-option (chowanie przynależnych im pól opisu)
     function ShowHide_opt(id, params, opt) {
-//        alert($("#"+id).val())
-
         var leng = params.length;
         var clean = false;
         var communikate = "";
@@ -478,7 +463,6 @@ $(document).ready(function () {
         } else {
             communikate = "Czy wyczyścić również wpis?";
         }
-
 
         if ($("#" + id).val() != opt) {
             for (var i = 0; i < leng; i++) {

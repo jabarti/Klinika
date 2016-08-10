@@ -25,8 +25,8 @@ $(document).ready(function () {
 
     $("#buttChangeCrud").click(function () {
 //        preventDefault();
-        alert("To User EDit / W budowie");
-//        window.location.href = 'index.php?page=EditCrud';
+//        alert("To User EDit / W budowie");
+        window.location.href = 'index.php?page=EditCrud';
     });
 
 });

@@ -7,13 +7,11 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 $(document).ready(function(){
-    
+    var url = "AJAX/LoginAJAX.php"; // the script where you handle the form input.
     $("#errorPass").hide();
     
     // Submiting Logg form
     $("#LoginForm").submit(function(e) {
-
-        var url = "AJAX/LoginAJAX.php"; // the script where you handle the form input.
 
         $.ajax({
                type: "POST",
@@ -37,7 +35,6 @@ $(document).ready(function(){
     
     $("#buttLogOut").click(function(){
 //            alert("LOGOT")
-            var url = "AJAX/LoginAJAX.php"; // the script where you handle the form input.
 
             $.ajax({
                    type: "POST",
