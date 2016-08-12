@@ -60,4 +60,5 @@ if($_SERVER['SERVER_NAME'] == "localhost"){
 
 // Address list
 $FORM01_PATH = "View/Static/Form_01/";
+$EDIT01_PATH = "View/Static/Edit_01/";
 

@@ -10,7 +10,8 @@ function showCoordsCyca(event, text) {
     var x = event.clientX;
     var y = event.clientY;
     var coords = text + ": coords: " + x + ", Y coords: " + y;
-    var el = document.getElementById("cords");
+//    var el = document.getElementById("cords");
+    var el = document.getElementById("obszar");
     el.innerHTML = coords;
     el.value = coords;
     switch (text) {
@@ -56,7 +57,7 @@ function showOUTCoordsCyca(event) {
     var x = event.clientX;
     var y = event.clientY;
     var coords = " coordsOUT: " + x + ", Y coords: " + y;
-    var el = document.getElementById("cords");
+    var el = document.getElementById("obszar");
     el.innerHTML = coords;
     alert("OUT")
     el.style.backgroundColor = "black";

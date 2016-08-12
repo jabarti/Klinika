@@ -27,8 +27,14 @@ $SQL_info = "";
 $przerwa = "\n============================================\n";
 $Szpital_akcja_edit = true;
 $NEW_id_szpital = "";
+$POSTdata = "";
 
 //$id_wpisu = "4/2016";
+
+foreach ($_POST as $k => $v) {
+    $POSTdata .= "\n[$k => $v]";
+}
+
 
 if (isset($_POST['action'])) {
 
@@ -43,13 +49,14 @@ if (isset($_POST['action'])) {
 
         case 'edit':
             // Najpierw czy szpital się zmienił, potem form, form2, itd
-            $info .= "\n(" . __LINE__ . ")aktion:edit" . $przerwa;
+            $info .= "\n(" . __LINE__ . ") aktion:edit" . $przerwa;
 
             if (!isset($_POST['ID_Wpisu'])) {
                 $id_wpisu = $_POST['id_wpisu_pre'];
             } else {
                 $id_wpisu = $_POST['ID_Wpisu'];
             }
+            $info .= "\n(" . __LINE__ . ") ID_wpisu:" . $id_wpisu;
 
             // sprawdzam czy nie ma takiej nazwy SZPITALA już
             $SQL_Szpital_Test = "SELECT count(*) FROM $baza.`szpital` WHERE `nazwa` = '" . $_POST['nazwa'] . "' AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "';";
@@ -103,11 +110,11 @@ if (isset($_POST['action'])) {
                         $NEW_id_szpital = $NEW_id_szpital[0];
                         $info .= "\n(" . __LINE__ . ")NOWE ID: " . $NEW_id_szpital;
                     } else {
-                        $error .= "\n(" . __LINE__ . ")Szpital dodany lub zmieniony";
+                        $error .= "\n(" . __LINE__ . ")Szpital NIE dodany lub zmieniony";
                     }
                 }
             } else {
-                $error .= "\n(" . __LINE__ . ")Szpital dodany lub zmieniony";
+                $error .= "\n(" . __LINE__ . ")Szpital NIE dodany lub zmieniony";
             }
 
             $Set_Form_01 = "";
@@ -121,7 +128,7 @@ if (isset($_POST['action'])) {
                     case 'ID_Wpisu':
                     case 'data_utworzenia':
                     case 'Matka_idMatka':
-                    case 'Matka_idMatka':
+                    case 'idMatka':     //??? czy nie zmieniać?
                     // weszły do szpital wcześniej
                     case 'urodz_ulica':
                     case 'urodz_ulica_nr':
@@ -253,16 +260,16 @@ if (isset($_POST['action'])) {
                     case 'dokarmianie':
                         $Set_Form_03 .= "`$k` = '$v',";
                         break;
-                    
+
                     case 'cycki':
-                        if($v == "on"){
+                        if ($v == "on") {
                             $var = true;
-                        }else{
+                        } else {
                             $var = false;
                         }
                         $Set_Form_03 .= "`$k` = $var,";
                         break;
-                    
+
                     case 'zalecenia_inne': //ostatnie z serii
                         $Set_Form_03 .= "`$k` = '$v'";
                         break;
@@ -320,7 +327,7 @@ if (isset($_POST['action'])) {
                         $info .= "\n(" . __LINE__ . ") Weszło do FORM_03!";
 
                         // Matka
-                        $SQL_Edit_Upp_Matka = "UPDATE $baza.`matka` SET " . $Set_Matka . " WHERE `idMatka` = '" . $_POST['Matka_idMatka'] . "';";
+                        $SQL_Edit_Upp_Matka = "UPDATE $baza.`matka` SET " . $Set_Matka . " WHERE `idMatka` = '" . $_POST['idMatka'] . "';";
                         $SQL_info .= "SQL_Edit_Upp_Matka:[$SQL_Edit_Upp_Matka]" . $przerwa;
 
                         $mqM = mysqli_query($DBConn, $SQL_Edit_Upp_Matka);
@@ -400,7 +407,7 @@ while ($r = mysqli_fetch_assoc($result)) {
 }
 
 if ($TEST_VER) { // To nie idzie na bartilevi.pl
-    $info = ["sql" => "$SQL_info", "info" => "$info", "error" => "$error"];
+    $info = array("sql" => "$SQL_info", "info" => "$info", "error" => "$error", "postData" => "$POSTdata");
     array_push($rows, $info);
 }
 

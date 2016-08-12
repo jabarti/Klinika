@@ -37,7 +37,7 @@
                         <!-- POWÓD ZGŁOSZENIA -->
                         <?php include $FORM01_PATH . 'NyForm_04_powod.html'; ?> 
 
-                        <!-- Karmienie w szpitalu -->
+                        <!-- KARMIENIE W SZPITALU -->
                         <?php include $FORM01_PATH . 'NyForm_05_karmienieSzpital.html'; ?> 
 
                         <!-- KARMIENIE OBECNIE -->

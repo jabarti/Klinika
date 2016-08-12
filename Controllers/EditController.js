@@ -10,6 +10,7 @@ $(document).ready(function () {
 
     var url = "AJAX/EditAJAX.php"; // the script where you handle the form input.
     var Url_id_record = getUrlProperty("id_record");
+    $('#cycki_show').hide();
 
     // POBRANIE PODSTAWOWYCH  DANYCH
     $.ajax({
@@ -29,6 +30,7 @@ $(document).ready(function () {
 
 // EDYCJA REKORDU
     $('#submit').click(function () {
+//        alert("edit")
         $.ajax({
             type: "POST",
             url: url,
@@ -47,6 +49,7 @@ $(document).ready(function () {
 
     // KASOWANIE REKORDU   
     $('#delete').click(function () {
+        alert("edit")
         if (confirm("Delete form?")) {
             $.ajax({
                 type: "POST",
@@ -65,327 +68,148 @@ $(document).ready(function () {
 
 // FUNKCJA PAKUJĄCA DANE DO FORMULARZA
     function Make_Records(data) {
-        var trHTML = '<div class="form-group form-buffer-pa">';
-        for (var f = 0; f < data.length; f++) {
-            for (var key in data[f]) {
-//                console.log(key + "=>" + data[f][key]);
 
-                var trans_key = trans(key);
-                
-//!!!!!!!!!!!    Zamast switch można to rozplanować jak w Formularz :) !!!!!!!!!!!!!!!!!!!!!!!
-                switch (key) {
-                    // type = 'text', disabled    
-                    case 'ID_Wpisu':
-                        trHTML += MakeInput("text", key, trans_key, data[f][key], true, null, null);
-                        break;
+        $('#data_utworzenia').val(data[0]['data_utworzenia']);
+        $('#ID_Wpisu').val(data[0]['ID_Wpisu']);
 
-                        // type = 'hidden', hidden   
-                    case 'id_SzpitalOrInne':
-                    case 'Matka_idMatka':
-                        trHTML += MakeInput("hidden", key, key, data[f][key], false, null, null);
-                        ;
-                        break;
+        $('#idMatka').val(data[0]['Matka_idMatka']); //<= hidden!!!
 
-                        // type = 'date', disabled
-                    case 'data_utworzenia':
-                        trHTML += MakeInput("date", key, trans_key, data[f][key], true, null, null);
-                        break;
+        $('#mama_firstname').val(data[0]['mama_firstname']);
+        $('#mama_lastname').val(data[0]['mama_lastname']);
+        $('#data_urodzenia_matka').val(data[0]['data_urodzenia_matka']);
+        $('#ulica').val(data[0]['ulica']);
+        $('#ulica_nr').val(data[0]['ulica_nr']);
+        $('#ulica_nr_mieszkanie').val(data[0]['ulica_nr_mieszkanie']);
+        $('#kod_poczt').val(data[0]['kod_poczt']);
+        $('#miasto').val(data[0]['miasto']);
+        $('#telefon').val(data[0]['telefon']);
 
-                        // type = 'date', NOT disabled
-                    case 'data_urodzenia_matka':
-                    case 'data_urodzenia_dziecko':
-                    case 'data_01':
-                    case 'data_02':
-                    case 'data_03a':
-                    case 'data_03b':
-                    case 'data_03c':
-                    case 'data_03d':
-                    case 'data_03e':
-                    case 'data_03f':
-                    case 'data_04':
-                        trHTML += MakeInput("date", key, trans_key, data[f][key], false, null, null);
-                        break;
+        $('#imie_dziecka').val(data[0]['imie_dziecka']);
+        $('#data_urodzenia_dziecko').val(data[0]['data_urodzenia_dziecko']);
+        $('#ktore_dziecko').val(data[0]['ktore_dziecko']);
 
-                        // type = 'email', NOT disabled
-                    case 'email':
-                        trHTML += MakeInput("email", key, trans_key, data[f][key], false, null, null);
-                        break;
-
-                        // type = 'number', NOT disabled
-                    case 'ktore_dziecko':
-                        trHTML += MakeInput("number", key, trans_key, data[f][key], false, [1, null], null);
-                        break;
-                    case 'masa_ur':
-                    case 'masa_min':
-                    case 'masa_inne_a':
-                    case 'masa_inne_b':
-                    case 'masa_inne_c':
-                    case 'masa_inne_d':
-                    case 'masa_inne_e':
-                    case 'masa_inne_f':
-                    case 'masa_obecna':
-
-                        trHTML += MakeInput("number", key, trans_key, data[f][key], false, [1, null, 0.01], null);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'miejsce':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "Szpital"], [1, "Inne miejsce"]], 2);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'pobyt':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "mama z dzieckiem"], [1, "oddzielnie"]], 2);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'otwieranie_ust':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "wystarczające"], [1, "niewystarczające"]], 2);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'ulozenie_ust':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "wywinięte"], [1, "wciągnięte"]], 2);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'ulozenie_jezyka':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "do przodu"], [1, "cofnięty"]], 2);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'ruchy_kasajace':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "nieobecne"], [1, "obecne"]], 2);
-                        break;
-                        // type = 'radio', NOT disabled, opcje rózne
-                    case 'ruchy_ssace':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "głębokie"], [1, "płytkie"]], 2);
-                        break;
-
-                    case 'piers_wielkosc':
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "mała"], [1, "średnia"], [2, "duża"]], null);
-                        break;
-
-                    case 'cycki':
-//                        alert(key + ","+ data[f][key])
-                        trHTML += MakeInput("checkbox", key, trans_key+" TO DO!!!!!", data[f][key], false, null, null);
-                        break;
-
-                        // type = 'radio', NOT disabled, opcje tylko "tak" i "nie"
-                    case 'problem_dziecko':
-                    case 'problem_mama':
-                    case 'karmienie_piersia':
-                    case 'kapturek':
-                    case 'dopajanie':
-                    case 'nawal':
-                    case 'karmienie_piers':
-                    case 'kapturek2':
-                    case 'dopajanie2':
-                    case 'karmienie_noc':
-                    case 'sciaganie_pokarm':
-                    case 'aktywnosc':
-                    case 'kolka':
-                    case 'uspokajacz':
-                    case 'zmiany':
-                    case 'korekta_poz':
-                    case 'trening_ssania':
-                    case 'dokarmianie':
-
-                        trHTML += MakeInput("radio", key, trans_key, data[f][key], false, [[0, "nie"], [1, "tak"]], null);
-                        break;
+        //SZPITAL TO DO!!!!
+        // id_SzpitalOrInne, miejsce
+        // radiobutton
 
 
-                        // type = 'options', NOT disabled
-                    case 'urodzone_czas':
-                        trHTML += MakeInput("select", key, trans_key, data[f][key], false, [["o czasie", "o czasie"], ["wcześniej", "wcześniej"], ["później", "później"]], null);
-                        break;
+        $('#urodz_ulica').val(data[0]['urodz_ulica']);
+        $('#urodz_ulica_nr').val(data[0]['urodz_ulica_nr']);
+        $('#urodz_ulica_nr_mieszkanie').val(data[0]['urodz_ulica_nr_mieszkanie']);
+        $('#urodz_kod_poczt').val(data[0]['urodz_kod_poczt']);
+        $('#urodz_miasto').val(data[0]['urodz_miasto']);
+        $('#urodz_kraj').val(data[0]['urodz_kraj']);
 
-                        // type = 'options', NOT disabled
-                    case 'brodawka':
-                        trHTML += MakeInput("select", key, trans_key, data[f][key], false, [["prawidlowa", "prawidłowa"], ["rzekomo_wklesla", "rzekomo wklęsła"], ["wklesla", "wklęsła"]], null);
-                        break;
-
-                        // type = 'options', NOT disabled
-                    case 'porod':
-                        trHTML += MakeInput("select", key, trans_key, data[f][key], false, [["normalny", "normalny"], ["zabiegowy", "zabiegowy"]], null);
-                        break;
-
-                        // type = 'textarea', NOT disabled
-                    case 'leki_porod':
-                    case 'leki_polog':
-                    case 'powod_zgloszenia':
-                    case 'powod_zgloszenia':
-                    case 'pierwsze_karmienie':
-                    case 'stan_emocjonalny':
-                    case 'obserwacja_dziecka':
-                    case 'zachowanie_dziecka_wizyta':
-                    case 'ocena_karmienie_piers':
-                    case 'rozpoznanie':
-                    case 'zalecenia_inne':
-
-                        trHTML += MakeInput("textarea", key, trans_key, data[f][key], false, null, null);
-                        break;
+        $('#urodzone_czas').val(data[0]['urodzone_czas']); // <= SELECT!!!!! --> attr("selected","selected")???, obsługa hidden
+        $('#ile_wczesniej').val(data[0]['ile_wczesniej']);
 
 
-                        // TYLKO w wersji testowej tworzone!!!
-                    case 'sql':
-                    case 'info':
-                    case 'error':
-                        trHTML += '<p class="col-sm-12"></p>';
-                        trHTML += MakeInput("textarea", key, trans_key, data[f][key], false, null, 7);
-                        break;
+        $('#porod').val(data[0]['porod']); // <= SELECT!!!!! --> attr("selected","selected")???, obsługa hidden
+        $('#jaki_porod').val(data[0]['jaki_porod']);
 
-                        // type = 'text', NOT Diabled
-                    default:
+        $('#leki_porod').val(data[0]['leki_porod']);
+        $('#leki_polog').val(data[0]['leki_polog']);
 
-                        // type = text, normal
-//                        alert(key + ","+ data[f][key])
-                        trHTML += MakeInput("text", key, trans_key, data[f][key], false, null, null);
-                        break;
-                }
-            }
-        }
-        trHTML += '</div>';
-        $('#EditForm').html(trHTML);
-    }
+        $('#powod_zgloszenia').val(data[0]['powod_zgloszenia']);
 
-// Tworzy inputy na podstawie m.in. typu
-// params: type: typ inputa (text, date, textarea itp)
-// params: key: id, name
-// params: trans_key: nazwa wyświetlana w np. label
-// params: disabled: czy input jest edytowalny czy nie
-// params: params: tablica różnych elementów, np opcji do select, do radio itp, 
-// params: width_out: radiobutton (na razie tylko!!!) CLASS: col-sm-WIDTH_OUT 
-    function MakeInput(type, key, trans_key, value, disabled, params, width_out) {
-        var trHTML = "";
+        $('#pierwsze_karmienie').val(data[0]['pierwsze_karmienie']);
 
-        if (disabled) {
-            disabled = "disabled";
-        } else {
-            disabled = "";
-        }
-        var width_in = "";
+        radioAddProperties("problem_dziecko", data, ["problem_dziecko_opis"]);
 
-        if (width_out != null) {
-            width_in = width_out;
-        }
+        radioAddProperties("problem_mama", data, ["problem_mama_opis"]);
 
-        switch (type) {
-            case 'text':
-            case 'email':
-            case 'date':
-                trHTML = '<div id="' + key + '_show">' +
-                        '<label class="col-sm-3 control-label">' + trans_key + '</label>' +
-                        '<div class="col-sm-3">' +
-                        '<input type="' + type + '" name="' + key + '" id="' + key + '" class="form-control"  value="' + value + '" ' + disabled + '>' +
-                        '</div>' +
-                        '</div>';
-                break;
+        radioAddProperties("karmienie_piersia", data, ["karmienie_piersia_opis"]);
 
-            case 'hidden':
-                trHTML += '<div class="col-sm-6">' +
-                        '<input type="' + type + '" name="' + key + '" id="' + key + '" class="form-control"  value="' + value + '">' +
-                        '</div>';
-                break;
+        radioAddProperties("kapturek", data, ["kapturek_opis"]);
 
-            case 'number':
-                var min = "";
-                var max = "";
-                var step = "";
+        radioAddProperties("dopajanie", data, ["dopajanie_czym", "dopajanie_opis", "dopajanie_jak_dlugo"]);
 
-                if (params != null || params != '') {
-                    if (params[0] != null) {
-                        min += "min=\"" + params[0] + "\"";
-                    }
-                    if (params[1] != null) {
-                        max += "max=\"" + params[1] + "\"";
-                    }
-                    if (params[2] != null) {
-                        step += "step=\"" + params[2] + "\"";
-                    }
-                }
+        radioAddProperties("nawal", data, ["nawal_opis"]);
 
-                trHTML += '' +
-                        '<label class="col-sm-3 control-label">' + trans_key + '</label>' +
-                        '<div class="col-sm-3">' +
-                        '<input type="' + type + '" name="' + key + '" id="' + key + '" class="form-control" ' + min + ' ' + max + ' ' + step + ' value="' + value + '" ' + disabled + '>' +
-                        '</div>';
-                break;
+        radioAddProperties("pobyt", data, null);
 
-            case 'radio':
-                var leng = params.length;
-                var checked = "";
+        radioAddProperties("karmienie_piers", data, ["karmienie_piers_czest", "karmienie_piers_dlugo"]);
 
-                trHTML += '<p class="col-sm-12"></p>' +
-                        '<label class="col-sm-3 control-label">' + trans_key + '</label>';
+        radioAddProperties("kapturek2", data, ["kapturek2_opis"]);
 
-                for (var i = 0; i < leng; i++) {
-                    if (params[i][0] == value) {
-                        checked = "checked";
-                    } else {
-                        checked = "";
-                    }
+        radioAddProperties("dopajanie2", data, ["dopajanie2_czym", "dopajanie2_jak_dlugo", "dopajanie2_opis"]);
 
-                    if (width_out == null) {
-                        width_in = 1;
-                    }
+        radioAddProperties("karmienie_noc", data, ["karmienie_noc_opis"]);
 
-                    trHTML += '<div class="radio col-sm-' + width_in + '">\n\
-                                    <label><input type="radio" ' + checked + ' name="' + key + '" id="' + key + '" value="' + params[i][0] + '" >' + params[i][1] + '</label>' +
-                            '</div>';
-                }
-                trHTML += '<p class="col-sm-12"></p>';
+        radioAddProperties("sciaganie_pokarm", data, ["sciaganie_pokarm_cel", "sciaganie_pokarm_ile"]);
 
-                break;
+//        ShowHide("uspokajacz", ["uspokajacz_opis"]);
+//        ShowHide("zmiany", ["zmiany_opis"]);
+        szpitalAction(data)
 
-            case 'select':
-                var leng = params.length;
-                var selected = "";
+        $('#pieluchy').val(data[0]['pieluchy']);
+        $('#stolec').val(data[0]['stolec']);
 
-                trHTML += '<p class="col-sm-12"></p>\n\
-                            <label class="col-sm-3 control-label">' + trans_key + '</label>' +
-                        '<div class="col-sm-3">' +
-                        '<select  id="' + key + '" name="' + key + '">';
+        radioAddProperties("aktywnosc", data, null);
 
-                for (var i = 0; i < leng; i++) {
-                    if (params[i][0] == value) {
-                        selected = "selected=\"selected\"";
-                    } else {
-                        selected = "";
-                    }
-                    trHTML += '<option value="' + params[i][0] + '" ' + selected + '>' + params[i][1] + '</option>';
-                }
-                trHTML += '</select>' +
-                        '</div>';
+        $('#zachowanie_karmienia').val(data[0]['zachowanie_karmienia']);
 
-                break;
-            case 'textarea':
-                if (width_out == null) {
-                    width_in = 3;
-                }
-                trHTML = '<label class="col-sm-3 control-label">' + trans_key + '</label>' +
-                        '<div class="col-sm-' + width_in + '">' +
-                        '<textarea class="form-control" name="' + key + '">' + value + '</textarea>' +
-                        '</div>';
-                break;
+        radioAddProperties("kolka", data, null);
+        radioAddProperties("uspokajacz", data, ["uspokajacz_opis"]);
 
-            case 'checkbox':
-                checked = "";
-                if (value == 0) {
-                    checked = "";
-                } else {
-                    checked = "checked";
-                }
-                trHTML = '<label class="col-sm-3 control-label">' + trans_key + '</label>' +
-                        '<div class="col-sm-1">' +
-                        ' <input type="' + type + '" id="' + key + '" name="' + key + '" ' + checked + '>' +
-                        ' </div>';
-                break;
+        $('#leki_matka').val(data[0]['leki_matka']);
+        $('#leki_dziecko').val(data[0]['leki_dziecko']);
 
-            default:
-                break;
-        }
-        return trHTML;
+        radioAddProperties("piers_wielkosc", data, null);
+
+        checkboxAddProperties("cycki", data, ["obszar", "zmiana_opis_pict"])
+
+        $('#brodawka').val(data[0]['brodawka']);
+        $('#brodawka_jaka').val(data[0]['brodawka_jaka']);
+
+        radioAddProperties("zmiany", data, ["zmiany_opis"]);
+
+        $('#brodawka_jaka').val(data[0]['brodawka_jaka']);
+        $('#stan_emocjonalny').val(data[0]['stan_emocjonalny']);
+
+        $('#obserwacja_dziecka').val(data[0]['obserwacja_dziecka']);
+
+        $('#masa_ur').val(data[0]['masa_ur']);
+        $('#data_01').val(data[0]['data_01']);
+
+        $('#masa_min').val(data[0]['masa_min']);
+        $('#data_02').val(data[0]['data_02']);
+
+        $('#masa_inne_a').val(data[0]['masa_inne_a']);
+        $('#data_03a').val(data[0]['data_03a']);
+
+        checkboxAddPropertiesBACK(["masa_inne_b", "data_03b"], data, "add_01");
+        checkboxAddPropertiesBACK(["masa_inne_c", "data_03c"], data, "add_02");
+        checkboxAddPropertiesBACK(["masa_inne_d", "data_03d"], data, "add_03");
+        checkboxAddPropertiesBACK(["masa_inne_e", "data_03e"], data, "add_04");
+        checkboxAddPropertiesBACK(["masa_inne_f", "data_03f"], data, "add_05");
+
+        $('#masa_obecna').val(data[0]['masa_obecna']);
+        $('#data_04').val(data[0]['data_04']);
+        $('#przyrost_sredni').val(data[0]['przyrost_sredni']);
+        $('#zachowanie_dziecka_wizyta').val(data[0]['zachowanie_dziecka_wizyta']);
+
+
+        radioAddProperties("otwieranie_ust", data, null);
+        radioAddProperties("ulozenie_ust", data, null);
+        radioAddProperties("ulozenie_jezyka", data, null);
+        radioAddProperties("ruchy_kasajace", data, null);
+        radioAddProperties("ruchy_ssace", data, null);
+
+        $('#ocena_karmienie_piers').val(data[0]['ocena_karmienie_piers']);
+        $('#rozpoznanie').val(data[0]['rozpoznanie']);
+
+        radioAddProperties("korekta_poz", data, null);
+        radioAddProperties("trening_ssania", data, null);
+        radioAddProperties("dokarmianie", data, null);
+
+        $('#zalecenia_inne').val(data[0]['zalecenia_inne']);
+
+        // TEST
+        $('#sql').val(data[1]['sql']);
+        $('#info').val(data[1]['info']);
+        $('#error').val(data[1]['error']);
+        $('#post').val(data[1]['postData']);
     }
 
 // Funkcja ładująca ustawienia bazowe róznych inputów
@@ -405,14 +229,16 @@ $(document).ready(function () {
         ShowHide("uspokajacz", ["uspokajacz_opis"]);
         ShowHide("zmiany", ["zmiany_opis"]);
 
+        ShowHideCyc();
+//        szpitalAction(data)
 
         ShowHide_opt("urodzone_czas", ["ile_wczesniej"], "o czasie");
         ShowHide_opt("porod", ["jaki_porod"], "normalny");
         ShowHide_opt("brodawka", ["brodawka_jaka"], "prawidlowa");
     }
 
-// Funkcja ustawiająca akcje dla input typu checkbox, radiobutton (chowanie przynależnych im pól opisu)
-    function ShowHide(text, params) {
+// Funkcja ustawiająca akcje dla input radiobutton (chowanie przynależnych im pól opisu)
+    function ShowHide(name, params) {
         var leng = params.length;
         var clean = false;
 
@@ -424,7 +250,7 @@ $(document).ready(function () {
             communikate = "Czy wyczyścić również wpis?";
         }
 
-        if ($("input[name='" + text + "']:checked").val() == 0) {
+        if ($("input[name='" + name + "']:checked").val() == 0) {
             for (var i = 0; i < leng; i++) {
                 $('#' + params[i] + '_show').hide();
             }
@@ -434,19 +260,64 @@ $(document).ready(function () {
             }
         }
 
-        $("input[name='" + text + "']").click(function () {
-            if ($("input[name='" + text + "']:checked").val() == 0) {
+        $("input[name='" + name + "']").click(function () {
+            if ($("input[name='" + name + "']:checked").val() == 0) {
+
                 clean = confirm(communikate)
                 for (var i = 0; i < leng; i++) {
-                    $('#' + params[i] + '_show').hide();
-
+                    $('#' + name + '_show').hide();
+//                    alert($('#' + params[i]).val())
                     if (clean) {
                         $('#' + params[i]).removeAttr('value');
+                        $('#' + params[i]).val('');
                     }
                 }
             } else {
                 for (var i = 0; i < leng; i++) {
-                    $('#' + params[i] + '_show').show();
+                    $('#' + name + '_show').show();
+                }
+            }
+        });
+    }
+
+// Funkcja ustawiająca akcje dla input checkbox (chowanie przynależnych im pól opisu)
+    function ShowHide_chbx(name, params) {
+        var leng = params.length;
+        var clean = false;
+
+        var communikate = "";
+
+        if (leng > 1) {
+            communikate = "Czy wyczyścić wszystkie wpisy?";
+        } else {
+            communikate = "Czy wyczyścić również wpis?";
+        }
+
+        if ($("input[name='" + name + "']:checked").val() == 0) {
+            for (var i = 0; i < leng; i++) {
+                $('#' + params[i] + '_show').hide();
+            }
+        } else {
+            for (var i = 0; i < leng; i++) {
+                $('#' + params[i] + '_show').show();
+            }
+        }
+
+        $("input[name='" + name + "']").click(function () {
+            if ($("input[name='" + name + "']:checked").val() == 0) {
+
+                clean = confirm(communikate)
+                for (var i = 0; i < leng; i++) {
+                    $('#' + name + '_show').hide();
+//                    alert($('#' + params[i]).val())
+                    if (clean) {
+                        $('#' + params[i]).removeAttr('value');
+                        $('#' + params[i]).val('');
+                    }
+                }
+            } else {
+                for (var i = 0; i < leng; i++) {
+                    $('#' + name + '_show').show();
                 }
             }
         });
@@ -466,32 +337,205 @@ $(document).ready(function () {
 
         if ($("#" + id).val() != opt) {
             for (var i = 0; i < leng; i++) {
-                $('#' + params[i] + '_show').show();
+                $('#' + id + '_show').show();
             }
         } else {
             for (var i = 0; i < leng; i++) {
 //                alert("399: "+params[i])
-                $('#' + params[i] + '_show').hide();
+                $('#' + id + '_show').hide();
             }
         }
 
         $("#" + id).change(function () {
             if ($("#" + id).val() != opt) {
                 for (var i = 0; i < leng; i++) {
-                    $('#' + params[i] + '_show').show();
+                    $('#' + id + '_show').show();
                 }
             } else {
                 clean = confirm(communikate);
                 for (var i = 0; i < leng; i++) {
-                    $('#' + params[i] + '_show').hide();
+                    $('#' + id + '_show').hide();
                     if (clean) {
                         $('#' + params[i]).removeAttr('value');
+                        $('#' + params[i]).val("");
                     }
                 }
             }
         });
     }
 
+// Funkcja do obsługi radio buttons - treść i array params do show/hide inputs
+    function radioAddProperties(name, data, params) {
+        $('input:radio[name="' + name + '"]').filter('[value="' + data[0][name] + '"]').attr('checked', true);
+        var showNotPar = $('input:radio[name="' + name + '"][value="0"]').val();
+//        alert(data[0][name] + ", " + showNotPar);
+        if (params !== null) {
+            if (data[0][name] != showNotPar) {
+                for (var i = 0; i < params.length; i++) {
+//                    alert(params[i] + " => " + data[0][params[i]]);
+                    var text = data[0][params[i]];
+                    $('#' + params[i]).val(text);
+                    $('#' + name + "_show").show();
+                }
+            } else {
+                $('#' + name + "_show").hide();
+            }
+        }
+    }
+// Funkcja do obsługi radio buttons - treść i array params do show/hide inputs
+    function radioAddProperties(name, data, params) {
+        $('input:radio[name="' + name + '"]').filter('[value="' + data[0][name] + '"]').attr('checked', true);
+        var showNotPar = $('input:radio[name="' + name + '"][value="0"]').val();
+//        alert(data[0][name] + ", " + showNotPar);
+        if (params !== null) {
+            if (data[0][name] != showNotPar) {
+                for (var i = 0; i < params.length; i++) {
+//                    alert(params[i] + " => " + data[0][params[i]]);
+                    var text = data[0][params[i]];
+                    $('#' + params[i]).val(text);
+                    $('#' + name + "_show").show();
+                }
+            } else {
+                $('#' + name + "_show").hide();
+            }
+        }
+    }
+
+// Funkcja początkowa, nadaje wartości polom checkboxa
+    function checkboxAddProperties(name, data, params) {
+        var prop = data[0][name];
+
+        // nadanie wartości:
+        $('input:checkbox[name="' + name + '"]').attr('checked', prop);
+
+        if (params !== null) {
+            if (prop) {
+                for (var i = 0; i < params.length; i++) {
+//                    console.log(params[i] + " => " + data[0][params[i]]);
+                    $('#' + params[i]).val(data[0][params[i]]);
+                }
+                $('#' + name + "_show").show();
+            } else {
+                $('#' + name + "_show").hide();
+            }
+        } else {
+            $('#' + name + "_show").hide();
+        }
+    }
+
+// Funkcja początkowa, nadaje wartości polom i zaznacza chechbox.
+    function checkboxAddPropertiesBACK(params, data, name) {
+        var isChecked = false;
+        var communikate = "Czy wyczyścić wszystkie wpisy?";
+
+        if (params != null) {
+            var leng = params.length;
+
+            for (var i = 0; i < leng; i++) {
+                var property = data[0][params[i]];
+                $('#' + params[i]).val(property);
+                if (property.length > 0) {
+                    isChecked = true;
+                }
+            }
+        }
+//        alert(isChecked)
+        $('input:checkbox[name="' + name + '"]').attr('checked', isChecked);
+
+        if (isChecked) {
+//            console.log("pokazuje: " + name + "_show");
+            $("#" + name + "_show").show();
+        } else {
+//            console.log("NIE pokazuje: " + name + "_show");
+            $("#" + name + "_show").hide();
+        }
+
+        $('input:checkbox[name="' + name + '"]').click(function () {
+            if (isCheckbxChecked(name)) {
+                $("#" + name + "_show").show();
+            } else {
+                $("#" + name + "_show").hide();
+                if (confirm(communikate)) {
+                    for (var i = 0; i < leng; i++) {
+
+                        $('#' + params[i]).val("");
+                    }
+                }
+            }
+        });
+    }
+
+    // Funkcja ustawiająca checkboxa "cycki" (chowanie przynależnych im pól opisu)
+    function ShowHideCyc() {
+        var clean = false;
+        var communikate = "Czy wyczyścić wszystkie wpisy?";
+
+        if (!isCheckbxChecked("cycki")) {  // Buton jest NIE checked
+            clean = confirm(communikate)
+            $('#cycki_show').hide();
+            if (clean) {
+                $('#obszar').removeAttr('value');
+                $('#zmiana_opis_pict').removeAttr('value');
+                $('#obszar').val('');
+                $('#zmiana_opis_pict').val('');
+            }
+        } else {
+            $('cycki_show').show();
+        }
+
+        $("#cycki").click(function () {
+            if (!isCheckbxChecked("cycki")) {
+                clean = confirm(communikate)
+                $('#cycki_show').hide();
+                if (clean) {
+                    $('#obszar').removeAttr('value');
+                    $('#zmiana_opis_pict').removeAttr('value');
+                    $('#obszar').val('');
+                    $('#zmiana_opis_pict').val('');
+                }
+            } else {
+                $('#cycki_show').show();
+            }
+        });
+    }
+
+// For test!!
+    function isCheckbxChecked(id, nr) {
+
+        var chbx = $('#' + id).is(":checked");
+        alert(nr + " -> Chbx: " + chbx)
+        return chbx;
+    }
+
+    function isCheckbxChecked(id) {
+
+        var chbx = $('#' + id).is(":checked");
+        return chbx;
+    }
+
+    function szpitalAction(data) {
+        
+        if(data[0]['miejsce'] === 0){   // szpital!!!
+            
+        }else{
+            
+        }
+
+        
+        $("input[name='miejsce_urodzenia_quest']").click(function () {
+            if (this.value == 0) {
+                $("#szpital_show").show();
+                $("#innemiejsce_show").hide();
+//            $("#show_innemiejsce").remove();
+                $("#urodz_ulica_nr_mieszkanie").hide();
+            } else {
+                $("#szpital_show").hide();
+//            $("#show_szpital").remove();
+                $("#innemiejsce_show").show();
+                $("#urodz_ulica_nr_mieszkanie").show();
+            }
+        });
+    }
 
 
 });

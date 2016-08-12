@@ -378,15 +378,16 @@ $(document).ready(function () {
     // CHECKBOX - CYCKI
 //    $("input[type='checkbox']").click(function(){
 //    $("input[id='cyckiID']").click(function(){
-    $("#cyckiID").click(function () {
+//    $("#cyckiID").click(function () {
+    $("#cycki").click(function () {
 //        alert("Checkbox state (method 1) = " + $("#cyckiID").prop('checked'));
 //        alert("Checkbox state (method 2) = " + $("#cyckiID").is(':checked'));
 
-        if ($("#cyckiID").prop('checked')) {
+        if ($("#cycki").prop('checked')) {
             $("#foto_cycki").show();
         } else {
             $("#foto_cycki").hide();
-            $("#cords").val("");
+            $("#obszar").val("");
             $("#zmiana_opis_pict").val("");
         }
 
