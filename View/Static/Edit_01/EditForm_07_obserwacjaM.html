@@ -34,9 +34,10 @@
                 <div class="col-sm-2 form-group map">
                     <img usemap="#planetmap" class="col-sm-2 mapper" src="img/anatomy_02.jpg" alt="Brak cycków" />
 
-                    <map name="planetmap">
-
-                        <area alt="" title="" nohref shape="poly" coords="179,250,182,81,256,134"  onclick="showCoordsCyca(event, 'rec1');"/>
+                    <map name="planetmap" id="planetmap">
+                                                            //    class="icolor000000 forcegroup"
+                                                            //    class="noborder icolor00ff00"
+                        <area id='rec1' alt="" title="" nohref shape="poly" coords="179,250,182,81,256,134"  onclick="showCoordsCyca(event, 'rec1');"/>
                         <area alt="" title="" nohref shape="poly" coords="180,253,256,136,268,219" onclick="showCoordsCyca(event, 'rec2');"/>
                         <area alt="" title="" nohref shape="poly" coords="180,255,267,221,257,314" onclick="showCoordsCyca(event, 'rec3');"/>
                         <area alt="" title="" nohref shape="poly" coords="181,258,253,316,231,337,212,350,183,354" onclick="showCoordsCyca(event, 'rec4');"/>

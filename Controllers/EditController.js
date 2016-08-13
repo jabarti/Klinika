@@ -235,6 +235,18 @@ $(document).ready(function () {
         ShowHide_opt("urodzone_czas", ["ile_wczesniej"], "o czasie");
         ShowHide_opt("porod", ["jaki_porod"], "normalny");
         ShowHide_opt("brodawka", ["brodawka_jaka"], "prawidlowa");
+
+        $('#planetmap').mapper({
+            dataType: "provinces",
+            data: [
+                {id: "rec1"}
+            ],
+            fillColor: "blue",
+            fillOpacity: 0.85,
+            strokeColor: "red",
+            strokeWidth: 5,
+            strokeOpacity: 1
+        });
     }
 
 // Funkcja ustawiająca akcje dla input radiobutton (chowanie przynależnych im pól opisu)
@@ -514,14 +526,14 @@ $(document).ready(function () {
     }
 
     function szpitalAction(data) {
-        
-        if(data[0]['miejsce'] === 0){   // szpital!!!
-            
-        }else{
-            
+
+        if (data[0]['miejsce'] === 0) {   // szpital!!!
+
+        } else {
+
         }
 
-        
+
         $("input[name='miejsce_urodzenia_quest']").click(function () {
             if (this.value == 0) {
                 $("#szpital_show").show();
