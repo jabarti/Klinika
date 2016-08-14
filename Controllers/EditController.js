@@ -140,7 +140,9 @@ $(document).ready(function () {
 
 //        ShowHide("uspokajacz", ["uspokajacz_opis"]);
 //        ShowHide("zmiany", ["zmiany_opis"]);
-        szpitalAction(data)
+
+        szpitalAction(data);
+
 
         $('#pieluchy').val(data[0]['pieluchy']);
         $('#stolec').val(data[0]['stolec']);
@@ -232,21 +234,22 @@ $(document).ready(function () {
         ShowHideCyc();
 //        szpitalAction(data)
 
+
         ShowHide_opt("urodzone_czas", ["ile_wczesniej"], "o czasie");
         ShowHide_opt("porod", ["jaki_porod"], "normalny");
         ShowHide_opt("brodawka", ["brodawka_jaka"], "prawidlowa");
 
-        $('#planetmap').mapper({
-            dataType: "provinces",
-            data: [
-                {id: "rec1"}
-            ],
-            fillColor: "blue",
-            fillOpacity: 0.85,
-            strokeColor: "red",
-            strokeWidth: 5,
-            strokeOpacity: 1
-        });
+//        $('#planetmap').mapper({
+//            dataType: "provinces",
+//            data: [
+//                {id: "rec1"}
+//            ],
+//            fillColor: "blue",
+//            fillOpacity: 0.85,
+//            strokeColor: "red",
+//            strokeWidth: 5,
+//            strokeOpacity: 1
+//        });
     }
 
 // Funkcja ustawiająca akcje dla input radiobutton (chowanie przynależnych im pól opisu)
@@ -527,24 +530,51 @@ $(document).ready(function () {
 
     function szpitalAction(data) {
 
-        if (data[0]['miejsce'] === 0) {   // szpital!!!
-
+        if (data[0]['miejsce'] == 0) {   // szpital!!!
+            $("input[name='miejsce_urodzenia_quest']").filter('[value="0"]').attr('checked', true);
+            $("#szpital_show").show();
+            $("#innemiejsce_show").hide();
+            $("#urodz_ulica_nr_mieszkanie").hide();
+            $("#miejsce_urodzenia_sz").val(data[0]['nazwa'])
         } else {
-
+            $("input[name='miejsce_urodzenia_quest']").filter('[value="1"]').attr('checked', true);
+            $("#szpital_show").hide();
+            $("#innemiejsce_show").show();
+            $("#urodz_ulica_nr_mieszkanie").show();
+            $("#miejsce_urodzenia_im").val(data[0]['nazwa'])
         }
-
+        var communikate = "Czy wyczyścić wszystkie wpisy?";
 
         $("input[name='miejsce_urodzenia_quest']").click(function () {
+            var conf = confirm(communikate);
             if (this.value == 0) {
                 $("#szpital_show").show();
                 $("#innemiejsce_show").hide();
-//            $("#show_innemiejsce").remove();
                 $("#urodz_ulica_nr_mieszkanie").hide();
+                if (conf) {
+                    $("#miejsce_urodzenia_im").val("");
+                    $("#urodz_ulica").val("");
+                    $("#urodz_ulica_nr").val("");
+                    $("#urodz_ulica_nr_mieszkanie").val("");
+                    $("#urodz_kod_poczt").val("");
+                    $("#urodz_kod_poczt").val("");
+                    $("#urodz_miasto").val("");
+                    $("#urodz_kraj").val("");
+                }
             } else {
                 $("#szpital_show").hide();
-//            $("#show_szpital").remove();
                 $("#innemiejsce_show").show();
                 $("#urodz_ulica_nr_mieszkanie").show();
+                if (conf) {
+                    $("#miejsce_urodzenia_sz").val("");
+                    $("#urodz_ulica").val("");
+                    $("#urodz_ulica_nr").val("");
+                    $("#urodz_ulica_nr_mieszkanie").val("");
+                    $("#urodz_kod_poczt").val("");
+                    $("#urodz_kod_poczt").val("");
+                    $("#urodz_miasto").val("");
+                    $("#urodz_kraj").val("");
+                }
             }
         });
     }

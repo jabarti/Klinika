@@ -28,6 +28,7 @@ $przerwa = "\n============================================\n";
 $Szpital_akcja_edit = true;
 $NEW_id_szpital = "";
 $POSTdata = "";
+$Szpit_OLD_ID = "";
 
 //$id_wpisu = "4/2016";
 
@@ -58,14 +59,21 @@ if (isset($_POST['action'])) {
             }
             $info .= "\n(" . __LINE__ . ") ID_wpisu:" . $id_wpisu;
 
-            // sprawdzam czy nie ma takiej nazwy SZPITALA już
-            $SQL_Szpital_Test = "SELECT count(*) FROM $baza.`szpital` WHERE `nazwa` = '" . $_POST['nazwa'] . "' AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "';";
+            if ($_POST['miejsce_urodzenia_quest'] == 0) {     // Szpital!!
+                $nazwa = $_POST['miejsce_urodzenia_sz'];
+                $info .= "\n(" . __LINE__ . ") nazwa:" . $nazwa;
+            } else {
+                $nazwa = $_POST['miejsce_urodzenia_im'];
+                $info .= "\n(" . __LINE__ . ") nazwa:" . $nazwa;
+            }
+            // sprawdzam czy nie ma takiej nazwy SZPITALA już w tym mieście
+            $SQL_Szpital_Test = "SELECT count(*) FROM $baza.`szpital` WHERE `nazwa` = '" . $nazwa . "' AND `urodz_miasto` = '" . $_POST['urodz_miasto'] . "' AND `czyNIESzpital` = '" . $_POST['miejsce_urodzenia_quest'] . "';";
             $SQL_info .= "\n(" . __LINE__ . ")SQL_Szpital_Test:[$SQL_Szpital_Test]" . $przerwa;
 
             $mq = mysqli_query($DBConn, $SQL_Szpital_Test);
             $ile_rec = mysqli_fetch_row($mq);
             $ile_rec = $ile_rec[0];
-            $info .= "\n(" . __LINE__ . ")MQ: $ile_rec";
+            $info .= "\n(" . __LINE__ . ")Ile recordów szpitali: $ile_rec";
 
             if ($ile_rec == 0) {
                 $info .= "\n(" . __LINE__ . ")NOWY REKORD FAKTYCZNIE";
@@ -73,24 +81,37 @@ if (isset($_POST['action'])) {
             } else if ($ile_rec == 1) {
                 $Szpital_akcja_edit = true;
                 $info .= "\n(" . __LINE__ . ")EDYCJA STAREGO";
+
+                // Pobieramy ID_Szpitala jeśli UPDATE
+                $SQL_Szpital_Old_id = "SELECT `idSzpital` FROM $baza.`szpital` WHERE `nazwa` = '" . $nazwa . "' AND `urodz_miasto` = '" . $_POST['urodz_miasto'] . "' AND `czyNIESzpital` = '" . $_POST['miejsce_urodzenia_quest'] . "';";
+                $SQL_info .= "\n(" . __LINE__ . ")SQL_Szpital_Old_id:[$SQL_Szpital_Old_id]" . $przerwa;
+                $mq = mysqli_query($DBConn, $SQL_Szpital_Old_id);
+                $Szpit_OLD_ID = mysqli_fetch_row($mq);
+
+//                foreach($Szpit_OLD_ID as $ki => $vi){
+//                    $SQL_info .= "\nrec: $ki => $vi";
+//                }
+
+                $Szpit_OLD_ID = $Szpit_OLD_ID[0];
+                $info .= "\n(" . __LINE__ . ")OLD_ID: $Szpit_OLD_ID";
             } else {
                 $Szpital_akcja_edit = "ERROR";
                 $info .= "\n(" . __LINE__ . ")EDYCJA STAREGO?? Wiele rekordów o takiej nazwie, ERROR!, ale robimy kolejny!";
             }
 
-            if ($Szpital_akcja_edit) {
-                $SQL_Szpital = "UPDATE $baza.`szpital` SET `nazwa`='" . $_POST['nazwa'] . "',`urodz_ulica`='" . $_POST['urodz_ulica'] . "',
+            if ($Szpital_akcja_edit && $Szpit_OLD_ID != "") {
+                $SQL_Szpital = "UPDATE $baza.`szpital` SET `nazwa`='" . $nazwa . "',`urodz_ulica`='" . $_POST['urodz_ulica'] . "',
                                     `urodz_ulica_nr`='" . $_POST['urodz_ulica_nr'] . "',`urodz_ulica_nr_mieszkanie`='" . $_POST['urodz_ulica_nr_mieszkanie'] . "',
                                     `urodz_kod_poczt`='" . $_POST['urodz_kod_poczt'] . "',`urodz_miasto`='" . $_POST['urodz_miasto'] . "',`urodz_kraj`='" . $_POST['urodz_kraj'] . "',
-                                    `czyNIESzpital`='" . $_POST['miejsce'] . "' 
-                                    WHERE `idSzpital`= '" . $_POST['id_SzpitalOrInne'] . "';";
+                                    `czyNIESzpital`='" . $_POST['miejsce_urodzenia_quest'] . "' 
+                                    WHERE `idSzpital`= '" . $Szpit_OLD_ID . "';";
             } else {
                 $SQL_Szpital = "INSERT INTO $baza.`szpital`"
                         . "( `nazwa`, `urodz_ulica`, `urodz_ulica_nr`, `urodz_ulica_nr_mieszkanie`, "
                         . "`urodz_kod_poczt`, `urodz_miasto`, `urodz_kraj`, `czyNIESzpital`) "
-                        . "VALUES ('" . $_POST['nazwa'] . "','" . $_POST['urodz_ulica'] . "','" . $_POST['urodz_ulica_nr'] . "',"
+                        . "VALUES ('" . $nazwa . "','" . $_POST['urodz_ulica'] . "','" . $_POST['urodz_ulica_nr'] . "',"
                         . "'" . $_POST['urodz_ulica_nr_mieszkanie'] . "','" . $_POST['urodz_kod_poczt'] . "','" . $_POST['urodz_miasto'] . "',"
-                        . "'" . $_POST['urodz_kraj'] . "','" . $_POST['miejsce'] . "');";
+                        . "'" . $_POST['urodz_kraj'] . "','" . $_POST['miejsce_urodzenia_quest'] . "');";
             }
 
             $SQL_info .= "\n(" . __LINE__ . ")SQL_Szpital:[$SQL_Szpital]" . $przerwa;
@@ -101,7 +122,7 @@ if (isset($_POST['action'])) {
 
                 // Jeśli był zmieniany, musze pobrać nowe ID itp
                 if (!$Szpital_akcja_edit) {
-                    $SQL_take_data = "SELECT `idSzpital` FROM $baza.`szpital` WHERE `nazwa` = '" . $_POST['nazwa'] . "' AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "';";
+                    $SQL_take_data = "SELECT `idSzpital` FROM $baza.`szpital` WHERE `nazwa` = '" . $nazwa . "' AND `urodz_miasto` = '" . $_POST['urodz_miasto'] . "';";
                     $SQL_info .= "\n(" . __LINE__ . ")SQL_take_data:[$SQL_take_data]" . $przerwa;
 
                     $mq = mysqli_query($DBConn, $SQL_take_data);
@@ -110,6 +131,8 @@ if (isset($_POST['action'])) {
                         $NEW_id_szpital = $NEW_id_szpital[0];
                         $info .= "\n(" . __LINE__ . ")NOWE ID: " . $NEW_id_szpital;
                     } else {
+                        // jeśli był UPDATE to nowe ID = stare ID
+                        $NEW_id_szpital = $Szpit_OLD_ID;
                         $error .= "\n(" . __LINE__ . ")Szpital NIE dodany lub zmieniony";
                     }
                 }
@@ -153,15 +176,15 @@ if (isset($_POST['action'])) {
                     case 'leki_porod':
                     case 'leki_polog':
 //                    case 'powod_zgloszenia':
-                    case 'miejsce':
+//                    case 'miejsce':
                         $Set_Form_01 .= "`$k` = '$v',";
                         break;
-                    case 'id_SzpitalOrInne': //=> to będzie id_szpitala, nowe lub stare. Ostatni w serii
-
+                    case 'miejsce_urodzenia_quest':
+                        $Set_Form_01 .= "`miejsce` = '$v',";
                         if ($NEW_id_szpital == "") {
-                            $Set_Form_01 .= "`$k` = '$v',";
+                            $Set_Form_01 .= "`id_SzpitalOrInne` = '$Szpit_OLD_ID',";
                         } else {
-                            $Set_Form_01 .= "`$k` = '$NEW_id_szpital',";
+                            $Set_Form_01 .= "`id_SzpitalOrInne` = '$NEW_id_szpital',";
                         }
 
                         $info .= "\n(" . __LINE__ . ")NOWE ID_Szp: " . $NEW_id_szpital;
