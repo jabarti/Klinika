@@ -7,7 +7,7 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 $(document).ready(function () {
-
+    var url = "AJAX/FormularzAJAX.php"
     // Ustawienia początkowe formularza
     // NyForm3
     $("#show_szpital").hide();
@@ -44,38 +44,49 @@ $(document).ready(function () {
     $("#add_04_show").hide();
     $("#add_05_show").hide();
     $("#add_06_show").hide();
-    
-    
+
+    pobierz_szpitale();
+
+
     // Submiting Logg form
-    $("#NyFormularz").submit(function(e) {
+    $("#NyFormularz").submit(function (e) {
 //        alert("Submitting")
-        var url = "AJAX/FormularzAJAX.php"; // the script where you handle the form input.
+//        var url = "AJAX/FormularzAJAX.php"; // the script where you handle the form input.
 
         $.ajax({
-               type: "POST",
-               url: url,
-               data: $("#NyFormularz").serialize() + '&action=addNytt', // serializes the form's elements.
-               success: function(response){
-                   var data = jQuery.parseJSON(response);
+            type: "POST",
+            url: url,
+            data: $("#NyFormularz").serialize() + '&action=addNytt', // serializes the form's elements.
+            success: function (response) {
+                var data = jQuery.parseJSON(response);
 //                   alert("ok: "+data.outp + "\n"+ data.actions); // show response from the php script.
-                   $("#message").html(  '<br>DATA SQL:<br>'+data.SQL+
-//                                        '<br>DATA.OUTP'+data.outp+
+                $("#message").html('<br>DATA SQL:<br>' + data.SQL +
+                        '<br>DATA.OUTP' + data.outp +
 //                                        '<br>DATA ACTIONS:<br>'+data.actions+
-                                        '<br>DATA ERRORs:<br>'+data.error+
-                                        '<br>DATA Info:<br>'+data.info
-                                        );
-//                   $("#NyFormularz").trigger('reset');
+                        '<br>DATA ERRORs:<br>' + data.error +
+                        '<br>DATA Info:<br>' + data.info +
+                        '<br>DATA NEW ID:<br>' + data.NewIDinfo
+                        );
+                $("#NyFormularz").trigger('reset');
+
+                if (data.NewID != null) {
+                    if (confirm("Czy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
+                        location.href = "index.php?page=edit&id_record=" + data.NewID;
+                    }
+                }
+
+
 //                   location.href = location.href
-               },
-               error: function(response){
-                   alert("ERROR"+response);
+            },
+            error: function (response) {
+                alert("ERROR" + response);
 //                   $("#errorPass").show();
-               }
-             });
+            }
+        });
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
     });
-    
+
 
     // Wpisuje imie i nazwisko matki i dziecka na górze form
     $("#mama_firstname").change(function () {
@@ -438,7 +449,7 @@ $(document).ready(function () {
             $("#add_02_show").hide();
             $("input[name='masa_inne_b']").val('');
             $("input[name='data_03b']").val('');
-            
+
         }
 
     });
@@ -494,6 +505,61 @@ $(document).ready(function () {
         }
 
     });
+
+    function  pobierz_szpitale() {
+        var names = [];
+        var ulices = [];
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: '&action=takeSzpitals', // serializes the form's elements.
+            success: function (response) {
+                var data = jQuery.parseJSON(response);
+//                   alert("ok: "+data.outp + "\n"+ data.actions); // show response from the php script.
+//                $("#message").html('<br>DATA SQL:<br>' + data.SQL +
+//                        '<br>DATA.OUTP' + data.outp +
+////                                        '<br>DATA ACTIONS:<br>'+data.actions+
+//                        '<br>DATA ERRORs:<br>' + data.error +
+//                        '<br>DATA Info:<br>' + data.info
+//                        );
+                for (var i = 0; i < data.outp.length; i++) {
+                    console.log(data.outp[i][1]);
+                    names.push(data.outp[i][1])
+                }
+
+                for (var i = 0; i < names.length; i++) {
+//            alert(ar[i]);
+                    $('#pobrane_miejsce').append("<option value='" + names[i] + "' >" + names[i] + "</option>");
+                }
+
+                $('#pobrane_miejsce').on("change", function (event) {
+                    var index = '';
+                    for (var i = 0; i < data.outp.length; i++) {
+                        if (data.outp[i][1] == this.value) {
+                            index = i;
+                        }
+                    }
+
+                    $("input[name='miejsce_urodzenia_quest'][value='0']").attr('checked', true);
+
+                    $("#show_szpital").show()
+                    $("#miejsce_urodzenia_sz").val(data.outp[index][1]);
+                    $("#show_innemiejsce").hide();
+                    $("#urodz_ulica_nr_mieszkanie").hide();
+                    $("#urodz_ulica").val(data.outp[index][2]);
+                    $("#urodz_ulica_nr").val(data.outp[index][3]);
+                    $("#urodz_kod_poczt").val(data.outp[index][5]);
+                    $("#urodz_miasto").val(data.outp[index][6]);
+                    $("#urodz_kraj").val(data.outp[index][7]);
+                });
+            },
+            error: function (response) {
+                alert("ERROR" + response);
+//                   $("#errorPass").show();
+            }
+        });
+    }
 
 
 

@@ -20,8 +20,10 @@ $(document).ready(function () {
         success: function (response) {
             var data = jQuery.parseJSON(response);
 
+            LoadCyckiPict(data);
             Make_Records(data);
-            loadUstawienia()
+            loadUstawienia();
+//            LoadCyckiPict(data);
         },
         error: function (response) {
             alert("ERROR w EditCtrl 26" + response);
@@ -37,9 +39,10 @@ $(document).ready(function () {
             data: $("#EditForm").serialize() + '&action=edit&id_wpisu_pre=' + Url_id_record, // serializes the form's elements.
             success: function (response) {
                 var data = jQuery.parseJSON(response);
-
-                Make_Records(data);
-                loadUstawienia()
+                if (data != null) {
+                    Make_Records(data);
+                    loadUstawienia()
+                }
             },
             error: function (response) {
                 alert("ERROR w EditCtrl 43" + response);
@@ -160,6 +163,8 @@ $(document).ready(function () {
         radioAddProperties("piers_wielkosc", data, null);
 
         checkboxAddProperties("cycki", data, ["obszar", "zmiana_opis_pict"])
+        
+//        LoadCyckiPict();
 
         $('#brodawka').val(data[0]['brodawka']);
         $('#brodawka_jaka').val(data[0]['brodawka_jaka']);
@@ -208,10 +213,12 @@ $(document).ready(function () {
         $('#zalecenia_inne').val(data[0]['zalecenia_inne']);
 
         // TEST
-        $('#sql').val(data[1]['sql']);
-        $('#info').val(data[1]['info']);
-        $('#error').val(data[1]['error']);
-        $('#post').val(data[1]['postData']);
+        if (data[1] != undefined) {
+            $('#sql').val(data[1]['sql']);
+            $('#info').val(data[1]['info']);
+            $('#error').val(data[1]['error']);
+            $('#post').val(data[1]['postData']);
+        }
     }
 
 // Funkcja ładująca ustawienia bazowe róznych inputów
@@ -449,8 +456,10 @@ $(document).ready(function () {
             for (var i = 0; i < leng; i++) {
                 var property = data[0][params[i]];
                 $('#' + params[i]).val(property);
-                if (property.length > 0) {
-                    isChecked = true;
+                if (property != null) {
+                    if (property.length > 0) {
+                        isChecked = true;
+                    }
                 }
             }
         }
@@ -577,6 +586,27 @@ $(document).ready(function () {
                 }
             }
         });
+    }
+    
+    function LoadCyckiPict(data){  // nie działa... obrazek się nie chce podmienić.
+        
+        
+        var opisObsz = data[0]['zmiana_opis_pict']
+//        var opisObsz = $('#obszar').val();
+        
+//        alert(opisObsz);
+        
+        var ind = opisObsz.indexOf(':');
+        var id_ob = opisObsz.substring(0,ind);
+        
+//        alert(opisObsz + ", ind od ':' = "+ind+", id="+id_ob)
+        
+        id_ob = "rec1"; // test
+        
+//        $("#map_img").attr("src","img/anatomy_02_"+id_ob+".jpg");
+//        $('#img_contener').remove($('#map_img'))
+//        $('#img_contener').append("<img usemap='#planetmap' class='col-sm-2 mapper' src='img/anatomy_02_rec1.jpg' alt='Brak cycków' />")
+//        
     }
 
 

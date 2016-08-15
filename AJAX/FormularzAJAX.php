@@ -23,6 +23,7 @@ $outp = '';
 $user = '';
 $IP = '';
 $info = '';
+$NEW_FORM_ID = "";
 
 $Fin_Arr = array(
     "valid" => false,
@@ -32,6 +33,7 @@ $Fin_Arr = array(
     "outp" => $outp,
     "user" => $user,
     "IP" => $IP,
+    "NewID" => $NEW_FORM_ID,
     "info" => $info);
 
 $ID_last_Szpital = "";
@@ -287,7 +289,6 @@ if (isset($_POST['action'])) {
 
                 $czyMatkaByłaBD = true;
                 $isAddMatkaOK = true;
-                
             } else {
                 $czyMatkaByłaBD = false;
                 $info .= "<br>Takiej Matki BRAK w BD!";
@@ -332,8 +333,8 @@ if (isset($_POST['action'])) {
 
             if (!$czyPustaNazwa) {
                 $TakeLastIdSzpit = "SELECT `idSzpital` FROM $baza.`szpital` WHERE "
-                                . "`nazwa` = '$miejsce_urodzenia' "
-                                . "AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "' LIMIT 1;;";
+                        . "`nazwa` = '$miejsce_urodzenia' "
+                        . "AND `urodz_ulica` = '" . $_POST['urodz_ulica'] . "' LIMIT 1;;";
                 $SQL .= "<br>TakeLastIdSzpit:[$TakeLastIdSzpit]";
 
                 $mysql_q1 = mysqli_query($DBConn, $TakeLastIdSzpit);
@@ -421,9 +422,9 @@ if (isset($_POST['action'])) {
 //          Sprawdzenie czy taki formularz już jest w BD (wg. ID_Wpis i danych wprowadzanych)
 //          $data_temp = substr($data_urodzenia_dziecko, 0,10);        // uzyskanie formatu daty rrrr-mm-dd
             $IsFormularzInDB_sql = "SELECT `ID_Wpisu` FROM $baza.`formularz` WHERE "
-                                        . "`Matka_idMatka` = '$Last_Mama_ID' "
-                                    . "AND `imie_dziecka` = '" . $_POST['imie_dziecka'] . "' "
-                                    . "AND `data_urodzenia_dziecko` = '" . $_POST['data_urodzenia_dziecko'] . "';";
+                    . "`Matka_idMatka` = '$Last_Mama_ID' "
+                    . "AND `imie_dziecka` = '" . $_POST['imie_dziecka'] . "' "
+                    . "AND `data_urodzenia_dziecko` = '" . $_POST['data_urodzenia_dziecko'] . "';";
             $SQL .= "<br>$IsFormularzInDB_sql:[$IsFormularzInDB_sql]";
 
             $msql_q_FID = mysqli_query($DBConn, $IsFormularzInDB_sql);
@@ -445,6 +446,7 @@ if (isset($_POST['action'])) {
             $dataUtw_rok = substr($rok_formularza, 0, 4);
 
             $NEW_FORM_ID = "$id_temp/$dataUtw_rok";
+            $info .= "\nNEW_FORM_ID: $NEW_FORM_ID,";
 
             $info .= "<br>[DATA: ($rok_formularza)($dataUtw_rok)($NEW_FORM_ID)]";
 
@@ -522,6 +524,28 @@ if (isset($_POST['action'])) {
                 $error .= "<br>[Form2/3 ERROR](IsForm2OK == false)($IsForm2OK)";
             }
 
+            $Fin_Arr = array(
+                "valid" => false,
+                "actions" => $actions,
+                "error" => $error,
+                "SQL" => $SQL,
+                "outp" => $outp,
+                "user" => $user,
+                "IP" => $IP,
+                "NewID" => $NEW_FORM_ID,
+                "info" => $info);
+            break;
+        case 'takeSzpitals':
+            
+            $SQL_takeSzpitals = "Select * FROM $baza.`szpital` WHERE `czyNIESzpital` = false;";
+            $SQL .= "<br>SQL_takeSzpitals:[$SQL_takeSzpitals]";
+            
+            $mq = mysqli_query($DBConn, $SQL_takeSzpitals);
+            $outp = array();
+            while($row = mysqli_fetch_row($mq)){
+                array_push($outp, $row);
+            }
+
 
 
 
@@ -533,6 +557,7 @@ if (isset($_POST['action'])) {
                 "outp" => $outp,
                 "user" => $user,
                 "IP" => $IP,
+                "NewID" => $NEW_FORM_ID,
                 "info" => $info);
             break;
     }
