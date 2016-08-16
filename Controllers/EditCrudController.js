@@ -45,7 +45,7 @@ $(document).ready(function () {
                 alert("Hasła nie mogą być różne!");
             }
         } else {
-            alert("Bez podania starego hasła nie można zmienić hasła!!!!")
+//            alert("Bez podania starego hasła nie można zmienić hasła!!!!")
             if (confirm("Bez podania starego hasła nie można zmienić hasła!!!!\nCzy zmienić pozostałe dane?")) {
                 $.ajax({
                     type: "POST",

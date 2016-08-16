@@ -34,6 +34,12 @@ if (isset($_SESSION["user"]) && isset($_SESSION["logCrud"])) {
         case 'EditCrud':
             include 'EditCrud.php';
             break;
+        case 'listHosp':
+            include 'ListHosp.php';
+            break;
+        case 'editSzpital':
+            include 'editSzpital.php';
+            break;
         default:
             include 'View/Static/ShowCrud.html';
             break;

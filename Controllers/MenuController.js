@@ -18,10 +18,10 @@ $(document).ready(function () {
         window.location.href = 'index.php?page=list';
     });
 
-//    $("#toEdit").click(function () {
-//        alert("To Edycja / W budowie");
-////        window.location.href = 'index.php?page=edit';
-//    });
+    $("#toListaSzpitali").click(function () {
+//        alert("To Lista szpitali / W budowie");
+        window.location.href = 'index.php?page=listHosp';
+    });
 
     $("#buttChangeCrud").click(function () {
 //        preventDefault();

@@ -14,7 +14,7 @@
         <script src="js_source/mapper/mapper.js" type="text/javascript"></script> 
         <script src="js_source/mapper/maputil.js" type="text/javascript"></script> 
     </head>
-    <body >
+    <body>
         <div class="container" >  
             
             <h1><u>Opisujesz panią (rodzic): <span style="color:blue;" id="add_imie_mama"></span> <span style="color:blue;" id="add_nazwisko_mama"></span> i dziecko <span id="add_imie_dziecko" style="color:blue;"></span></u></h1>

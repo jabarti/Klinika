@@ -524,8 +524,8 @@ $(document).ready(function () {
 //                        '<br>DATA Info:<br>' + data.info
 //                        );
                 for (var i = 0; i < data.outp.length; i++) {
-                    console.log(data.outp[i][1]);
-                    names.push(data.outp[i][1])
+                    console.log(data.outp[i][2]);
+                    names.push(data.outp[i][2])
                 }
 
                 for (var i = 0; i < names.length; i++) {
@@ -536,7 +536,7 @@ $(document).ready(function () {
                 $('#pobrane_miejsce').on("change", function (event) {
                     var index = '';
                     for (var i = 0; i < data.outp.length; i++) {
-                        if (data.outp[i][1] == this.value) {
+                        if (data.outp[i][2] == this.value) {
                             index = i;
                         }
                     }
@@ -547,11 +547,11 @@ $(document).ready(function () {
                     $("#miejsce_urodzenia_sz").val(data.outp[index][1]);
                     $("#show_innemiejsce").hide();
                     $("#urodz_ulica_nr_mieszkanie").hide();
-                    $("#urodz_ulica").val(data.outp[index][2]);
-                    $("#urodz_ulica_nr").val(data.outp[index][3]);
-                    $("#urodz_kod_poczt").val(data.outp[index][5]);
-                    $("#urodz_miasto").val(data.outp[index][6]);
-                    $("#urodz_kraj").val(data.outp[index][7]);
+                    $("#urodz_ulica").val(data.outp[index][3]);
+                    $("#urodz_ulica_nr").val(data.outp[index][4]);
+                    $("#urodz_kod_poczt").val(data.outp[index][6]);
+                    $("#urodz_miasto").val(data.outp[index][7]);
+                    $("#urodz_kraj").val(data.outp[index][8]);
                 });
             },
             error: function (response) {
