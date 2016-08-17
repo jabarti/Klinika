@@ -19,12 +19,6 @@ $(document).ready(function () {
             data: $('#AddSzpitalForm').serialize() + '&action=add', // serializes the form's elements.
             success: function (response) {
                 var data = jQuery.parseJSON(response);
-//                alert(data[4]['NewID'])
-
-//                alert(data[0]['SQL'])
-//                alert(data[1]['info'])
-//                alert(data[2]['error'])
-//                alert(data[3]['NewID'])
 
                 if (data[3]['NewID'] != "") {
                     location.href = "index.php?page=editSzpital&id_record=" + data[3]['NewID'];

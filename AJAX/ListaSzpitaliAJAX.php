@@ -35,6 +35,11 @@ if (isset($_POST['action'])) {
         case 'search':
             $where = " AND `nazwa` LIKE '%" . $_POST['nazwa'] . "%';";
             break;
+        case 'deleteSzpital':
+            //kasujemy tylko jak szpital nie jest w jakimś formularzu wykorzystany!!
+            
+            
+            break;
         case 'order':
             $var_search = $_POST['poczym'];
             $var_upordown = $_POST['updown'];
@@ -60,6 +65,20 @@ $rows = array();
 while ($r = mysqli_fetch_assoc($result)) {
     array_push($rows, $r);
 }
+
+$SQL_Szpital_w_Form = "SELECT  `id_SzpitalOrInne` FROM `fullform`;";
+$SQL .= "<br>SQL_Szpital_w_Form: [$SQL_Szpital_w_Form]";
+
+$result = mysqli_query($DBConn, $SQL_Szpital_w_Form);
+
+$arr_of_szpit_in_forms = array();
+while ($r = mysqli_fetch_assoc($result)) {
+    array_push($arr_of_szpit_in_forms, $r); 
+}
+
+array_push($rows, $arr_of_szpit_in_forms);
+
+
 
 echo json_encode($rows);
 

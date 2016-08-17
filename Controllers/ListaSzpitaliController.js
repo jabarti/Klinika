@@ -83,9 +83,9 @@ $(document).ready(function () {
 
             case 'toDelR':
 //                alert("Zdarzenie: " + where + ", na rekordzie:" + what);
-                var del = confirm("Czy faktycznie skasować ten rekord?");
+                var del = confirm("Czy faktycznie skasować ten Szpital?");
                 if (del === true) {
-//                    alert("to kasuje");
+                    alert("to kasuje");
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -101,7 +101,7 @@ $(document).ready(function () {
                     });
 
                 } else {
-//                    alert("to NIE kasuje");
+                    alert("to NIE kasuje");
                 }
                 break;
 
@@ -110,20 +110,55 @@ $(document).ready(function () {
                 break;
         }
     });
-    
-    $('#addHospital').click(function(){
-        alert("addHospital - TODO")
-    })
+
+    $('#addHospital').click(function () {
+        window.location.href = 'index.php?page=addHosp';
+    });
 
 
 // FUNKCJA PAKUJĄCA DANE DO FORMULARZA
     function Make_Records(data) {
         var trHTML = '';
+        var IDs = [];
+        for (var f = 0; f < data.length; f++) {
+            if (data[f]['idSzpital'] == null) {
+                for (var j = 0; j < data[f].length; j++) {
+//                    alert("nie twórz rekordu tylko zablokuj: " + data[f][j]['id_SzpitalOrInne'])
+                    IDs.push(data[f][j]['id_SzpitalOrInne'])
+                }
+//                alert("nie twórz rekordu tylko zablokuj: "+data[f]['id_SzpitalOrInne'])
+            }
+        }
+
+
         for (var f = 0; f < data.length; f++) {
 
             var text = (data[f]['idSzpital']);
 
-            trHTML += '<tr>\n\
+            var disabledDelete = false;
+
+            for (var j = 0; j < IDs.length; j++) {
+                if (IDs[j] == data[f]['idSzpital']) {
+                    disabledDelete = true;
+                }
+            }
+
+            if (data[f]['idSzpital'] != null) {
+                
+                if (disabledDelete) {       // To są rekordy szpitali, które są w Formularzu, usunięcie grozi błedami
+
+                    trHTML += '<tr>\n\
+                            <td><button id="toEditSzpit_' + text + '" class="editButt btn btn-primary" formtarget="_blank"><span class="glyphicon glyphicon-edit" ></span> ' + data[f]['idSzpital'] + '</button></td>\n\
+                            <td><span >' + data[f]['nazwa'] + '</span></td>\n\
+                            <td><span >' + data[f]['urodz_ulica'] + '</span></td>\n\
+                            <td><span >' + data[f]['urodz_ulica_nr'] + '</span></td>\n\
+                            <td><span >' + data[f]['urodz_kod_poczt'] + '</span></td>\n\
+                            <td><span >' + data[f]['urodz_miasto'] + '</span></td>\n\\n\
+                            <td><span >' + data[f]['urodz_kraj'] + '</span></td>\n\\n\
+                            <td></td>\n\
+                       </tr>';
+                } else {
+                    trHTML += '<tr>\n\
                             <td><button id="toEditSzpit_' + text + '" class="editButt btn btn-primary" formtarget="_blank"><span class="glyphicon glyphicon-edit" ></span> ' + data[f]['idSzpital'] + '</button></td>\n\
                             <td><span >' + data[f]['nazwa'] + '</span></td>\n\
                             <td><span >' + data[f]['urodz_ulica'] + '</span></td>\n\
@@ -133,6 +168,8 @@ $(document).ready(function () {
                             <td><span >' + data[f]['urodz_kraj'] + '</span></td>\n\\n\
                             <td><button id="toDelR_' + text + '" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Usuń</button></td>\n\
                        </tr>';
+                }
+            }
         }
         $('#ListSzpital_Table_body').html(trHTML);
     }

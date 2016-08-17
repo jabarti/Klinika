@@ -19,7 +19,7 @@
                     <div class="col-md-12">
                         <form class="form-horizontal" role="form" id="AddSzpitalForm" name="AddSzpitalForm" >
                             <div class="form-group form-buffer-pa">
-                                <h2>nazwa</h2>
+                                <h2>Dodaj szpital</h2>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">nazwa</label>
