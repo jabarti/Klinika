@@ -33,7 +33,7 @@ if (isset($_POST['action'])) {
 //            $where = " AND `czyNIESzpital` = false;";
             break;
         case 'search':
-            $where = " AND `nazwa` LIKE '%" . $_POST['nazwa'] . "%';";
+            $where = " AND LOWER(`nazwa`) LIKE LOWER('%" . $_POST['nazwa'] . "%');";
             break;
         case 'deleSzpital':
             //kasujemy tylko jak szpital nie jest w jakimś formularzu wykorzystany!!
@@ -83,6 +83,7 @@ while ($r = mysqli_fetch_assoc($result)) {
 }
 
 array_push($rows, $arr_of_szpit_in_forms);
+array_push($rows, $SQL);
 
 
 

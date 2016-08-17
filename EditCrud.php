@@ -40,12 +40,12 @@
                                 <label class="col-sm-3 control-label">Stare hasło</label>
                                 <div class="col-sm-3">
                                     <input type="password" name="losenord" id="losenord"  data-toggle="popover" data-trigger="hover" data-content="Hasło powinno składać się z min. 8 znaków, przynajmniej jedna litera duża i cyfra." />
-<!--                                    <div id="losenord_error" >
-                                        <span class="alert-danger" >Hasło nieprawidłowe lub puste!!!</span>
-                                    </div>
-                                    <div id="losenord_success" >
-                                        <span class="alert-success" >Prawidłowe hasło</span>
-                                    </div>-->
+                                    <!--                                    <div id="losenord_error" >
+                                                                            <span class="alert-danger" >Hasło nieprawidłowe lub puste!!!</span>
+                                                                        </div>
+                                                                        <div id="losenord_success" >
+                                                                            <span class="alert-success" >Prawidłowe hasło</span>
+                                                                        </div>-->
                                 </div>    
                             </div>
                             <p class="col-sm-12"></p>
@@ -105,13 +105,10 @@
                                     <input type="text" name="IP" id="IP" disabled/>
                                 </div>    
                             </div>
-
-
-
                         </div>       
                         <button id="submit" class="btn btn-success btn-lg btn-block">
-                            <span class="glyphicon glyphicon-floppy-saved"></span> Edytuj!</button>
-
+                            <span class="glyphicon glyphicon-floppy-saved"></span> Edytuj!
+                        </button>
                     </form>
                 </div>
             </div>

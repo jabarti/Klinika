@@ -13,6 +13,10 @@ function showCoordsCyca(event, text) {
 //    var el = document.getElementById("cords");
     var el = document.getElementById("obszar");
     el.innerHTML = coords;
+    
+    $('#map_img_image').attr('src','img/anatomy_02_'+text+'.jpg');
+    $('#gmipam_0_image').attr('src','img/anatomy_02_'+text+'.jpg');
+        
     el.value = coords;
     switch (text) {
         case "rec1":

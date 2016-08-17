@@ -20,10 +20,10 @@ $(document).ready(function () {
         success: function (response) {
             var data = jQuery.parseJSON(response);
 
-            LoadCyckiPict(data);
+//            LoadCyckiPict(data);
             Make_Records(data);
             loadUstawienia();
-//            LoadCyckiPict(data);
+            LoadCyckiPict(data);
         },
         error: function (response) {
             alert("ERROR w EditCtrl 26" + response);
@@ -589,25 +589,51 @@ $(document).ready(function () {
         });
     }
 
-    function LoadCyckiPict(data) {  // nie działa... obrazek się nie chce podmienić.
-
-
-        var opisObsz = data[0]['zmiana_opis_pict']
-//        var opisObsz = $('#obszar').val();
-
-//        alert(opisObsz);
-
+    function LoadCyckiPict(data) {
+        var opisObsz = data[0]['obszar'];
         var ind = opisObsz.indexOf(':');
         var id_ob = opisObsz.substring(0, ind);
+        $('#map_img_image').attr('src', 'img/anatomy_02_' + id_ob + '.jpg');
 
-//        alert(opisObsz + ", ind od ':' = "+ind+", id="+id_ob)
+        var el = document.getElementById("obszar");
 
-        id_ob = "rec1"; // test
+        switch (id_ob) {
+            case "rec1":
+            case "rec7":
+            case "rec13":
+                el.style.backgroundColor = "red";
+//                alert("red")
+                break;
+            case "rec2":
+            case "rec8":
+            case "rec14":
+                el.style.backgroundColor = "yellow";
+                break;
+            case "rec3":
+            case "rec9":
+            case "rec15":
+                el.style.backgroundColor = "green";
+                break;
+            case "rec4":
+            case "rec10":
+            case "rec16":
+                el.style.backgroundColor = "brown";
+                break;
+            case "rec5":
+            case "rec11":
+            case "rec17":
+                el.style.backgroundColor = "orange";
+                break;
+            case "rec6":
+            case "rec12":
+            case "rec18":
+                el.style.backgroundColor = "pink";
+                break;
 
-//        $("#map_img").attr("src","img/anatomy_02_"+id_ob+".jpg");
-//        $('#img_contener').remove($('#map_img'))
-//        $('#img_contener').append("<img usemap='#planetmap' class='col-sm-2 mapper' src='img/anatomy_02_rec1.jpg' alt='Brak cycków' />")
-//        
+            default:
+                el.style.backgroundColor = "white";
+                break;
+        }
     }
 
     function  pobierz_szpitale() {
