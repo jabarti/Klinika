@@ -375,6 +375,18 @@ if (isset($_POST['action'])) {
 
             break;
 
+        case 'takeSzpitals':
+
+            $SQL_takeSzpitals = "Select * FROM $baza.`szpital` WHERE `czyNIESzpital` = false;";
+            $SQL .= "<br>SQL_takeSzpitals:[$SQL_takeSzpitals]";
+
+            $mq = mysqli_query($DBConn, $SQL_takeSzpitals);
+            $Szpitale = array();
+            while ($row = mysqli_fetch_assoc($mq)) {
+                array_push($Szpitale, $row);
+            }
+            break;
+
         case 'delete':
             $info .= "\n(" . __LINE__ . ")aktion:delete" . $przerwa;
             $id_record = $_POST['id_wpisu'];
@@ -428,6 +440,8 @@ $info .= "\n========================= DANE ============================";
 while ($r = mysqli_fetch_assoc($result)) {
     array_push($rows, $r);
 }
+
+array_push($rows, $Szpitale);
 
 if ($TEST_VER) { // To nie idzie na bartilevi.pl
     $info = array("sql" => "$SQL_info", "info" => "$info", "error" => "$error", "postData" => "$POSTdata");

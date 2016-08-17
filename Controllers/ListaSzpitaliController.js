@@ -71,25 +71,26 @@ $(document).ready(function () {
     $('tbody').delegate("button", "click", function () {
         var butt_id = this.id;
         var where = butt_id.slice(0, 6);
-        var what = butt_id.slice(12);
-        var what = what.replace('_', '/');
+        
 //        alert("Where:" + where + "\nWhat: " + what);
 
         switch (where) {
             case 'toEdit':
+                var what = butt_id.slice(12);
 //                alert("Zdarzenie: " + where + ", na rekordzie:" + what);
                 window.location.href = 'index.php?page=editSzpital&id_record=' + what;
                 break;
 
             case 'toDelR':
+                var what = butt_id.slice(7);
 //                alert("Zdarzenie: " + where + ", na rekordzie:" + what);
                 var del = confirm("Czy faktycznie skasować ten Szpital?");
                 if (del === true) {
-                    alert("to kasuje");
+//                    alert("to kasuje");
                     $.ajax({
                         type: "POST",
-                        url: url,
-                        data: 'action=deleteSzpital&id_rec=' + what, // serializes the form's elements.
+                        url: url,      
+                        data: 'action=deleSzpital&id_rec=' + what, // serializes the form's elements.
                         success: function (response) {
                             var data = jQuery.parseJSON(response);
 

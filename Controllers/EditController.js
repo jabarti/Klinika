@@ -94,6 +94,7 @@ $(document).ready(function () {
         //SZPITAL TO DO!!!!
         // id_SzpitalOrInne, miejsce
         // radiobutton
+        pobierz_szpitale();
 
 
         $('#urodz_ulica').val(data[0]['urodz_ulica']);
@@ -163,7 +164,7 @@ $(document).ready(function () {
         radioAddProperties("piers_wielkosc", data, null);
 
         checkboxAddProperties("cycki", data, ["obszar", "zmiana_opis_pict"])
-        
+
 //        LoadCyckiPict();
 
         $('#brodawka').val(data[0]['brodawka']);
@@ -587,26 +588,83 @@ $(document).ready(function () {
             }
         });
     }
-    
-    function LoadCyckiPict(data){  // nie działa... obrazek się nie chce podmienić.
-        
-        
+
+    function LoadCyckiPict(data) {  // nie działa... obrazek się nie chce podmienić.
+
+
         var opisObsz = data[0]['zmiana_opis_pict']
 //        var opisObsz = $('#obszar').val();
-        
+
 //        alert(opisObsz);
-        
+
         var ind = opisObsz.indexOf(':');
-        var id_ob = opisObsz.substring(0,ind);
-        
+        var id_ob = opisObsz.substring(0, ind);
+
 //        alert(opisObsz + ", ind od ':' = "+ind+", id="+id_ob)
-        
+
         id_ob = "rec1"; // test
-        
+
 //        $("#map_img").attr("src","img/anatomy_02_"+id_ob+".jpg");
 //        $('#img_contener').remove($('#map_img'))
 //        $('#img_contener').append("<img usemap='#planetmap' class='col-sm-2 mapper' src='img/anatomy_02_rec1.jpg' alt='Brak cycków' />")
 //        
+    }
+
+    function  pobierz_szpitale() {
+        var names = [];
+        var index_i = "";
+        var index_j = "";
+
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: '&action=takeSzpitals', // serializes the form's elements.
+            success: function (response) {
+                var data = jQuery.parseJSON(response);
+
+                for (var i = 0; i < data.length; i++) {
+                    for (var j = 0; j < data[i].length; j++) {
+//                        console.log(data[i][j]['skrot_nazwy']);
+                        names.push(data[i][j]['skrot_nazwy'])
+                    }
+                }
+
+                for (var i = 0; i < names.length; i++) {
+//            alert(ar[i]);
+                    $('#pobrane_miejsce').append("<option value='" + names[i] + "' >" + names[i] + "</option>");
+                }
+
+                $('#pobrane_miejsce').on("change", function (event) {
+                    var index = '';
+                    for (var i = 0; i < data.length; i++) {
+                        for (var j = 0; j < data[i].length; j++) {
+                            if (data[i][j]['skrot_nazwy'] == this.value) {
+//                                alert (data[i][j]['skrot_nazwy'])
+                                index_i = i;
+                                index_j = j;
+                            }
+                        }
+                    }
+
+                    $("input[name='miejsce_urodzenia_quest'][value='0']").attr('checked', true);
+
+                    $("#show_szpital").show()
+                    $("#miejsce_urodzenia_sz").val(data[index_i][index_j]['nazwa']);
+                    $("#show_innemiejsce").hide();
+                    $("#urodz_ulica_nr_mieszkanie").hide();
+                    $("#urodz_ulica").val(data[index_i][index_j]['urodz_ulica']);
+                    $("#urodz_ulica_nr").val(data[index_i][index_j]['urodz_ulica_nr']);
+                    $("#urodz_kod_poczt").val(data[index_i][index_j]['urodz_kod_poczt']);
+                    $("#urodz_miasto").val(data[index_i][index_j]['urodz_miasto']);
+                    $("#urodz_kraj").val(data[index_i][index_j]['urodz_kraj']);
+                });
+            },
+            error: function (response) {
+                alert("ERROR" + response);
+//                   $("#errorPass").show();
+            }
+        });
     }
 
 
