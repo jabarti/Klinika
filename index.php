@@ -40,6 +40,9 @@ if (isset($_SESSION["user"]) && isset($_SESSION["logCrud"])) {
         case 'editSzpital':
             include 'editSzpital.php';
             break;
+        case 'addHosp':
+            include 'addSzpital.php';
+            break;
         default:
             include 'View/Static/ShowCrud.html';
             break;

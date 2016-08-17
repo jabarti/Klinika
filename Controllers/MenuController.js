@@ -22,6 +22,10 @@ $(document).ready(function () {
 //        alert("To Lista szpitali / W budowie");
         window.location.href = 'index.php?page=listHosp';
     });
+    $("#toAddSzpital").click(function () {
+//        alert("To dodaj szpital / W budowie");
+        window.location.href = 'index.php?page=addHosp';
+    });
 
     $("#buttChangeCrud").click(function () {
 //        preventDefault();

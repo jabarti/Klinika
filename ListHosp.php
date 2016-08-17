@@ -1,13 +1,12 @@
 <?php
-
-/****************************************************
+/* * **************************************************
  * Project:     Klinika_Local
  * Filename:    ListHosp.php
  * Encoding:    UTF-8
  * Created:     2016-08-16
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
- ***************************************************/
+ * ************************************************* */
 ?>
 <html>
     <head>
@@ -59,10 +58,19 @@
                     </tr>
                 </thead>
                 <tbody id="ListSzpital_Table_body"></tbody>
+                <tr>
+                    <td colspan="8">
+                        <button id="addHospital" class="btn btn-success btn-lg btn-block">
+                            <span class="glyphicon glyphicon-flash"></span> Dodaj szpital!
+                        </button>
+
+                    </td>
+                </tr>
+
             </table>
             <?php if ($TEST_VER && !$TEST_VER) { ?>
                 <pre>
-                        <span id="message"></span>
+                            <span id="message"></span>
                 </pre>
             <?php }; ?>
         </div>

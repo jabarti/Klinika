@@ -110,6 +110,10 @@ $(document).ready(function () {
                 break;
         }
     });
+    
+    $('#addHospital').click(function(){
+        alert("addHospital - TODO")
+    })
 
 
 // FUNKCJA PAKUJĄCA DANE DO FORMULARZA
