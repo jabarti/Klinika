@@ -24,6 +24,7 @@ $(document).ready(function () {
             Make_Records(data);
             loadUstawienia();
             LoadCyckiPict(data);
+            CountAge();
         },
         error: function (response) {
             alert("ERROR w EditCtrl 26" + response);
@@ -652,7 +653,11 @@ $(document).ready(function () {
                 for (var i = 0; i < data.length; i++) {
                     for (var j = 0; j < data[i].length; j++) {
 //                        console.log(data[i][j]['skrot_nazwy']);
-                        names.push(data[i][j]['skrot_nazwy'])
+                        if (data[i][j]['skrot_nazwy'] != null) {
+                            names.push(data[i][j]['skrot_nazwy']);
+                        } else {
+                            names.push(data[i][j]['nazwa']);
+                        }
                     }
                 }
 
@@ -693,7 +698,38 @@ $(document).ready(function () {
         });
     }
 
+    function CountAge() {
+        // wpisuje wiek matki
+        $("#data_urodzenia_matka").ready(function () {
+            var data_u = new Date($("#data_urodzenia_matka").val());
+            var text = CalculateAge(data_u);
+            $("#wiek_matki_dzis").val(text);
+
+            var temp = $("#data_utworzenia").val();
+            var data_y = new Date(temp);
+
+            if (temp != "") {
+                var text2 = CalculateAge2(data_u, data_y);
+                $("#wiek_matka_wtedy").val(text2);
+            }
+        });
+
+        // wpisuje wiek dziecka
+        $("#data_urodzenia_dziecko").ready(function () {
+
+            var data_u = new Date($("#data_urodzenia_dziecko").val());
+            var text = CalculateAge(data_u);
+            $("#wiek_dziecka_dzis").val(text);
+
+            var temp = $("#data_utworzenia").val();
+            var data_y = new Date(temp);
+
+            if (temp != "") {
+                var text2 = CalculateAge2(data_u, data_y);
+                $("#wiek_dziecka_wtedy").val(text2);
+            }
+        });
+    }
+
 
 });
-
-

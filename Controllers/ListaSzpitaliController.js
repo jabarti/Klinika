@@ -156,7 +156,7 @@ $(document).ready(function () {
                             <td><span >' + data[f]['urodz_kod_poczt'] + '</span></td>\n\
                             <td><span >' + data[f]['urodz_miasto'] + '</span></td>\n\\n\
                             <td><span >' + data[f]['urodz_kraj'] + '</span></td>\n\\n\
-                            <td></td>\n\
+                            <td><button id="toDelR_' + text + '" class="btn btn-warning btn-sm" disabled ><span class="glyphicon glyphicon-remove" ></span> Usuń</button></td></td>\n\
                        </tr>';
                 } else {
                     trHTML += '<tr>\n\
@@ -167,7 +167,7 @@ $(document).ready(function () {
                             <td><span >' + data[f]['urodz_kod_poczt'] + '</span></td>\n\
                             <td><span >' + data[f]['urodz_miasto'] + '</span></td>\n\\n\
                             <td><span >' + data[f]['urodz_kraj'] + '</span></td>\n\\n\
-                            <td><button id="toDelR_' + text + '" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Usuń</button></td>\n\
+                            <td><button id="toDelR_' + text + '" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Usuń</button></td>\n\
                        </tr>';
                 }
             }

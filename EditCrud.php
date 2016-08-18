@@ -31,11 +31,12 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">User</label>
                                 <div class="col-sm-3">
-                                    <input type="text" name="anvandersnamn" id="anvandersnamn" disabled/>
+                                    <input type="text" name="anvandersnamn" id="anvandersnamn"/>
                                 </div>    
                             </div>
                             <p class="col-sm-12"></p>
 
+                            
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Stare hasło</label>
                                 <div class="col-sm-3">

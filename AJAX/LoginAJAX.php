@@ -66,6 +66,7 @@ if(isset($_POST['action'])){
                             $_SESSION["user"] = $user;
                             $_SESSION["logCrud"]['IP'] = $IP;
                             $_SESSION["logCrud"]['logTime'] = time();
+                            $_SESSION["logCrud"]['anvandersnamn'] = $rs['anvandersnamn'];
                                     
                         }else{
                             $error .="nie poszedł SQL_set_crud:[$SQL_set_crud]";

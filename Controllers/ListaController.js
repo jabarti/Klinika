@@ -126,7 +126,7 @@ $(document).ready(function () {
                             <td><span >' + data[f]['mama_lastname'] + '</span></td>\n\
                             <td><span >' + data[f]['imie_dziecka'] + '</span></td>\n\
                             <td><span >' + data[f]['ktore_dziecko'] + '</span></td>\n\\n\
-                            <td><button id="toDelR_' + text + '" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Usuń</button></td>\n\
+                            <td><button id="toDelR_' + text + '" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Usuń</button></td>\n\
                        </tr>';
         }
         $('#ListForm_Table_body').html(trHTML);

@@ -67,7 +67,7 @@ if (isset($_POST['action'])) {
                 // Jeśli nie podano hasła, można zmienić tylko INNE DANE niż hasła
             } else {
                 // Możliwy update bez haseł
-                $SQL_usr = "UPDATE $baza.`users` SET `imie`='" . $_POST['imie'] . "',`nazwisko`='" . $_POST['nazwisko'] . "',`email`='" . $_POST['email'] . "' WHERE `idUsers` = '" . $_SESSION["ID_USER"] . "';";
+                $SQL_usr = "UPDATE $baza.`users` SET `anvandersnamn` = '" . $_POST['anvandersnamn'] . "', `imie`='" . $_POST['imie'] . "',`nazwisko`='" . $_POST['nazwisko'] . "',`email`='" . $_POST['email'] . "' WHERE `idUsers` = '" . $_SESSION["ID_USER"] . "';";
                 $mq = mysqli_query($DBConn, $SQL_usr);
                 if ($mq) {
                     $info = array("OK" => "$SQL_usr");
