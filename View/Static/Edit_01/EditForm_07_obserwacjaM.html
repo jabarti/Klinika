@@ -1,121 +1,117 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-        <div class="form-group form-buffer-pa">
-            <h2>Obserwacja matki </h2>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Pierś</label>
+<div class="form-group form-buffer-pa">
+    <h2>Obserwacja matki </h2>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Pierś</label>
 
-                <div class="radio col-sm-1" >
-                    <label><input type="radio"  name="piers_wielkosc" value="0" >mała</label>
-                </div>
-                <div class="radio col-sm-1">
-                    <label><input type="radio"  name="piers_wielkosc" value="1">średnia</label>
-                </div>
-                <div class="radio col-sm-1">
-                    <label><input type="radio"  name="piers_wielkosc" value="2">duża</label>
-                </div>
+        <div class="radio col-sm-1" >
+            <label><input type="radio"  name="piers_wielkosc" value="0" >mała</label>
+        </div>
+        <div class="radio col-sm-1">
+            <label><input type="radio"  name="piers_wielkosc" value="1">średnia</label>
+        </div>
+        <div class="radio col-sm-1">
+            <label><input type="radio"  name="piers_wielkosc" value="2">duża</label>
+        </div>
 
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Czy są zmiany?</label>
-                <div class="col-sm-1">
-                    <input type="checkbox" id="cycki" name="cycki">
-                </div> 
-            </div>  
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Czy są zmiany?</label>
+        <div class="col-sm-1">
+            <input type="checkbox" id="cycki" name="cycki">
+        </div> 
+    </div>  
 
-            <!-- CYCKI -FOTO -->
+    <!-- CYCKI -FOTO -->
 
-            <div id="cycki_show" class="col-sm-12">
+    <div id="cycki_show" class="col-sm-12">
 
-                <div class="col-sm-6 form-group map" id='img_contener'>
-                    <img id='map_img' usemap="#planetmap" class="mapper" src="img/anatomy_02.jpg" alt="Brak cycków" />
+        <div class="col-sm-6 form-group map" id='img_contener'>
+            <img id='map_img' usemap="#planetmap" class="mapper" src="img/anatomy_02.jpg" alt="Brak cycków" />
 
-                    <map name="planetmap" id="planetmap">
-                                                            //    class="icolor000000 forcegroup"
-                                                            //    class="noborder icolor00ff00"
-                        <area alt="" title="" nohref shape="poly" coords="179,250,182,81,256,134"  onclick="showCoordsCyca(event, 'rec1');"/>
-                        <area alt="" title="" nohref shape="poly" coords="180,253,256,136,268,219" onclick="showCoordsCyca(event, 'rec2');"/>
-                        <area alt="" title="" nohref shape="poly" coords="180,255,267,221,257,314" onclick="showCoordsCyca(event, 'rec3');"/>
-                        <area alt="" title="" nohref shape="poly" coords="181,258,253,316,231,337,212,350,183,354" onclick="showCoordsCyca(event, 'rec4');"/>
-                        <area alt="" title="" nohref shape="poly" coords="178,258,180,355,154,352,129,342,110,331" onclick="showCoordsCyca(event, 'rec5');"/>
-                        <area alt="" title="" nohref shape="poly" coords="110,333,93,314,84,290,80,270,176,256" onclick="showCoordsCyca(event, 'rec6');"/>
-                        <area alt="" title="" nohref shape="poly" coords="175,254,78,269,79,233,83,214" onclick="showCoordsCyca(event, 'rec7');"/>
-                        <area alt="" title="" nohref shape="poly" coords="84,211,104,123,174,251" onclick="showCoordsCyca(event, 'rec8');"/>
-                        <area alt="" title="" nohref shape="poly" coords="106,121,176,250,180,81"  onclick="showCoordsCyca(event, 'rec9');"/>
+            <map name="planetmap" id="planetmap">
+                //    class="icolor000000 forcegroup"
+                //    class="noborder icolor00ff00"
+                <area alt="" title="" nohref shape="poly" coords="179,250,182,81,256,134"  onclick="showCoordsCyca(event, 'rec1');"/>
+                <area alt="" title="" nohref shape="poly" coords="180,253,256,136,268,219" onclick="showCoordsCyca(event, 'rec2');"/>
+                <area alt="" title="" nohref shape="poly" coords="180,255,267,221,257,314" onclick="showCoordsCyca(event, 'rec3');"/>
+                <area alt="" title="" nohref shape="poly" coords="181,258,253,316,231,337,212,350,183,354" onclick="showCoordsCyca(event, 'rec4');"/>
+                <area alt="" title="" nohref shape="poly" coords="178,258,180,355,154,352,129,342,110,331" onclick="showCoordsCyca(event, 'rec5');"/>
+                <area alt="" title="" nohref shape="poly" coords="110,333,93,314,84,290,80,270,176,256" onclick="showCoordsCyca(event, 'rec6');"/>
+                <area alt="" title="" nohref shape="poly" coords="175,254,78,269,79,233,83,214" onclick="showCoordsCyca(event, 'rec7');"/>
+                <area alt="" title="" nohref shape="poly" coords="84,211,104,123,174,251" onclick="showCoordsCyca(event, 'rec8');"/>
+                <area alt="" title="" nohref shape="poly" coords="106,121,176,250,180,81"  onclick="showCoordsCyca(event, 'rec9');"/>
 
 
-                        <area alt="" title="" nohref shape="poly" coords="394,77,391,251,471,119" onclick="showCoordsCyca(event, 'rec10');"/>
-                        <area alt="" title="" nohref shape="poly" coords="472,121,490,188,393,251" onclick="showCoordsCyca(event, 'rec11');"/>
-                        <area alt="" title="" nohref shape="poly" coords="491,192,495,268,395,252" onclick="showCoordsCyca(event, 'rec12');"/>
-                        <area alt="" title="" nohref shape="poly" coords="495,271,482,303,453,339,393,253" onclick="showCoordsCyca(event, 'rec13');"/>
-                        <area alt="" title="" nohref shape="poly" coords="453,341,426,351,399,355,391,355,391,254" onclick="showCoordsCyca(event, 'rec14');"/>
-                        <area alt="" title="" nohref shape="poly" coords="389,253,389,354,361,349,344,340,331,327,326,323,321,317" onclick="showCoordsCyca(event, 'rec15');"/>
-                        <area alt="" title="" nohref shape="poly" coords="388,251,318,316,310,293,307,261,304,220" onclick="showCoordsCyca(event, 'rec16');"/>
-                        <area alt="" title="" nohref shape="poly" coords="388,249,306,220,305,178,312,138" onclick="showCoordsCyca(event, 'rec17');"/>
-                        <area alt="" title="" nohref shape="poly" coords="388,247,314,136,345,102,393,79" onclick="showCoordsCyca(event, 'rec18');"/>
+                <area alt="" title="" nohref shape="poly" coords="394,77,391,251,471,119" onclick="showCoordsCyca(event, 'rec10');"/>
+                <area alt="" title="" nohref shape="poly" coords="472,121,490,188,393,251" onclick="showCoordsCyca(event, 'rec11');"/>
+                <area alt="" title="" nohref shape="poly" coords="491,192,495,268,395,252" onclick="showCoordsCyca(event, 'rec12');"/>
+                <area alt="" title="" nohref shape="poly" coords="495,271,482,303,453,339,393,253" onclick="showCoordsCyca(event, 'rec13');"/>
+                <area alt="" title="" nohref shape="poly" coords="453,341,426,351,399,355,391,355,391,254" onclick="showCoordsCyca(event, 'rec14');"/>
+                <area alt="" title="" nohref shape="poly" coords="389,253,389,354,361,349,344,340,331,327,326,323,321,317" onclick="showCoordsCyca(event, 'rec15');"/>
+                <area alt="" title="" nohref shape="poly" coords="388,251,318,316,310,293,307,261,304,220" onclick="showCoordsCyca(event, 'rec16');"/>
+                <area alt="" title="" nohref shape="poly" coords="388,249,306,220,305,178,312,138" onclick="showCoordsCyca(event, 'rec17');"/>
+                <area alt="" title="" nohref shape="poly" coords="388,247,314,136,345,102,393,79" onclick="showCoordsCyca(event, 'rec18');"/>
 
-                    </map>
-                </div>
-                <!--div class="col-sm-12"></div-->
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Coordinats</label>
-                    <div class="col-sm-3">
-                        <input id="obszar" class="form-control" type="text" name="obszar" >
-                    </div>
-                <!--div class="col-sm-12"></div-->
-                    <div id="zmiana_opis_coor">
-                        <label class="col-sm-3 control-label">opis zmiany</label>
-                        <div class="col-sm-3">
-                            <textarea class="col-sm-3 form-control" placeholder="Opis zmiany w tym obszarze" id="zmiana_opis_pict" name="zmiana_opis_pict"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="col-sm-12"></p>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Brodawka</label>
+            </map>
+        </div>
+        <!--div class="col-sm-12"></div-->
+        <div class="form-group">
+            <div class="hidden_elem">
+                <label class="col-sm-3 control-label">Coordinats</label>
                 <div class="col-sm-3">
-                    <select  id="brodawka" name="brodawka">
-                        <option value="prawidlowa" >prawidłowa</option>
-                        <option value="rzekomo_wklesla">rzekomo wklęsła</option>
-                        <option value="wklesla">wklęsła</option>
-                    </select>
-                </div>
-
-                <div id="brodawka_show">
-                    <label class="col-sm-1 control-label">po karmieniu?</label>
-                    <div class="col-sm-3">
-                        <input class="form-control" type="text" placeholder="" name="brodawka_jaka" id="brodawka_jaka">
-                    </div>  
+                    <input id="obszar" class="form-control" type="text" name="obszar" >
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">zmiany</label>
-
-                <div class="radio col-sm-1" >
-                    <label><input type="radio"  name="zmiany" value="0" >nie</label>
-                </div>
-                <div class="radio col-sm-1">
-                    <label><input type="radio"  name="zmiany" value="1">tak</label>
-                </div>
-
-                <div id="zmiany_show">
-                    <label  class="col-sm-2 control-label">tak,</label>
-                    <div  class="col-sm-4">
-                        <input class="form-control" type="text" placeholder="" name="zmiany_opis" id="zmiany_opis">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Stan emocjonalny mamy</label>
-                <div class="col-sm-5">
-                    <textarea class="form-control" placeholder="Stan emocjonalny mamy" name="stan_emocjonalny" id="stan_emocjonalny"></textarea>
+            <!--div class="col-sm-12"></div-->
+            <div id="zmiana_opis_coor">
+                <label class="col-sm-3 control-label">opis zmiany</label>
+                <div class="col-sm-3">
+                    <textarea class="col-sm-3 form-control" placeholder="Opis zmiany w tym obszarze" id="zmiana_opis_pict" name="zmiana_opis_pict"></textarea>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+    <p class="col-sm-12"></p>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Brodawka</label>
+        <div class="col-sm-3">
+            <select  id="brodawka" name="brodawka">
+                <option value="prawidlowa" >prawidłowa</option>
+                <option value="rzekomo_wklesla">rzekomo wklęsła</option>
+                <option value="wklesla">wklęsła</option>
+            </select>
+        </div>
+
+        <div id="brodawka_show">
+            <label class="col-sm-1 control-label">po karmieniu?</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" placeholder="" name="brodawka_jaka" id="brodawka_jaka">
+            </div>  
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">zmiany</label>
+
+        <div class="radio col-sm-1" >
+            <label><input type="radio"  name="zmiany" value="0" >nie</label>
+        </div>
+        <div class="radio col-sm-1">
+            <label><input type="radio"  name="zmiany" value="1">tak</label>
+        </div>
+
+        <div id="zmiany_show">
+            <label  class="col-sm-2 control-label">tak,</label>
+            <div  class="col-sm-4">
+                <input class="form-control" type="text" placeholder="" name="zmiany_opis" id="zmiany_opis">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Stan emocjonalny mamy</label>
+        <div class="col-sm-5">
+            <textarea class="form-control" placeholder="Stan emocjonalny mamy" name="stan_emocjonalny" id="stan_emocjonalny"></textarea>
+        </div>
+    </div>
+</div>
+

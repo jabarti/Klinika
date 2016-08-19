@@ -8,74 +8,66 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  * ************************************************* */
 ?>
-<html>
-    <head>
-        <script src="Controllers/FormularzController.js" type="text/javascript"></script>
-        <script src="js_source/mapper/mapper.js" type="text/javascript"></script> 
-        <script src="js_source/mapper/maputil.js" type="text/javascript"></script> 
-    </head>
-    <body>
-        <div class="container" >  
-            
-            <h1><u>Opisujesz panią (rodzic): <span style="color:blue;" id="add_imie_mama"></span> <span style="color:blue;" id="add_nazwisko_mama"></span> i dziecko <span id="add_imie_dziecko" style="color:blue;"></span></u></h1>
+<script src="Controllers/FormularzController.js" type="text/javascript"></script>
+<script src="js_source/mapper/mapper.js" type="text/javascript"></script> 
+<script src="js_source/mapper/maputil.js" type="text/javascript"></script> 
 
-            <div class="row">
-                <div class="col-md-12">
-                    <br>
-                    <!--<form id="NyFormularz" name="NyFormularz" class="form-horizontal" novalidate >-->
-                    <form id="NyFormularz" name="NyFormularz" class="form-horizontal"  >
+<div class="container" >  
 
-                        <!-- DANE FORMULARZA -->
-                        <?php include $FORM01_PATH . 'NyForm_01_dane.html'; ?>                   
+<!--h1><u>Opisujesz panią (rodzic): <span style="color:blue;" id="add_imie_mama"></span> <span style="color:blue;" id="add_nazwisko_mama"></span> i dziecko <span id="add_imie_dziecko" style="color:blue;"></span></u></h1-->
 
-                        <!-- MAMA -->
-                        <?php include $FORM01_PATH . 'NyForm_02_mama.html'; ?> 
+    <div class="row">
+        <div class="col-md-12">
+            <br>
+            <!--<form id="NyFormularz" name="NyFormularz" class="form-horizontal" novalidate >-->
+            <form id="NyFormularz" name="NyFormularz" class="form-horizontal"  >
 
-                        <!-- DZIECKO -->
-                        <?php include $FORM01_PATH . 'NyForm_03_dziecko.html'; ?> 
+                <!-- DANE FORMULARZA -->
+                <?php include $FORM01_PATH . 'NyForm_01_dane.html'; ?>                   
 
-                        <!-- POWÓD ZGŁOSZENIA -->
-                        <?php include $FORM01_PATH . 'NyForm_04_powod.html'; ?> 
+                <!-- MAMA -->
+                <?php include $FORM01_PATH . 'NyForm_02_mama.html'; ?> 
 
-                        <!-- KARMIENIE W SZPITALU -->
-                        <?php include $FORM01_PATH . 'NyForm_05_karmienieSzpital.html'; ?> 
+                <!-- DZIECKO -->
+                <?php include $FORM01_PATH . 'NyForm_03_dziecko.html'; ?> 
 
-                        <!-- KARMIENIE OBECNIE -->
-                        <?php include $FORM01_PATH . 'NyForm_06_karmienieObecnie.html'; ?>
+                <!-- POWÓD ZGŁOSZENIA -->
+                <?php include $FORM01_PATH . 'NyForm_04_powod.html'; ?> 
 
-                        <!-- OBSERWACJA MATKI -->
-                        <?php include $FORM01_PATH . 'NyForm_07_obserwacjaM.html'; ?>
+                <!-- KARMIENIE W SZPITALU -->
+                <?php include $FORM01_PATH . 'NyForm_05_karmienieSzpital.html'; ?> 
 
-                        <!-- OBSERWACJA DZIECKA -->
-                        <?php include $FORM01_PATH . 'NyForm_08_obserwacjaDz.html'; ?>
+                <!-- KARMIENIE OBECNIE -->
+                <?php include $FORM01_PATH . 'NyForm_06_karmienieObecnie.html'; ?>
 
-                        <!-- MECHANIZM SSANIA -->
-                        <?php include $FORM01_PATH . 'NyForm_09_ssanie.html'; ?>
+                <!-- OBSERWACJA MATKI -->
+                <?php include $FORM01_PATH . 'NyForm_07_obserwacjaM.html'; ?>
 
-                        <!-- ROZPOZNANIE -->
-                        <?php include $FORM01_PATH . 'NyForm_10_rozpoznanie.html'; ?>
+                <!-- OBSERWACJA DZIECKA -->
+                <?php include $FORM01_PATH . 'NyForm_08_obserwacjaDz.html'; ?>
 
-                        <!-- ZALECENIA -->
-                        <?php include $FORM01_PATH . 'NyForm_11_zalecenia.html'; ?>
+                <!-- MECHANIZM SSANIA -->
+                <?php include $FORM01_PATH . 'NyForm_09_ssanie.html'; ?>
 
-                        <!-- SUBMIT -->
-                        <button type="submit" class="btn btn-success btn-lg btn-block">
-                            <span class="glyphicon glyphicon-flash"></span> Submit!
-                        </button>
+                <!-- ROZPOZNANIE -->
+                <?php include $FORM01_PATH . 'NyForm_10_rozpoznanie.html'; ?>
 
-                    </form>
-                </div>
-            </div>
-            
-<?php if($TEST_VER){ ?>
-            <pre>
-                <span id="message"></span>
-            </pre>
-<?php }; ?>
-            
-            <!--<footer>Copyright by @Bartosz Lewiński</footer>-->
+                <!-- ZALECENIA -->
+                <?php include $FORM01_PATH . 'NyForm_11_zalecenia.html'; ?>
+
+                <!-- SUBMIT -->
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    <span class="glyphicon glyphicon-flash"></span> Submit!
+                </button>
+
+            </form>
         </div>
-    </body>
-</html>
+    </div>
 
+    <?php if ($TEST_VER) { ?>
+        <pre>
+                    <span id="message"></span>
+        </pre>
+    <?php }; ?>
+</div>
 

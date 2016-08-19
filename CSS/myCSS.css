@@ -19,3 +19,8 @@ and open the template in the editor.
     background-color: #d9edf7;
 
   }
+
+  // obszar z coordynatami w cyckach
+  .hidden_elem{
+      display: none;
+  }
