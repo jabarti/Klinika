@@ -126,7 +126,7 @@ function CalculateAge(data) {
     var ageDifMs = Date.now() - data_u.getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     year = Math.abs(ageDate.getFullYear() - 1970);
-    month = Math.abs(ageDate.getMonth() + 1);
+    month = Math.abs(ageDate.getMonth());
     dagar = Math.abs(ageDate.getDate());
 
     return year + " lat i " + month + " mieś. i " + dagar + "dni";
@@ -139,7 +139,7 @@ function CalculateAge2(data, data2) {
     var ageDifMs = data_y.getTime() - data_x.getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     year = Math.abs(ageDate.getFullYear() - 1970);
-    month = Math.abs(ageDate.getMonth() + 1);
+    month = Math.abs(ageDate.getMonth());
     dagar = Math.abs(ageDate.getDate());
 
     return year + " lat i " + month + " mieś. i " + dagar + "dni";
