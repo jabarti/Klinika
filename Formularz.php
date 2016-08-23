@@ -57,7 +57,7 @@
 
                 <!-- SUBMIT -->
                 <button type="submit" class="btn btn-success btn-lg btn-block">
-                    <span class="glyphicon glyphicon-flash"></span> Submit!
+                    <span class="glyphicon glyphicon-flash"></span> Zapisz formularz!
                 </button>
 
             </form>

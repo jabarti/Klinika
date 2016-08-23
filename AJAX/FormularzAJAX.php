@@ -382,6 +382,7 @@ if (isset($_POST['action'])) {
                 }
             } else {
                 $error .= "<br>Szpital bez nazwy - brak procesowania!!!";
+                $ID_last_Szpital = '1';
             }
 
 // FORMULARZ

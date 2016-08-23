@@ -71,9 +71,11 @@ $(document).ready(function () {
                 $("#NyFormularz").trigger('reset');
 
                 if (data.NewID != null) {
-                    if (confirm("Czy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
+                    if (confirm("Formularz zapisany!!!\nCzy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
                         location.href = "index.php?page=edit&id_record=" + data.NewID;
                     }
+                }else{
+                    alert("Formularz nie został zapisany....")
                 }
 
 
