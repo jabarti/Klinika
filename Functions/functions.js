@@ -41,7 +41,13 @@ function showCoordsCyca(event, text) {
 //        alert("Dopisuję element!")
         czyDopisać = true;
     } else {
-        alert("Maksymalnie " + ileImg + " zaznaczonych elementów, usuń jeden!")
+        indexIntabClics = tabClics.indexOf(text)
+//        alert("indexIntabClics=" + indexIntabClics)
+        if (indexIntabClics >= 0) {
+//            tabClics.splice(indexIntabClics, 1); // usówa 1 element w indexie
+        }else{
+            alert("Maksymalnie " + ileImg + " zaznaczonych elementów, usuń jeden!")
+        }
     }
 
     var isIntabClics = false;
