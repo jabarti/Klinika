@@ -592,49 +592,23 @@ $(document).ready(function () {
 
     function LoadCyckiPict(data) {
         var opisObsz = data[0]['obszar'];
+//        alert(opisObsz)
         var ind = opisObsz.indexOf(':');
         var id_ob = opisObsz.substring(0, ind);
-        $('#map_img_image').attr('src', 'img/anatomy_02_' + id_ob + '.jpg');
-
-        var el = document.getElementById("obszar");
-
-        switch (id_ob) {
-            case "rec1":
-            case "rec7":
-            case "rec13":
-                el.style.backgroundColor = "red";
-//                alert("red")
-                break;
-            case "rec2":
-            case "rec8":
-            case "rec14":
-                el.style.backgroundColor = "yellow";
-                break;
-            case "rec3":
-            case "rec9":
-            case "rec15":
-                el.style.backgroundColor = "green";
-                break;
-            case "rec4":
-            case "rec10":
-            case "rec16":
-                el.style.backgroundColor = "brown";
-                break;
-            case "rec5":
-            case "rec11":
-            case "rec17":
-                el.style.backgroundColor = "orange";
-                break;
-            case "rec6":
-            case "rec12":
-            case "rec18":
-                el.style.backgroundColor = "pink";
-                break;
-
-            default:
-                el.style.backgroundColor = "white";
-                break;
+        
+//        alert(id_ob)
+        if (opisObsz != "") {
+//            alert("ładuję zaznaczone zdjęie")
+            $('#map_img_image').attr('src', 'img/cycki_03/anatomy_03' + opisObsz + '.jpg');
+        } else {
+//            alert("ładuję puste zdjęie")
+            $('#map_img_image').attr('src', 'img/cycki_03/anatomy_03.jpg');
         }
+//        alert("adding value"  + opisObsz)
+        document.getElementById("obszar").value=opisObsz;
+//        alert($('#obszar').val())
+
+
     }
 
     function  pobierz_szpitale() {

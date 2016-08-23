@@ -546,9 +546,6 @@ if (isset($_POST['action'])) {
                 array_push($outp, $row);
             }
 
-
-
-
             $Fin_Arr = array(
                 "valid" => false,
                 "actions" => $actions,

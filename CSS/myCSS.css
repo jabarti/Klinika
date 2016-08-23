@@ -12,15 +12,15 @@ and open the template in the editor.
     /*background-color: #006dcc;*/
     background-color: #f2dede;
 
-  }
+}
 .form-buffer-npa {
     /*margin: 30px 0px;*/
     /*background-color: #006dcc;*/
     background-color: #d9edf7;
 
-  }
+}
 
-  // obszar z coordynatami w cyckach
-  .hidden_elem{
-      display: none;
-  }
+/* obszar z coordynatami w cyckach */
+.hidden_elem{
+    display: none;
+}

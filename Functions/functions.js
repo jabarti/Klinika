@@ -6,55 +6,94 @@
  *
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
+var tabClics = [];
+var ileImg = 2; // maksymalnie dwa zaznaczone obszary cycków
+var longOfString = ileImg * 5 + 1;
+var indexIntabClics = 0;
+var isNyLoaded = true;
+
 function showCoordsCyca(event, text) {
-    var x = event.clientX;
-    var y = event.clientY;
-    var coords = text + ": coords: " + x + ", Y coords: " + y;
-//    var el = document.getElementById("cords");
+
+    var toLoad = "";
+    var czyDopisać = false;
+    var tempToLoad = "";
+    var isFormObszar = true;
+
+    if ($("#obszar").val() != null && isNyLoaded) {
+        isNyLoaded = false;
+        tempToLoad = $("#obszar").val();
+        var arr = tempToLoad.split("_");
+        for (var i = 0; i < arr.length; i++) {
+//            alert("len=" + tabClics.length + "\ntabClics[" + i + "]=" + tabClics[i] + "\narr[" + (i + 1) + "]=" + arr[i + 1])
+            if (arr[i + 1] != undefined) {
+                var text_temp = arr[i + 1];
+                tabClics.push(text_temp);
+            }
+        }
+    } else {
+//        alert("null")
+    }
+
+//    alert("TABLICA1:(" + tabClics.toString() + ")")
+
+    if (tabClics.length < ileImg && isFormObszar && !isNyLoaded) {
+//        alert("Dopisuję element!")
+        czyDopisać = true;
+    } else {
+        alert("Maksymalnie " + ileImg + " zaznaczonych elementów, usuń jeden!")
+    }
+
+    var isIntabClics = false;
+
+    for (var i = 0; i < tabClics.length; i++) {
+        if (tabClics[i] == text) {
+//            alert(tabClics[i] + " != " + text + ", przed:" + isIntabClics)
+            isIntabClics = true;
+//            alert(tabClics[i])
+        }
+    }
+
+//    alert("text:'" + text + "', isIntabClics: " + isIntabClics)
+
+    if (!isIntabClics && czyDopisać) {
+        tabClics.push(text);
+        tabClics.sort();
+    } else {
+        indexIntabClics = tabClics.indexOf(text)
+//        alert("indexIntabClics=" + indexIntabClics)
+        if (indexIntabClics >= 0) {
+            tabClics.splice(indexIntabClics, 1); // usówa 1 element w indexie
+        }
+    }
+
+//    alert("TABLICA2:(" + tabClics.toString() + ")")
+
+    for (var i = 0; i < tabClics.length; i++) {
+//        alert("length="+tabClics.length+", tabClics["+i+"]="+tabClics[i])
+        toLoad += "_" + tabClics[i];
+    }
+
+//    alert("toLoad:" + toLoad + ", LEngth: " + toLoad.length);
+
+    var coords = toLoad// + ", clics on '" + text + "':" + tabClics[text];// + ": coords: " + x + ", Y coords: " + y;
     var el = document.getElementById("obszar");
     el.innerHTML = coords;
-    
-    $('#map_img_image').attr('src','img/anatomy_02_'+text+'.jpg');
-    $('#gmipam_0_image').attr('src','img/anatomy_02_'+text+'.jpg');
-        
     el.value = coords;
-    switch (text) {
-        case "rec1":
-        case "rec7":
-        case "rec13":
-            el.style.backgroundColor = "red";
-//                alert("red")
-            break;
-        case "rec2":
-        case "rec8":
-        case "rec14":
-            el.style.backgroundColor = "yellow";
-            break;
-        case "rec3":
-        case "rec9":
-        case "rec15":
-            el.style.backgroundColor = "green";
-            break;
-        case "rec4":
-        case "rec10":
-        case "rec16":
-            el.style.backgroundColor = "brown";
-            break;
-        case "rec5":
-        case "rec11":
-        case "rec17":
-            el.style.backgroundColor = "orange";
-            break;
-        case "rec6":
-        case "rec12":
-        case "rec18":
-            el.style.backgroundColor = "pink";
-            break;
 
-        default:
-            el.style.backgroundColor = "white";
-            break
+
+    function load_this(text) {
+        if (text != null && text.length < longOfString) {
+//            alert("load zaznacz")
+            $('#map_img_image').attr('src', 'img/cycki_03/anatomy_03' + text + '.jpg');
+            $('#gmipam_0_image').attr('src', 'img/cycki_03/anatomy_03' + text + '.jpg');
+        } else {
+//            alert("load czyste")
+            $('#map_img_image').attr('src', 'img/cycki_03/anatomy_03.jpg');
+            $('#gmipam_0_image').attr('src', 'img/cycki_03/anatomy_03.jpg');
+        }
     }
+
+    load_this(toLoad);
 }
 
 function showOUTCoordsCyca(event) {
@@ -118,7 +157,7 @@ function getUrlProperty(text) {
 function trans(text) {
 
     var Fintext = ''
-    switch(text){
+    switch (text) {
         case 'mama_firstname':
             Fintext = 'Imię matki'
             break;
@@ -146,7 +185,7 @@ function trans(text) {
         default:
             var pattern = "_";
             re = new RegExp(pattern, "g");
-            Fintext = text.replace(re," ");
+            Fintext = text.replace(re, " ");
 //            Fintext = text
             break;
     }

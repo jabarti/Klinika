@@ -396,7 +396,7 @@ $(document).ready(function () {
 //        alert("Checkbox state (method 2) = " + $("#cyckiID").is(':checked'));
 
         if ($("#cycki").prop('checked')) {
-            $("#foto_cycki").delay( 800 ).show();
+            $("#foto_cycki").show();
 //            $("#foto_cycki_inf").show();
         } else {
             $("#foto_cycki").hide();
