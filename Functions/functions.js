@@ -7,7 +7,7 @@
  * Author       Bartosz M. Lewiński <jabarti@wp.pl>
  ***************************************************/
 var tabClics = [];
-var ileImg = 2; // maksymalnie dwa zaznaczone obszary cycków
+var ileImg = 3; // maksymalnie dwa zaznaczone obszary cycków
 var longOfString = ileImg * 5 + 1;
 var indexIntabClics = 0;
 var isNyLoaded = true;
@@ -28,6 +28,7 @@ function showCoordsCyca(event, text) {
             if (arr[i + 1] != undefined) {
                 var text_temp = arr[i + 1];
                 tabClics.push(text_temp);
+                tabClics.sort();
             }
         }
     } else {
