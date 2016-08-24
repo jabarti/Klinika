@@ -73,6 +73,13 @@ $(document).ready(function () {
 // FUNKCJA PAKUJĄCA DANE DO FORMULARZA
     function Make_Records(data) {
 
+//        $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+        $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+        $("#data_urodzenia_dziecko").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+        $("#kod_poczt").mask("99-999");
+        $("#urodz_kod_poczt").mask("99-999");
+        $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
+
         $('#data_utworzenia').val(data[0]['data_utworzenia']);
         $('#ID_Wpisu').val(data[0]['ID_Wpisu']);
 
@@ -595,7 +602,7 @@ $(document).ready(function () {
 //        alert(opisObsz)
         var ind = opisObsz.indexOf(':');
         var id_ob = opisObsz.substring(0, ind);
-        
+
 //        alert(id_ob)
         if (opisObsz != "") {
 //            alert("ładuję zaznaczone zdjęie")
@@ -605,7 +612,7 @@ $(document).ready(function () {
             $('#map_img_image').attr('src', 'img/cycki_03/anatomy_03.jpg');
         }
 //        alert("adding value"  + opisObsz)
-        document.getElementById("obszar").value=opisObsz;
+        document.getElementById("obszar").value = opisObsz;
 //        alert($('#obszar').val())
 
 
@@ -687,7 +694,7 @@ $(document).ready(function () {
                 $("#wiek_matka_wtedy").val(text2);
             }
         });
-        
+
         $("#data_urodzenia_matka").change(function () {
             var data_u = new Date($("#data_urodzenia_matka").val());
             var text = CalculateAge(data_u);
@@ -717,7 +724,7 @@ $(document).ready(function () {
                 $("#wiek_dziecka_wtedy").val(text2);
             }
         });
-        
+
         $("#data_urodzenia_dziecko").change(function () {
 
             var data_u = new Date($("#data_urodzenia_dziecko").val());

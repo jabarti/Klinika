@@ -45,7 +45,7 @@ function showCoordsCyca(event, text) {
 //        alert("indexIntabClics=" + indexIntabClics)
         if (indexIntabClics >= 0) {
 //            tabClics.splice(indexIntabClics, 1); // usówa 1 element w indexie
-        }else{
+        } else {
             alert("Maksymalnie " + ileImg + " zaznaczonych elementów, usuń jeden!")
         }
     }
@@ -120,29 +120,85 @@ $(document).ready(function () {
 });
 
 
-// funkcje do oblicznia wieku dziś lub w danej dacie
-function CalculateAge(data) {
-    var data_u = new Date(data)
-    var ageDifMs = Date.now() - data_u.getTime();
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    year = Math.abs(ageDate.getFullYear() - 1970);
-    month = Math.abs(ageDate.getMonth());
-    dagar = Math.abs(ageDate.getDate());
+function CalculateAge2(data1, data2) {
 
-    return year + " lat i " + month + " mieś. i " + dagar + "dni";
+    var data_x = new Date(data1);   // wcześniejsza
+    var data_y = new Date(data2);   // późniejsza
+
+    var year_x = data_x.getFullYear();
+    var year_y = data_y.getFullYear();
+
+    var month_x = data_x.getMonth() + 1;
+    var month_y = data_y.getMonth() + 1;
+
+    var day_x = data_x.getDate();
+    var day_y = data_y.getDate();
+
+    var lat = year_y - year_x;
+    var mies = month_y - month_x;
+    var dni = day_y - day_x;
+
+    console.log("Rok 2=" + year_y + ", Rok 1=" + year_x + ", czyli 2-1 = " + lat);
+    console.log("Miesiąc 2=" + month_y + ", Miesiąc 1=" + month_x + ", czyli 2-1 = " + mies);
+    console.log("Dzień 2=" + day_y + ", Dzień 1=" + day_x + ", czyli 2-1 = " + dni);
+
+    if (dni < 0) {
+        mies -= 1;
+        var temp_dni_x = ileDniMaMiesiąc(month_x, year_x);
+//        var temp_dni_y = ileDniMaMiesiąc(month_y, year_y);
+        dni = temp_dni_x + dni
+        console.log("temp_dni_x=" + temp_dni_x)
+    }
+
+    if (mies < 0) {
+        lat -= 1
+        mies = 12 + mies
+    }
+
+    console.log(lat + " lat i " + mies + " mieś. i " + dni + "dni");
+
+    return lat + " lat i " + mies + " mieś. i " + dni + "dni";
 }
 ;
 
-function CalculateAge2(data, data2) {
-    var data_x = new Date(data)
-    var data_y = new Date(data2)
-    var ageDifMs = data_y.getTime() - data_x.getTime();
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    year = Math.abs(ageDate.getFullYear() - 1970);
-    month = Math.abs(ageDate.getMonth());
-    dagar = Math.abs(ageDate.getDate());
+// funkcje do oblicznia wieku dziś lub w danej dacie
+function CalculateAge(data) {
+    var data_x = new Date(data);
+    var data_y = new Date();
 
-    return year + " lat i " + month + " mieś. i " + dagar + "dni";
+    var year_x = data_x.getFullYear();
+    var year_y = data_y.getFullYear();
+
+    var month_x = data_x.getMonth() + 1;
+    var month_y = data_y.getMonth() + 1;
+
+    var day_x = data_x.getDate();
+    var day_y = data_y.getDate();
+
+    var lat = year_y - year_x;
+    var mies = month_y - month_x;
+    var dni = day_y - day_x;
+
+    console.log("Rok 2=" + year_y + ", Rok 1=" + year_x + ", czyli 2-1 = " + lat);
+    console.log("Miesiąc 2=" + month_y + ", Miesiąc 1=" + month_x + ", czyli 2-1 = " + mies);
+    console.log("Dzień 2=" + day_y + ", Dzień 1=" + day_x + ", czyli 2-1 = " + dni);
+
+    if (dni < 0) {
+        mies -= 1;
+        var temp_dni_x = ileDniMaMiesiąc(month_x, year_x);
+//        var temp_dni_y = ileDniMaMiesiąc(month_y, year_y);
+        dni = temp_dni_x + dni
+        console.log("temp_dni_x=" + temp_dni_x)
+    }
+
+    if (mies < 0) {
+        lat -= 1
+        mies = 12 + mies
+    }
+
+    console.log(lat + " lat i " + mies + " mieś. i " + dni + "dni");
+
+    return lat + " lat i " + mies + " mieś. i " + dni + "dni";
 }
 ;
 
@@ -201,7 +257,37 @@ function trans(text) {
 }
 
 function isEmail(email) {
-  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  return regex.test(email);
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
 }
+
+// ile dni ma faktycznie miesiąc dni!!!!!
+    function ileDniMaMiesiąc(monad, year) {
+        var dni = 0;
+        switch (monad) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                dni = 31;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dni = 30;
+                break;
+            default:
+                if (year % 4 == 0) {
+                    dni = 29;
+                } else {
+                    dni = 28;
+                }
+                break;
+        }
+        return dni;
+    }
 
