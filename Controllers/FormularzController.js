@@ -10,6 +10,18 @@ $(document).ready(function () {
     var url = "AJAX/FormularzAJAX.php"
     // Ustawienia początkowe formularza
     // NyForm3
+    var now = new Date();
+    var dat_text = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+//    $('#data_utworzenia').val(dat_text)
+    $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+    $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+    $("#data_urodzenia_dziecko").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+    $("#kod_poczt").mask("99-999");
+    $("#urodz_kod_poczt").mask("99-999");
+    $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
+
+
+    $('#data_utworzenia').val(dat_text)
     $("#show_szpital").hide();
     $("#show_innemiejsce").hide();
     $("#urodz_ulica_nr_mieszkanie").hide();
@@ -74,7 +86,7 @@ $(document).ready(function () {
                     if (confirm("Formularz zapisany!!!\nCzy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
                         location.href = "index.php?page=edit&id_record=" + data.NewID;
                     }
-                }else{
+                } else {
                     alert("Formularz nie został zapisany....")
                 }
 
@@ -91,19 +103,33 @@ $(document).ready(function () {
     });
 
 
-    // Wpisuje imie i nazwisko matki i dziecka na górze form
-    $("#mama_firstname").change(function () {
-        var data_u = this.value;
-        $("#add_imie_mama").text(data_u);
-    });
-    $("#mama_lastname").change(function () {
-        var data_u = this.value;
-        $("#add_nazwisko_mama").text(data_u);
-    });
-    $("#imie_dziecka").change(function () {
-        var data_u = this.value;
-        $("#add_imie_dziecko").text(data_u);
-    });
+//    // Wpisuje imie i nazwisko matki i dziecka na górze form
+//    $("#mama_firstname").change(function () {
+//        var data_u = this.value;
+//        $("#add_imie_mama").text(data_u);
+//    });
+//    $("#mama_lastname").change(function () {
+//        var data_u = this.value;
+//        $("#add_nazwisko_mama").text(data_u);
+//    });
+//    $("#imie_dziecka").change(function () {
+//        var data_u = this.value;
+//        $("#add_imie_dziecko").text(data_u);
+//    });
+
+    $("#email").change(function () {
+        var email = $("#email").val();
+
+        if (isEmail(email)) {
+            $("#email").css("background-color", "#00ff00");
+//            $("#email_success").show().css("background-color", "#00ff00");;
+//            $("#email_error").hide();
+        } else {
+//            $("#email").css("background-color", "#00ff00");
+//            $("#email_success").hide()
+            $("#email").show().css("background-color", "#ff0000");
+        }
+    })
 
     // wpisuje rok w danych formularza    
     $("#data_utworzenia").change(function () {

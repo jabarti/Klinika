@@ -536,6 +536,7 @@ if (isset($_POST['action'])) {
                 "NewID" => $NEW_FORM_ID,
                 "info" => $info);
             break;
+            
         case 'takeSzpitals':
             
             $SQL_takeSzpitals = "Select * FROM $baza.`szpital` WHERE `czyNIESzpital` = false;";
