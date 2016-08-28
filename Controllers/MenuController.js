@@ -26,6 +26,10 @@ $(document).ready(function () {
 //        alert("To dodaj szpital / W budowie");
         window.location.href = 'index.php?page=addHosp';
     });
+    $("#toListMothers").click(function () {
+//        alert("To dodaj szpital / W budowie");
+        window.location.href = 'index.php?page=listMothers';
+    });
 
     $("#buttChangeCrud").click(function () {
 //        preventDefault();
