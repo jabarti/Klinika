@@ -68,8 +68,19 @@ $SQL .= "<br>SQL_Matka: [$SQL_Matka]";
 $result = mysqli_query($DBConn, $SQL_Matka);
 
 $rows = array();
+//$rowsOfForms = array();
 while ($r = mysqli_fetch_assoc($result)) {
     array_push($rows, $r);
+    
+//    $SQL_Forms = "SELECT `Matka_idMatka`,`ID_Wpisu` FROM `formularz` WHERE `Matka_idMatka` = '".$r['idMatka']."';";
+//    $SQL .= "<br>SQL_Forms: [$SQL_Forms]";
+//    
+//    $res = mysqli_query($DBConn, $SQL_Forms);
+//    
+//    while($ro = mysqli_fetch_assoc($res)){
+//        array_push($rowsOfForms, $ro);
+//    }
+    
 }
 
 $SQL_Matka_w_Form = "SELECT `Matka_idMatka` FROM $baza.`FullForm`;";
@@ -83,10 +94,17 @@ while ($r = mysqli_fetch_assoc($result)) {
 }
 
 array_push($rows, $arr_of_matka_in_forms);
+//array_push($rows, $rowsOfForms);
 array_push($rows, $SQL);
 
 
 
 echo json_encode($rows);
+
+//echo "<br>";
+//
+//echo ($SQL);
+//
+//var_dump($rowsOfForms);
 
 

@@ -73,7 +73,7 @@ $(document).ready(function () {
     $('tbody').delegate("button", "click", function () {
         var butt_id = this.id;
         var where = butt_id.slice(0, 6);
-        
+
 //        alert("Where:" + where + "\nWhat: " + what);
 
         switch (where) {
@@ -91,7 +91,7 @@ $(document).ready(function () {
 //                    alert("to kasuje");
                     $.ajax({
                         type: "POST",
-                        url: url,      
+                        url: url,
                         data: 'action=deleMatka&idMatka=' + what, // serializes the form's elements.
                         success: function (response) {
                             var data = jQuery.parseJSON(response);
@@ -131,8 +131,21 @@ $(document).ready(function () {
             }
         }
 
+//        for (var k = 0; k < data.length; k++) {
+//            for (var l = 0; l < data[k].length; l++) {
+//                for (key in data[k][l]) {
+//                    if (key == "Matka_idMatka" || key == "ID_Wpisu") {
+//                        if (k == 6) {
+//                            alert("[" + key + "][" + k + "][" + l + "] = " + data[k][l][key])
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+
         for (var f = 0; f < data.length; f++) {
-            
+
             var text = (data[f]['idMatka']);
             var disabledDelete = false;
 
@@ -143,11 +156,11 @@ $(document).ready(function () {
             }
 
             if (data[f]['idMatka'] != null) {
-                
+
                 if (disabledDelete) {       // To są rekordy szpitali, które są w Formularzu, usunięcie grozi błedami
 
                     trHTML += '<tr>\n\
-                            <td><button id="toEditMother_' + text + '" class="editButt btn btn-primary" formtarget="_blank"><span class="glyphicon glyphicon-edit" ></span> ' + data[f]['idMatka'] + '</button></td>\n\
+                            <td><span >' + data[f]['idMatka'] + '</span></td>\n\
                             <td><span >' + data[f]['mama_firstname'] + '</span></td>\n\
                             <td><span >' + data[f]['mama_lastname'] + '</span></td>\n\
                             <td><span >' + data[f]['data_urodzenia_matka'] + '</span></td>\n\
@@ -159,7 +172,7 @@ $(document).ready(function () {
                        </tr>';
                 } else {
                     trHTML += '<tr>\n\
-                            <td><button id="toEditMother_' + text + '" class="editButt btn btn-primary" formtarget="_blank"><span class="glyphicon glyphicon-edit" ></span> ' + data[f]['idMatka'] + '</button></td>\n\
+                            <td><span >' + data[f]['idMatka'] + '</span></td>\n\
                             <td><span >' + data[f]['mama_firstname'] + '</span></td>\n\
                             <td><span >' + data[f]['mama_lastname'] + '</span></td>\n\
                             <td><span >' + data[f]['data_urodzenia_matka'] + '</span></td>\n\
