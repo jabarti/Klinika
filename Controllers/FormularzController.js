@@ -8,6 +8,7 @@
  ***************************************************/
 $(document).ready(function () {
     var url = "AJAX/FormularzAJAX.php"
+    var fromDate = "01/01/1945";
     // Ustawienia początkowe formularza
     // NyForm3
     var now = new Date();
@@ -63,45 +64,78 @@ $(document).ready(function () {
 
     // Submiting Logg form
     $("#NyFormularz").submit(function (e) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $("#NyFormularz").serialize() + '&action=addNytt', // serializes the form's elements.
-            success: function (response) {
-                var data = jQuery.parseJSON(response);
+        var isValideted = false;
+
+        var data_utworzenia = $("#data_utworzenia").val();
+        var data_matka = $("#data_urodzenia_matka").val();
+        var data_dziecko = $("#data_urodzenia_dziecko").val();
+        
+        var checkDU = dateCheck(fromDate, data_utworzenia);
+        var checkM = dateCheck(fromDate, data_matka);
+        var checkD = dateCheck(fromDate, data_dziecko);
+
+        if (checkM && checkD && checkDU) {
+            isValideted = true;
+        }
+        
+        if(!checkDU){
+            $("#data_utworzenia").focus()
+        }
+        
+        if(!checkM){
+            $("#data_urodzenia_matka").focus()
+        }
+        
+        if(!checkD){
+            $("#data_urodzenia_dziecko").focus()
+        }
+        
+
+        if (isValideted) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#NyFormularz").serialize() + '&action=addNytt', // serializes the form's elements.
+                success: function (response) {
+                    var data = jQuery.parseJSON(response);
 //                   alert("ok: "+data.outp + "\n"+ data.actions); // show response from the php script.
-                $("#message").html('<br>DATA SQL:<br>' + data.SQL +
-                        '<br>DATA.OUTP' + data.outp +
+                    $("#message").html('<br>DATA SQL:<br>' + data.SQL +
+                            '<br>DATA.OUTP' + data.outp +
 //                                        '<br>DATA ACTIONS:<br>'+data.actions+
-                        '<br>DATA ERRORs:<br>' + data.error +
-                        '<br>DATA Info:<br>' + data.info +
-                        '<br>DATA NEW ID:<br>' + data.NewIDinfo
-                        );
-                
+                            '<br>DATA ERRORs:<br>' + data.error +
+                            '<br>DATA Info:<br>' + data.info +
+                            '<br>DATA NEW ID:<br>' + data.NewIDinfo
+                            );
+
 //                alert("IS ERROR?" + data.isError)
 
 //                alert(data.error + ", new ID " + data.NewID + "' length: " + data.NewID.length)
 //                $("#NyFormularz").trigger('reset');
 
-                if (data.NewID != null && data.NewID.length > 5) {
-                    if (confirm("Formularz zapisany!!!\nCzy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
-                        location.href = "index.php?page=edit&id_record=" + data.NewID;
-                    }
-                    $("#NyFormularz").trigger('reset');
+                    if (data.NewID != null && data.NewID.length > 5) {
+                        if (confirm("Formularz zapisany!!!\nCzy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
+                            location.href = "index.php?page=edit&id_record=" + data.NewID;
+                        }
+                        $("#NyFormularz").trigger('reset');
 
-                } else {
-                    if(data.isError == true){
-                        alert("Formularz nie został zapisany ponieważ: "+data.isError_opis);
-                    }else{
-                        alert("Formularz nie został zapisany....")
+                    } else {
+                        if (data.isError == true) {
+                            alert("Formularz nie został zapisany ponieważ: " + data.isError_opis);
+                            $('#ID_Wpisu_nr').focus();
+                        } else {
+                            alert("Formularz nie został zapisany....")
+                        }
                     }
-                }
-            },
-            error: function (response) {
-                alert("ERROR" + response);
+                },
+                error: function (response) {
+                    alert("ERROR" + response);
 //                   $("#errorPass").show();
-            }
-        });
+                }
+            });
+        } else {
+            alert("Wpisz poprawną(e) datę(y) od '"+fromDate + "' do dziś!");
+        }
+
         e.preventDefault(); // avoid to execute the actual submit of the form.
     });
 
@@ -136,7 +170,7 @@ $(document).ready(function () {
     $("#ID_Wpisu_nr").on("change", function () {
         var data_u = new Date($("#data_utworzenia").val());
         var year = data_u.getFullYear();
-        
+
         if (data_u != null) {
 //            alert("data_u ! null")
             year = data_u.getFullYear();
@@ -146,9 +180,9 @@ $(document).ready(function () {
         }
         var id = $("#ID_Wpisu_nr").val();
         var nyID = id + "/" + year;
-        
+
         $("#rokFormularza").val(year);
-        
+
 //        $.ajax({
 //            type: "POST",
 //            url: url,
@@ -160,7 +194,7 @@ $(document).ready(function () {
 //                alert("error in AJAX");
 //            }
 //        });
-        
+
     });
 
     // wpisuje wiek matki
@@ -616,7 +650,20 @@ $(document).ready(function () {
             }
         });
     }
-    
-            
-        
+
+    function dateCheck(from, check) {
+
+        var fDate, lDate, cDate;
+        fDate = Date.parse(from);
+        lDate = new Date();
+        cDate = Date.parse(check);
+
+        if ((cDate <= lDate && cDate >= fDate)) {
+            return true;
+        }
+        return false;
+    }
+
+
+
 });
