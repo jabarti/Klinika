@@ -63,9 +63,6 @@ $(document).ready(function () {
 
     // Submiting Logg form
     $("#NyFormularz").submit(function (e) {
-//        alert("Submitting")
-//        var url = "AJAX/FormularzAJAX.php"; // the script where you handle the form input.
-
         $.ajax({
             type: "POST",
             url: url,
@@ -80,42 +77,33 @@ $(document).ready(function () {
                         '<br>DATA Info:<br>' + data.info +
                         '<br>DATA NEW ID:<br>' + data.NewIDinfo
                         );
-                $("#NyFormularz").trigger('reset');
+                
+//                alert("IS ERROR?" + data.isError)
 
-                if (data.NewID != null) {
+//                alert(data.error + ", new ID " + data.NewID + "' length: " + data.NewID.length)
+//                $("#NyFormularz").trigger('reset');
+
+                if (data.NewID != null && data.NewID.length > 5) {
                     if (confirm("Formularz zapisany!!!\nCzy chcesz przejść na stronę edycji(OK), czy dodać nowy formularz(N)?")) {
                         location.href = "index.php?page=edit&id_record=" + data.NewID;
                     }
+                    $("#NyFormularz").trigger('reset');
+
                 } else {
-                    alert("Formularz nie został zapisany....")
+                    if(data.isError == true){
+                        alert("Formularz nie został zapisany ponieważ: "+data.isError_opis);
+                    }else{
+                        alert("Formularz nie został zapisany....")
+                    }
                 }
-
-
-//                   location.href = location.href
             },
             error: function (response) {
                 alert("ERROR" + response);
 //                   $("#errorPass").show();
             }
         });
-
         e.preventDefault(); // avoid to execute the actual submit of the form.
     });
-
-
-//    // Wpisuje imie i nazwisko matki i dziecka na górze form
-//    $("#mama_firstname").change(function () {
-//        var data_u = this.value;
-//        $("#add_imie_mama").text(data_u);
-//    });
-//    $("#mama_lastname").change(function () {
-//        var data_u = this.value;
-//        $("#add_nazwisko_mama").text(data_u);
-//    });
-//    $("#imie_dziecka").change(function () {
-//        var data_u = this.value;
-//        $("#add_imie_dziecko").text(data_u);
-//    });
 
     $("#email").change(function () {
         var email = $("#email").val();
@@ -133,9 +121,46 @@ $(document).ready(function () {
 
     // wpisuje rok w danych formularza    
     $("#data_utworzenia").change(function () {
-        var data_u = new Date(this.value);
-        var year = data_u.getFullYear();
+        var year = '';
+        var data_u = new Date($("#data_utworzenia").val());
+
+        if (data_u != null) {
+            year = data_u.getFullYear();
+        } else {
+            year = now.getFullYear();
+        }
         $("#rokFormularza").val(year);
+    });
+
+    // Sprawdzenie czy wprowdzony nr formularza w danym roku istnieje w BD !!!
+    $("#ID_Wpisu_nr").on("change", function () {
+        var data_u = new Date($("#data_utworzenia").val());
+        var year = data_u.getFullYear();
+        
+        if (data_u != null) {
+//            alert("data_u ! null")
+            year = data_u.getFullYear();
+        } else {
+//            alert("data_u null")
+            year = now.getFullYear();
+        }
+        var id = $("#ID_Wpisu_nr").val();
+        var nyID = id + "/" + year;
+        
+        $("#rokFormularza").val(year);
+        
+//        $.ajax({
+//            type: "POST",
+//            url: url,
+//            data: {action: "kur", checkID: nyID},
+//            success: function(response){
+//                alert(response);
+//            },
+//            error: function(){
+//                alert("error in AJAX");
+//            }
+//        });
+        
     });
 
     // wpisuje wiek matki
@@ -591,7 +616,7 @@ $(document).ready(function () {
             }
         });
     }
-
-
-
+    
+            
+        
 });

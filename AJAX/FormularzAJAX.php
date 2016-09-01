@@ -18,6 +18,8 @@ $baza = "`bartilev_klinika`";
 $valid = false;
 $actions = '';
 $error = "";
+$isError = false;
+$isError_opis = "";
 $SQL = '';
 $outp = '';
 $user = '';
@@ -26,9 +28,11 @@ $info = '';
 $NEW_FORM_ID = "";
 
 $Fin_Arr = array(
-    "valid" => false,
+    "valid" => $valid,
     "actions" => $actions,
     "error" => $error,
+    "isError" => $isError,
+    "isError_opis" => $isError_opis,
     "SQL" => $SQL,
     "outp" => $outp,
     "user" => $user,
@@ -47,6 +51,7 @@ if (isset($_POST['action'])) {
     }
 
     switch ($_POST['action']) {
+        
         case 'addNytt':
             $Matka_kolumns = "";
             $Matka_values = "";
@@ -414,6 +419,8 @@ if (isset($_POST['action'])) {
                 if (in_array($ID_Wpisu, $array_ID)) {
                     $info .= "UWAGA! Wpis o tym numerze już istnieje!!!";
                     $IsProperID = false;
+                    $isError = true;
+                    $isError_opis = "Istnieje formularz o takim ID";
                 } else {
                     $id_temp = $ID_Wpisu;
                     $info .= ", 2.NEW ID_Wpis (z formularza): [$id_temp]";
@@ -529,6 +536,8 @@ if (isset($_POST['action'])) {
                 "valid" => false,
                 "actions" => $actions,
                 "error" => $error,
+                "isError" => $isError,
+                "isError_opis" => $isError_opis,
                 "SQL" => $SQL,
                 "outp" => $outp,
                 "user" => $user,
@@ -552,6 +561,8 @@ if (isset($_POST['action'])) {
                 "valid" => false,
                 "actions" => $actions,
                 "error" => $error,
+                "isError" => $isError,
+                "isError_opis" => $isError_opis,
                 "SQL" => $SQL,
                 "outp" => $outp,
                 "user" => $user,
