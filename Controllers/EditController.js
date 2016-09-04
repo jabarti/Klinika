@@ -397,11 +397,12 @@ $(document).ready(function () {
 
 // Funkcja do obsługi radio buttons - treść i array params do show/hide inputs
     function radioAddProperties(name, data, params) {
+//        alert( "name: " +name + ", val: "+ data[0][name])
         $('input:radio[name="' + name + '"]').filter('[value="' + data[0][name] + '"]').attr('checked', true);
         var showNotPar = $('input:radio[name="' + name + '"][value="0"]').val();
 //        alert(data[0][name] + ", " + showNotPar);
         if (params !== null) {
-            if (data[0][name] != showNotPar) {
+            if (data[0][name] != showNotPar && data[0][name] != -1) {
                 for (var i = 0; i < params.length; i++) {
 //                    alert(params[i] + " => " + data[0][params[i]]);
                     var text = data[0][params[i]];
@@ -414,23 +415,23 @@ $(document).ready(function () {
         }
     }
 // Funkcja do obsługi radio buttons - treść i array params do show/hide inputs
-    function radioAddProperties(name, data, params) {
-        $('input:radio[name="' + name + '"]').filter('[value="' + data[0][name] + '"]').attr('checked', true);
-        var showNotPar = $('input:radio[name="' + name + '"][value="0"]').val();
-//        alert(data[0][name] + ", " + showNotPar);
-        if (params !== null) {
-            if (data[0][name] != showNotPar) {
-                for (var i = 0; i < params.length; i++) {
-//                    alert(params[i] + " => " + data[0][params[i]]);
-                    var text = data[0][params[i]];
-                    $('#' + params[i]).val(text);
-                    $('#' + name + "_show").show();
-                }
-            } else {
-                $('#' + name + "_show").hide();
-            }
-        }
-    }
+//    function radioAddProperties(name, data, params) {
+//        $('input:radio[name="' + name + '"]').filter('[value="' + data[0][name] + '"]').attr('checked', true);
+//        var showNotPar = $('input:radio[name="' + name + '"][value="0"]').val();
+////        alert(data[0][name] + ", " + showNotPar);
+//        if (params !== null) {
+//            if (data[0][name] != showNotPar) {
+//                for (var i = 0; i < params.length; i++) {
+////                    alert(params[i] + " => " + data[0][params[i]]);
+//                    var text = data[0][params[i]];
+//                    $('#' + params[i]).val(text);
+//                    $('#' + name + "_show").show();
+//                }
+//            } else {
+//                $('#' + name + "_show").hide();
+//            }
+//        }
+//    }
 
 // Funkcja początkowa, nadaje wartości polom checkboxa
     function checkboxAddProperties(name, data, params) {
