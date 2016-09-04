@@ -200,6 +200,9 @@ if (isset($_POST['action'])) {
                         $Form_02_kolumns .= "`$k`,";
                         $Form_02_values .= "'$v',";
                         break;
+                    // radiobuttons - trzeba żeby miały wartośc -1 jeśli nie są true lub false (czyli niezaznaczone!
+                    
+                    
                     case 'leki_dziecko':       // ostatnie z serii
                         $Form_02_kolumns .= "`$k`";
                         $Form_02_values .= "'$v'";
