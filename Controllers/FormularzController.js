@@ -14,12 +14,12 @@ $(document).ready(function () {
     var now = new Date();
     var dat_text = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
 //    $('#data_utworzenia').val(dat_text)
-    $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
-    $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
-    $("#data_urodzenia_dziecko").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
-    $("#kod_poczt").mask("99-999");
-    $("#urodz_kod_poczt").mask("99-999");
-    $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
+//    $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+//    $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+//    $("#data_urodzenia_dziecko").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+//    $("#kod_poczt").mask("99-999");
+//    $("#urodz_kod_poczt").mask("99-999");
+//    $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
 
 
     $('#data_utworzenia').val(dat_text)
