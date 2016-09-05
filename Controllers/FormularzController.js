@@ -12,7 +12,20 @@ $(document).ready(function () {
     // Ustawienia początkowe formularza
     // NyForm3
     var now = new Date();
-    var dat_text = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    
+    var now_year = now.getFullYear();
+    var now_mont = now.getMonth()+1;
+    var now_day = now.getDate();
+    
+    if(now_mont<10){
+        now_mont = "0"+now_mont;
+    }
+    
+    if(now_day < 10){
+        now_day = "0"+now_day;
+    }
+    
+    var dat_text = now_year + "-" + now_mont + "-" + now_day;
 //    $('#data_utworzenia').val(dat_text)
 //    $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
 //    $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
