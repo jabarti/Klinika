@@ -13,19 +13,6 @@ $(document).ready(function () {
     // NyForm3
     var now = new Date();
     
-    var now_year = now.getFullYear();
-    var now_mont = now.getMonth()+1;
-    var now_day = now.getDate();
-    
-    if(now_mont<10){
-        now_mont = "0"+now_mont;
-    }
-    
-    if(now_day < 10){
-        now_day = "0"+now_day;
-    }
-    
-    var dat_text = now_year + "-" + now_mont + "-" + now_day;
 //    $('#data_utworzenia').val(dat_text)
 //    $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
 //    $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
@@ -34,6 +21,7 @@ $(document).ready(function () {
 //    $("#urodz_kod_poczt").mask("99-999");
 //    $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
 
+    var dat_text = FormatDateToString(now);
 
     $('#data_utworzenia').val(dat_text)
     $("#show_szpital").hide();
@@ -230,6 +218,9 @@ $(document).ready(function () {
         var data_u = new Date(this.value);
         var text = CalculateAge(data_u);
         $("#wiek_dziecka_dzis").val(text);
+        
+        var text_date = FormatDateToString(data_u);
+        $('#data_01').val(text_date);
 
         var temp = $("#data_utworzenia").val();
         var data_y = new Date(temp);

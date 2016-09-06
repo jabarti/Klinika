@@ -202,6 +202,24 @@ function CalculateAge(data) {
 }
 ;
 
+function FormatDateToString(date){
+    var temp = new Date(date);
+    
+    var now_year = temp.getFullYear();
+    var now_mont = temp.getMonth()+1;
+    var now_day = temp.getDate();
+    
+    if(now_mont<10){
+        now_mont = "0"+now_mont;
+    }
+    
+    if(now_day < 10){
+        now_day = "0"+now_day;
+    }
+    
+    return now_year + "-" + now_mont + "-" + now_day;
+}
+
 function getUrlProperty(text) {
     var start = text.length + 1;
 
