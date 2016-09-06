@@ -243,6 +243,7 @@ $(document).ready(function () {
     function loadUstawienia() {
         ShowHide("miejsce", ["urodz_ulica_nr_mieszkanie"]);
 
+        $('#dziecko_pop_show').hide();
         $('#ktore_dziecko').change(function () {
             if ($('#ktore_dziecko').val() > 1) {
                 $('#dziecko_pop_show').show();
