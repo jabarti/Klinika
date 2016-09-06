@@ -162,13 +162,14 @@ if (isset($_POST['action'])) {
                         break;
 
                     // FORM 1
-//(`ID_Wpisu`, `data_utworzenia`, `Matka_idMatka`, `imie_dziecka`, `data_urodzenia_dziecko`, `ktore_dziecko`, 
-//`urodzone_czas`, `ile_wczesniej`, `porod`, `jaki_porod`, `leki_porod`, `leki_polog`, `powod_zgloszenia`, 
-//`miejsce`, `id_SzpitalOrInne`)
-
                     case 'imie_dziecka':
                     case 'data_urodzenia_dziecko':
                     case 'ktore_dziecko':
+                        
+                    case 'imie_dziecka_pop':
+                    case 'karmienie_piers_pop':
+                    case 'karmienie_piers_pop_opis':
+                               
                     case 'urodzone_czas':
                     case 'ile_wczesniej':
                     case 'porod':

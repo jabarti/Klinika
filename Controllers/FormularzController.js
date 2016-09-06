@@ -24,6 +24,8 @@ $(document).ready(function () {
     var dat_text = FormatDateToString(now);
 
     $('#data_utworzenia').val(dat_text)
+    $('#dziecko_pop_show').hide();
+    $('#karmienie_piers_pop_opis_show').hide();
     $("#show_szpital").hide();
     $("#show_innemiejsce").hide();
     $("#urodz_ulica_nr_mieszkanie").hide();
@@ -230,6 +232,31 @@ $(document).ready(function () {
             $("#wiek_dziecka_wtedy").val(text2);
         }
     });
+    
+    $('#ktore_dziecko').change(function(){
+        if( $('#ktore_dziecko').val() >1){
+            console.log("kolejne dziecko");
+            $('#dziecko_pop_show').show();
+        }else{
+            console.log("pierwsze dziecko");
+            $('#dziecko_pop_show').hide();
+        }
+    });
+    
+        $("input[name='karmienie_piers_pop']").click(function () {
+        var temp = this.value;
+        switch (temp) {
+            case '0':
+                $("#karmienie_piers_pop_opis_show").hide();
+                break;
+            case '1':
+                $("#karmienie_piers_pop_opis_show").show();
+                break;
+            default:
+                alert(" o default!");
+                break;
+        }
+    });    
 
     // radiobutton
     $("input[name='miejsce_urodzenia_quest']").click(function () {

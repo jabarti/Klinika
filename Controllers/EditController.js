@@ -73,12 +73,12 @@ $(document).ready(function () {
 // FUNKCJA PAKUJĄCA DANE DO FORMULARZA
     function Make_Records(data) {
 
-//        $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
-        $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
-        $("#data_urodzenia_dziecko").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
-        $("#kod_poczt").mask("99-999");
-        $("#urodz_kod_poczt").mask("99-999");
-        $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
+////        $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+//        $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+//        $("#data_urodzenia_dziecko").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
+//        $("#kod_poczt").mask("99-999");
+//        $("#urodz_kod_poczt").mask("99-999");
+//        $("#telefon").mask("+99 999 999 999", {placeholder: "+48 xxx xxx xxx"});
 
         $('#data_utworzenia').val(data[0]['data_utworzenia']);
         $('#ID_Wpisu').val(data[0]['ID_Wpisu']);
@@ -98,6 +98,15 @@ $(document).ready(function () {
         $('#imie_dziecka').val(data[0]['imie_dziecka']);
         $('#data_urodzenia_dziecko').val(data[0]['data_urodzenia_dziecko']);
         $('#ktore_dziecko').val(data[0]['ktore_dziecko']);
+
+        if (data[0]['ktore_dziecko'] > 1) {
+            $('#dziecko_pop_show').show();
+            $('#imie_dziecka_pop').val(data[0]['imie_dziecka_pop']);
+            radioAddProperties("karmienie_piers_pop", data, null);
+            $('#karmienie_piers_pop_opis').val(data[0]['karmienie_piers_pop_opis']);
+        } else {
+            $('#dziecko_pop_show').hide();
+        }
 
         //SZPITAL TO DO!!!!
         // id_SzpitalOrInne, miejsce
@@ -233,6 +242,17 @@ $(document).ready(function () {
 // Funkcja ładująca ustawienia bazowe róznych inputów
     function loadUstawienia() {
         ShowHide("miejsce", ["urodz_ulica_nr_mieszkanie"]);
+
+        $('#ktore_dziecko').change(function () {
+            if ($('#ktore_dziecko').val() > 1) {
+                $('#dziecko_pop_show').show();
+            } else {
+                $('#dziecko_pop_show').hide();
+            }
+        });
+
+
+
         ShowHide("problem_dziecko", ["problem_dziecko_opis"]);
         ShowHide("problem_mama", ["problem_mama_opis"]);
         ShowHide("karmienie_piersia", ["karmienie_piersia_opis"]);

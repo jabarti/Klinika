@@ -39,6 +39,31 @@
         </div>
 
     </div>
+    <div id="dziecko_pop_show" class="form-group" >
+
+        <label class="col-sm-3 control-label">Imię poprzedniego dziecka</label>
+        <div class="col-sm-3">
+            <input class="form-control" type="text" placeholder="podaj imię poprzedniego dziecka" name="imie_dziecka_pop" id="imie_dziecka_pop">
+        </div>
+        <p class="col-sm-12"></p>
+
+        <label class="col-sm-3 control-label">Czy było karmione piersią?</label>
+
+        <div class="radio col-sm-1" >
+            <label><input type="radio" name="karmienie_piers_pop" value="0" >nie</label>
+        </div>
+        <div class="radio col-sm-1">
+            <label><input type="radio" name="karmienie_piers_pop" value="1">tak</label>
+        </div>
+
+        <div id="karmienie_piers_pop_opis_show">
+            <label class="col-sm-1 control-label">jak długo?</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" placeholder="jak długo?" name="karmienie_piers_pop_opis" id="karmienie_piers_pop_opis">
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <h3 class="col-sm-12">Miejsce urodzenia dziecka</h3>
 
@@ -86,7 +111,7 @@
         </div>
 
         <div class="col-sm-1">
-            <input class="form-control" type="text" placeholder="m" id="urodz_ulica_nr_mieszkanie" name="urodz_ulica_nr_mieszkanie" id="urodz_ulica_nr_mieszkanie">
+            <input class="form-control" type="text" placeholder="m" id="urodz_ulica_nr_mieszkanie" name="urodz_ulica_nr_mieszkanie">
         </div>
 
         <p class="col-sm-12"></p>
