@@ -144,6 +144,7 @@ if (isset($_POST['action'])) {
             $Set_Form_02 = "";
             $Set_Form_03 = "";
             $Set_Matka = "";
+            $changeCycki = false;   // jeśli cycki zostaną ODZNACZONE, to w ogóle się nie pojawią na liście itrzeba usunąć checkboxa!!!
 
             foreach ($_POST as $k => $v) {
                 switch ($k) {
@@ -165,11 +166,11 @@ if (isset($_POST['action'])) {
                     case 'imie_dziecka':
                     case 'data_urodzenia_dziecko':
                     case 'ktore_dziecko':
-                        
+
                     case 'imie_dziecka_pop':
                     case 'karmienie_piers_pop':
                     case 'karmienie_piers_pop_opis':
-                               
+
                     case 'urodzone_czas':
                     case 'ile_wczesniej':
                     case 'porod':
@@ -284,8 +285,9 @@ if (isset($_POST['action'])) {
                     case 'dokarmianie':
                         $Set_Form_03 .= "`$k` = '$v',";
                         break;
-
+                    
                     case 'cycki':
+                        $changeCycki = true;
                         if ($v == "on") {
                             $var = true;
                         } else {
@@ -295,6 +297,9 @@ if (isset($_POST['action'])) {
                         break;
 
                     case 'zalecenia_inne': //ostatnie z serii
+                        if (!$changeCycki) { // cycki nie zaznaczone, lub zostały odznaczone!! i nie weszły do case 'cycki'
+                            $Set_Form_03 .= "`cycki` = false,";
+                        }
                         $Set_Form_03 .= "`$k` = '$v'";
                         break;
 

@@ -25,6 +25,11 @@ $(document).ready(function () {
             loadUstawienia();
             LoadCyckiPict(data);
             CountAge();
+
+            $('#sql').val(data[2]['sql']);
+            $('#info').val(data[2]['info']);
+            $('#error').val(data[2]['error']);
+            $('#post').val(data[2]['post']);
         },
         error: function (response) {
             alert("ERROR w EditCtrl 26" + response);
@@ -44,6 +49,10 @@ $(document).ready(function () {
                     Make_Records(data);
                     loadUstawienia()
                 }
+                $('#sql').val(data[2]['sql']);
+                $('#info').val(data[2]['info']);
+                $('#error').val(data[2]['error']);
+                $('#post').val(data[2]['post']);
             },
             error: function (response) {
                 alert("ERROR w EditCtrl 43" + response);
@@ -53,7 +62,7 @@ $(document).ready(function () {
 
     // KASOWANIE REKORDU   
     $('#delete').click(function () {
-        alert("edit")
+//        alert("delete")
         if (confirm("Delete form?")) {
             $.ajax({
                 type: "POST",
@@ -142,6 +151,7 @@ $(document).ready(function () {
         radioAddProperties("karmienie_piersia", data, ["karmienie_piersia_opis"]);
 
         radioAddProperties("kapturek", data, ["kapturek_opis"]);
+//        alert("kapt shof?")
 
         radioAddProperties("dopajanie", data, ["dopajanie_czym", "dopajanie_opis", "dopajanie_jak_dlugo"]);
 
@@ -152,6 +162,7 @@ $(document).ready(function () {
         radioAddProperties("karmienie_piers", data, ["karmienie_piers_czest", "karmienie_piers_dlugo"]);
 
         radioAddProperties("kapturek2", data, ["kapturek2_opis"]);
+//        alert("kapt2 shof?")
 
         radioAddProperties("dopajanie2", data, ["dopajanie2_czym", "dopajanie2_jak_dlugo", "dopajanie2_opis"]);
 
@@ -180,7 +191,9 @@ $(document).ready(function () {
 
         radioAddProperties("piers_wielkosc", data, null);
 
+//        alert("ustawienia cycki")
         checkboxAddProperties("cycki", data, ["obszar", "zmiana_opis_pict"])
+//        alert("Po ust cycków")
 
 //        LoadCyckiPict();
 
@@ -243,7 +256,6 @@ $(document).ready(function () {
     function loadUstawienia() {
         ShowHide("miejsce", ["urodz_ulica_nr_mieszkanie"]);
 
-        $('#dziecko_pop_show').hide();
         $('#ktore_dziecko').change(function () {
             if ($('#ktore_dziecko').val() > 1) {
                 $('#dziecko_pop_show').show();
@@ -252,16 +264,16 @@ $(document).ready(function () {
             }
         });
 
-
-
         ShowHide("problem_dziecko", ["problem_dziecko_opis"]);
         ShowHide("problem_mama", ["problem_mama_opis"]);
         ShowHide("karmienie_piersia", ["karmienie_piersia_opis"]);
         ShowHide("kapturek", ["kapturek_opis"]);
+//        alert("kapt shof?")
         ShowHide("dopajanie", ["dopajanie_czym", "dopajanie_opis", "dopajanie_jak_dlugo"]);
         ShowHide("nawal", ["nawal_opis"]);
         ShowHide("karmienie_piers", ["karmienie_piers_czest", "karmienie_piers_dlugo"]);
         ShowHide("kapturek2", ["kapturek2_opis"]);
+//        alert("kapt2 shof?")
         ShowHide("dopajanie2", ["dopajanie2_czym", "dopajanie2_jak_dlugo", "dopajanie2_opis"]);
         ShowHide("karmienie_noc", ["karmienie_noc_opis"]);
         ShowHide("sciaganie_pokarm", ["sciaganie_pokarm_cel", "sciaganie_pokarm_ile"]);
@@ -270,6 +282,8 @@ $(document).ready(function () {
 
         ShowHideCyc();
 //        szpitalAction(data)
+
+//        ShowHide_chbx("add_01", ["data_03a", "masa_inne_a"])
 
 
         ShowHide_opt("urodzone_czas", ["ile_wczesniej"], "o czasie");
@@ -293,7 +307,7 @@ $(document).ready(function () {
     function ShowHide(name, params) {
         var leng = params.length;
         var clean = false;
-
+        
         var communikate = "";
 
         if (leng > 1) {
@@ -305,14 +319,17 @@ $(document).ready(function () {
         if ($("input[name='" + name + "']:checked").val() == 0) {
             for (var i = 0; i < leng; i++) {
                 $('#' + params[i] + '_show').hide();
+//                alert(params[i] + '_show HIDE');
             }
         } else {
             for (var i = 0; i < leng; i++) {
                 $('#' + params[i] + '_show').show();
+//                alert(params[i] + '_show SHOW');
             }
         }
 
         $("input[name='" + name + "']").click(function () {
+//            alert("klik")
             if ($("input[name='" + name + "']:checked").val() == 0) {
 
                 clean = confirm(communikate)
@@ -334,6 +351,7 @@ $(document).ready(function () {
 
 // Funkcja ustawiająca akcje dla input checkbox (chowanie przynależnych im pól opisu)
     function ShowHide_chbx(name, params) {
+//        alert("ShowHide_chbx" + name)
         var leng = params.length;
         var clean = false;
 
@@ -456,12 +474,22 @@ $(document).ready(function () {
 
 // Funkcja początkowa, nadaje wartości polom checkboxa
     function checkboxAddProperties(name, data, params) {
+//        if(name == 'cycki'){
+//            alert(name + ", " + data[0][name])
+//        }
         var prop = data[0][name];
+//        alert(prop)
+        if (prop == 0) {
+            prop = false;
+        } else {
+            prop = true;
+//                alert(prop +"nie 0 tylko \"O\"")
+        }
 
         // nadanie wartości:
         $('input:checkbox[name="' + name + '"]').attr('checked', prop);
 
-        if (params !== null) {
+        if (params != "") {
             if (prop) {
                 for (var i = 0; i < params.length; i++) {
 //                    console.log(params[i] + " => " + data[0][params[i]]);
@@ -478,7 +506,7 @@ $(document).ready(function () {
 
 // Funkcja początkowa, nadaje wartości polom i zaznacza chechbox.
     function checkboxAddPropertiesBACK(params, data, name) {
-        var isChecked = false;
+        var isChecked = true;
         var communikate = "Czy wyczyścić wszystkie wpisy?";
 
         if (params != null) {
@@ -486,15 +514,22 @@ $(document).ready(function () {
 
             for (var i = 0; i < leng; i++) {
                 var property = data[0][params[i]];
+//                alert(params[i] + " => " + property)
                 $('#' + params[i]).val(property);
-                if (property != null) {
-                    if (property.length > 0) {
-                        isChecked = true;
-                    }
+                if (property == "") {
+                    isChecked = false;
+//                    alert("property: ("+property+") JEST null!!, Zatem isChecked="+isChecked)
+                    // jeśli choć jedna property jest == 0 to nie wyświetlamy
+
+                } else {
+//                    alert("property: ("+property+") NIE jest null!!, Zatem isChecked="+isChecked)
                 }
             }
+        } else {
+            isChecked = false;
         }
-//        alert(isChecked)
+
+//        alert("Finalnie:" + name + " is checked?: " + isChecked)
         $('input:checkbox[name="' + name + '"]').attr('checked', isChecked);
 
         if (isChecked) {
@@ -506,11 +541,13 @@ $(document).ready(function () {
         }
 
         $('input:checkbox[name="' + name + '"]').click(function () {
+//            alert("cklick")
             if (isCheckbxChecked(name)) {
                 $("#" + name + "_show").show();
             } else {
                 $("#" + name + "_show").hide();
-                if (confirm(communikate)) {
+//                if (confirm(communikate)) {
+                if (true) {
                     for (var i = 0; i < leng; i++) {
 
                         $('#' + params[i]).val("");
@@ -522,32 +559,36 @@ $(document).ready(function () {
 
     // Funkcja ustawiająca checkboxa "cycki" (chowanie przynależnych im pól opisu)
     function ShowHideCyc() {
+//        alert("ShowHideCyc")
         var clean = false;
         var communikate = "Czy wyczyścić wszystkie wpisy?";
 
         if (!isCheckbxChecked("cycki")) {  // Buton jest NIE checked
-            clean = confirm(communikate)
+//            clean = confirm(communikate)
+//            clean = true
             $('#cycki_show').hide();
-            if (clean) {
-                $('#obszar').removeAttr('value');
-                $('#zmiana_opis_pict').removeAttr('value');
-                $('#obszar').val('');
-                $('#zmiana_opis_pict').val('');
-            }
+//            if (clean) {
+//                $('#obszar').removeAttr('value');
+//                $('#zmiana_opis_pict').removeAttr('value');
+//                $('#obszar').val('');
+//                $('#zmiana_opis_pict').val('');
+//            }
         } else {
             $('cycki_show').show();
         }
 
         $("#cycki").click(function () {
+//            alert("ShowHideCyc click")
             if (!isCheckbxChecked("cycki")) {
-                clean = confirm(communikate)
-                $('#cycki_show').hide();
-                if (clean) {
+//                clean = confirm(communikate)
+                
+                if (confirm(communikate)) {
                     $('#obszar').removeAttr('value');
                     $('#zmiana_opis_pict').removeAttr('value');
                     $('#obszar').val('');
                     $('#zmiana_opis_pict').val('');
                 }
+                $('#cycki_show').hide();
             } else {
                 $('#cycki_show').show();
             }
