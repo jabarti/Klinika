@@ -150,6 +150,10 @@ if (isset($_POST['action'])) {
                     case 'imie_dziecka_pop':
                     case 'karmienie_piers_pop':
                     case 'karmienie_piers_pop_opis':
+                        
+                    case 'imie_dziecka_pop2':
+                    case 'karmienie_piers_pop2':
+                    case 'karmienie_piers_pop2_opis':
      
                     case 'urodzone_czas':
                     case 'ile_wczesniej':

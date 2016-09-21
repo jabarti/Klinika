@@ -12,7 +12,7 @@ $(document).ready(function () {
     // Ustawienia początkowe formularza
     // NyForm3
     var now = new Date();
-    
+
 //    $('#data_utworzenia').val(dat_text)
 //    $("#data_utworzenia").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
 //    $("#data_urodzenia_matka").mask("9999-99-99", {placeholder: "yyyy-mm-dd"});
@@ -25,7 +25,9 @@ $(document).ready(function () {
 
     $('#data_utworzenia').val(dat_text)
     $('#dziecko_pop_show').hide();
+    $('#dziecko_pop2_show').hide();
     $('#karmienie_piers_pop_opis_show').hide();
+    $('#karmienie_piers_pop2_opis_show').hide();
     $("#show_szpital").hide();
     $("#show_innemiejsce").hide();
     $("#urodz_ulica_nr_mieszkanie").hide();
@@ -72,7 +74,7 @@ $(document).ready(function () {
         var data_utworzenia = $("#data_utworzenia").val();
         var data_matka = $("#data_urodzenia_matka").val();
         var data_dziecko = $("#data_urodzenia_dziecko").val();
-        
+
         var checkDU = dateCheck(fromDate, data_utworzenia);
         var checkM = dateCheck(fromDate, data_matka);
         var checkD = dateCheck(fromDate, data_dziecko);
@@ -80,19 +82,19 @@ $(document).ready(function () {
         if (checkM && checkD && checkDU) {
             isValideted = true;
         }
-        
-        if(!checkDU){
+
+        if (!checkDU) {
             $("#data_utworzenia").focus()
         }
-        
-        if(!checkM){
+
+        if (!checkM) {
             $("#data_urodzenia_matka").focus()
         }
-        
-        if(!checkD){
+
+        if (!checkD) {
             $("#data_urodzenia_dziecko").focus()
         }
-        
+
 
         if (isValideted) {
             $.ajax({
@@ -136,7 +138,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            alert("Wpisz poprawną(e) datę(y) od '"+fromDate + "' do dziś!");
+            alert("Wpisz poprawną(e) datę(y) od '" + fromDate + "' do dziś!");
         }
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -220,7 +222,7 @@ $(document).ready(function () {
         var data_u = new Date(this.value);
         var text = CalculateAge(data_u);
         $("#wiek_dziecka_dzis").val(text);
-        
+
         var text_date = FormatDateToString(data_u);
         $('#data_01').val(text_date);
 
@@ -232,18 +234,32 @@ $(document).ready(function () {
             $("#wiek_dziecka_wtedy").val(text2);
         }
     });
-    
-    $('#ktore_dziecko').change(function(){
-        if( $('#ktore_dziecko').val() >1){
-            console.log("kolejne dziecko");
+
+    $('#ktore_dziecko').change(function () {
+        if ($('#ktore_dziecko').val() == 2) {
+            console.log("2-e dziecko");
             $('#dziecko_pop_show').show();
-        }else{
+
+            $('#dziecko_pop2_show').hide();
+            $('#imie_dziecka_pop2').val('');
+            $('#karmienie_piers_pop2_opis').val('');
+            $('input:radio[name="karmienie_piers_pop2"]').prop('checked', false);
+        } else if ($('#ktore_dziecko').val() > 2) {
+            console.log("3-e lub więcej dziecko");
+            $('#dziecko_pop2_show').show();
+        } else {
             console.log("pierwsze dziecko");
             $('#dziecko_pop_show').hide();
+            $('#imie_dziecka_pop').val('');
+            $('#karmienie_piers_pop_opis').val('');
+            $('input:radio[name="karmienie_piers_pop"]').prop('checked', false);
+            
+            $('#dziecko_pop2_show').hide();
         }
     });
-    
-        $("input[name='karmienie_piers_pop']").click(function () {
+
+    $("input[name='karmienie_piers_pop']").click(function () {
+//        alert("karmienie_piers_pop")
         var temp = this.value;
         switch (temp) {
             case '0':
@@ -256,7 +272,23 @@ $(document).ready(function () {
                 alert(" o default!");
                 break;
         }
-    });    
+    });
+
+    $("input[name='karmienie_piers_pop2']").click(function () {
+//        alert("karmienie_piers_pop2")
+        var temp = this.value;
+        switch (temp) {
+            case '0':
+                $("#karmienie_piers_pop2_opis_show").hide();
+                break;
+            case '1':
+                $("#karmienie_piers_pop2_opis_show").show();
+                break;
+            default:
+                alert(" o default!");
+                break;
+        }
+    });
 
     // radiobutton
     $("input[name='miejsce_urodzenia_quest']").click(function () {

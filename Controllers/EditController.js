@@ -108,13 +108,24 @@ $(document).ready(function () {
         $('#data_urodzenia_dziecko').val(data[0]['data_urodzenia_dziecko']);
         $('#ktore_dziecko').val(data[0]['ktore_dziecko']);
 
-        if (data[0]['ktore_dziecko'] > 1) {
+        if (data[0]['ktore_dziecko'] == 2) {
             $('#dziecko_pop_show').show();
             $('#imie_dziecka_pop').val(data[0]['imie_dziecka_pop']);
             radioAddProperties("karmienie_piers_pop", data, null);
             $('#karmienie_piers_pop_opis').val(data[0]['karmienie_piers_pop_opis']);
+        } else if (data[0]['ktore_dziecko'] > 2) {
+            $('#dziecko_pop_show').show();
+            $('#imie_dziecka_pop').val(data[0]['imie_dziecka_pop']);
+            radioAddProperties("karmienie_piers_pop", data, null);
+            $('#karmienie_piers_pop_opis').val(data[0]['karmienie_piers_pop_opis']);
+//            $('#dziecko_pop_show').show();
+            $('#dziecko_pop2_show').show();
+            $('#imie_dziecka_pop2').val(data[0]['imie_dziecka_pop2']);
+            radioAddProperties("karmienie_piers_pop2", data, null);
+            $('#karmienie_piers_pop2_opis').val(data[0]['karmienie_piers_pop2_opis']);
         } else {
             $('#dziecko_pop_show').hide();
+            $('#dziecko_pop2_show').hide();
         }
 
         //SZPITAL TO DO!!!!
@@ -256,14 +267,37 @@ $(document).ready(function () {
     function loadUstawienia() {
         ShowHide("miejsce", ["urodz_ulica_nr_mieszkanie"]);
 
+        var communicate = "Czy skasować dane "
+        var zapytajnik = "?"
+
         $('#ktore_dziecko').change(function () {
-            if ($('#ktore_dziecko').val() > 1) {
+            if ($('#ktore_dziecko').val() == 2) {
                 $('#dziecko_pop_show').show();
+                $('#dziecko_pop2_show').hide();
+                if ($('#imie_dziecka_pop2').val() != '') {
+                    if (confirm(communicate + $('#imie_dziecka_pop2').val() + zapytajnik)) {
+                        $('#imie_dziecka_pop2').val('');
+                        $('#karmienie_piers_pop2_opis').val('');
+                        $('input:radio[name="karmienie_piers_pop2"]').prop('checked', false);
+                    }
+                }
+            } else if ($('#ktore_dziecko').val() > 2) {
+                $('#dziecko_pop_show').show();
+                $('#dziecko_pop2_show').show();
             } else {
                 $('#dziecko_pop_show').hide();
+                if ($('#imie_dziecka_pop').val() != '') {
+                    if (confirm(communicate + $('#imie_dziecka_pop').val() + zapytajnik)) {
+                        $('#imie_dziecka_pop').val('');
+                        $('#karmienie_piers_pop_opis').val('');
+                        $('input:radio[name="karmienie_piers_pop"]').prop('checked', false);
+                    }
+                }
+
+                $('#dziecko_pop2_show').hide();
             }
         });
-
+        
         ShowHide("problem_dziecko", ["problem_dziecko_opis"]);
         ShowHide("problem_mama", ["problem_mama_opis"]);
         ShowHide("karmienie_piersia", ["karmienie_piersia_opis"]);
@@ -307,7 +341,7 @@ $(document).ready(function () {
     function ShowHide(name, params) {
         var leng = params.length;
         var clean = false;
-        
+
         var communikate = "";
 
         if (leng > 1) {
@@ -581,7 +615,7 @@ $(document).ready(function () {
 //            alert("ShowHideCyc click")
             if (!isCheckbxChecked("cycki")) {
 //                clean = confirm(communikate)
-                
+
                 if (confirm(communikate)) {
                     $('#obszar').removeAttr('value');
                     $('#zmiana_opis_pict').removeAttr('value');
