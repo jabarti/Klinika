@@ -23,3 +23,4 @@ ExternalResources/Notes
 tests
 tests/_output/*
 TEST_DATA/*
+PROJ_INFO/*
