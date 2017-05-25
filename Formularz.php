@@ -9,7 +9,7 @@
  * ************************************************* */
 ?>
 <script src="Controllers/FormularzController.js" type="text/javascript"></script>
-<script src="js_source/mapper/mapper.js" type="text/javascript"></script> 
+<script src="js_source/mapper/mapper.js" type="text/javascript"></script>
 <script src="js_source/mapper/maputil.js" type="text/javascript"></script> 
 
 
